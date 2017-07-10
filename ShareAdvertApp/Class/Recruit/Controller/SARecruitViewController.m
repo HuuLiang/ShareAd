@@ -8,6 +8,7 @@
 
 #import "SARecruitViewController.h"
 #import "SARecruitScrollView.h"
+#import "SAMineAlertUIHelper.h"
 
 @interface SARecruitViewController ()
 @property (nonatomic) SARecruitScrollView *recruitScrollView;
@@ -19,9 +20,9 @@
     [super viewDidLoad];
     
     if ([SAUtil checkUserIsLogin]) {
-        [self configLoginNotice];
-    } else {
         [self configRecruitContent];
+    } else {
+        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeRecruitOffline onCurrentVC:self];
     }
 }
 
@@ -33,20 +34,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-}
-
-- (void)configLoginNotice {
-    UIAlertView *alertView = [UIAlertView bk_showAlertViewWithTitle:@"温馨提示"
-                                                            message:@"您还没登录，登录后才能招募徒弟"
-                                                  cancelButtonTitle:@"取消"
-                                                  otherButtonTitles:@[@"知道了"]
-                                                            handler:^(UIAlertView *alertView, NSInteger buttonIndex)
-    {
-        if (buttonIndex == 1) {
-            [self registerLogin];
-        }
-    }];
-    [alertView show];
 }
 
 - (void)configRecruitContent {

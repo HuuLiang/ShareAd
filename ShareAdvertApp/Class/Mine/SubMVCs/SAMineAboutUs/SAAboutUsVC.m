@@ -1,28 +1,19 @@
 //
-//  SACleanUpContentVC.m
+//  SAAboutUsVC.m
 //  ShareAdvertApp
 //
-//  Created by Liang on 2017/7/8.
+//  Created by Liang on 2017/7/10.
 //  Copyright © 2017年 Liang. All rights reserved.
 //
 
-#import "SACleanUpContentVC.h"
+#import "SAAboutUsVC.h"
 #import "SAMineAlertUIHelper.h"
 
-@interface SACleanUpContentVC () <UIWebViewDelegate>
+@interface SAAboutUsVC () <UIWebViewDelegate>
 @property (nonatomic) UIWebView *webView;
-@property (nonatomic) SAMineCleanUpType type;
 @end
 
-@implementation SACleanUpContentVC
-
-- (instancetype)initWithType:(SAMineCleanUpType)type {
-    self = [super init];
-    if (self) {
-        _type = type;
-    }
-    return self;
-}
+@implementation SAAboutUsVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,22 +28,12 @@
         }];
     }
     
-    switch (_type) {
-        case SAMineCleanUpTypeShare:
-            [_webView loadHTMLString:@"" baseURL:nil];
-            break;
-        case SAMineCleanUpTypeRecruit:
-            [_webView loadHTMLString:@"" baseURL:nil];
-            break;
-            
-        default:
-            break;
-    }
+    [_webView loadHTMLString:@"" baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UIWebViewDelegate

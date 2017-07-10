@@ -8,6 +8,13 @@
 
 #import "SABaseViewController.h"
 
+typedef NS_ENUM(NSInteger,SAMineCleanUpType) {
+    SAMineCleanUpTypeShare = 0,
+    SAMineCleanUpTypeRecruit
+};
+
 @interface SACleanUpContentVC : SABaseViewController
+
+- (instancetype)initWithType:(SAMineCleanUpType)type;
 
 @end

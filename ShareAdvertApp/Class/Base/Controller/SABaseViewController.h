@@ -15,6 +15,4 @@
 - (instancetype)initWithTitle:(NSString *)title;
 
 
-- (void)registerLogin;
-
 @end

@@ -13,10 +13,16 @@
 #import "SAMineCenterBalanceCell.h"
 #import "SAMineCenterFunctionCell.h"
 
+#import "SAMineAlertUIHelper.h"
+
 #import "SAMineUserInfoVC.h"
+#import "SABalanceVC.h"
 #import "SADrawMoneyVC.h"
 #import "SAAccountDetailVC.h"
 #import "SARankListVC.h"
+#import "SACleanUpVC.h"
+#import "SAAboutUsVC.h"
+#import "SARecruitInfoVC.h"
 
 static NSString *const kSAMineCenterUserInfoCellReusableIdentifier = @"kSAMineCenterUserInfoCellReusableIdentifier";
 static NSString *const kSAMineCenterAdCellReusableIdentifier = @"kSAMineCenterAdCellReusableIdentifier";
@@ -52,9 +58,9 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
     [super viewDidLoad];
     
     if ([SAUtil checkUserIsLogin]) {
-        [self configLoginNotice];
-    } else {
         [self configMineCenter];
+    } else {
+        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeMineCenterOffline onCurrentVC:self];
     }
 }
 
@@ -64,20 +70,6 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-}
-
-- (void)configLoginNotice {
-    UIAlertView *alertView = [UIAlertView bk_showAlertViewWithTitle:@"温馨提示"
-                                                            message:@"您还没登录，登录后才能进入个人中心"
-                                                  cancelButtonTitle:@"取消"
-                                                  otherButtonTitles:@[@"知道了"]
-                                                            handler:^(UIAlertView *alertView, NSInteger buttonIndex)
-                              {
-                                  if (buttonIndex == 1) {
-                                      [self registerLogin];
-                                  }
-                              }];
-    [alertView show];
 }
 
 - (void)configMineCenter {
@@ -166,7 +158,7 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
         @weakify(self);
         cell.withDrawAction = ^{
             @strongify(self);
-            
+            [self pushViewControllerWith:[SABalanceVC class] title:@"提现"];
         };
         
         return cell;
@@ -260,24 +252,26 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
         
     } else if (indexPath.section == SAMineCenterFunctionSection) {
         if (indexPath.row == SAMineFunctionWithdrawDepositRow) {
-            SADrawMoneyVC *drawVC = [[SADrawMoneyVC alloc] initWithTitle:@"提现记录"];
-            [self.navigationController pushViewController:drawVC animated:YES];
+            [self pushViewControllerWith:[SADrawMoneyVC class] title:@"提现记录"];
         } else if (indexPath.row == SAMineFunctionAccountDetailRow) {
-            SAAccountDetailVC *detailVC = [[SAAccountDetailVC alloc] initWithTitle:@"账户明细"];
-            [self.navigationController pushViewController:detailVC animated:YES];
+            [self pushViewControllerWith:[SAAccountDetailVC class] title:@"账户明细"];
         } else if (indexPath.row == SAMineFunctionRankingListRow) {
-            SARankListVC *rankVC = [[SARankListVC alloc] initWithTitle:@""];
-            [self.navigationController pushViewController:rankVC animated:YES];
+            [self pushViewControllerWith:[SARankListVC class] title:@"排行榜"];
         } else if (indexPath.row == SAMineFunctionServiveRow) {
             [self contactCustomerService];
         } else if (indexPath.row == SAMineFunctionCleanUpRow) {
-            
+            [self pushViewControllerWith:[SACleanUpVC class] title:@"赚钱攻略"];
         } else if (indexPath.row == SAMineFunctionAboutUsRow) {
-            
+            [self pushViewControllerWith:[SAAboutUsVC class] title:@"关于我们"];
         } else if (indexPath.row == SAMineFunctionRecruitInfoRow) {
-            
+            [self pushViewControllerWith:[SARecruitInfoVC class] title:@"收徒信息"];
         }
     }
+}
+
+- (void)pushViewControllerWith:(Class)classVC title:(NSString *)title {
+    UIViewController *targetVC = [[classVC alloc] initWithTitle:title];
+    [self.navigationController pushViewController:targetVC animated:YES];
 }
 
 @end

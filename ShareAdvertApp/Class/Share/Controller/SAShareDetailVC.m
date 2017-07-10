@@ -8,6 +8,7 @@
 
 #import "SAShareDetailVC.h"
 #import "SADetailFooterView.h"
+#import "SAMineAlertUIHelper.h"
 
 @interface SAShareDetailVC () <UIWebViewDelegate>
 @property (nonatomic) UIWebView *shareDetailView;
@@ -51,12 +52,7 @@
 }
 
 - (void)showError {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"系统提示"
-                                                    message:@"网络连接发生错误!"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"确定", nil];
-    [alert show];
+    [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeNetworkError onCurrentVC:self];
 }
 
 - (void)configShareModel {

@@ -62,8 +62,7 @@
     return self;
 }
 
-
-- (void)setDrawIncomeStatus:(SAMineAccountDetailStatus)incomeStatus {
+- (void)setIncomeStatus:(SAMineAccountDetailStatus)incomeStatus {
     switch (incomeStatus) {
         case SAMineAccountDetailStatusRegister:
             _statusLabel.text = @"注册奖励";
@@ -80,7 +79,7 @@
         case SAMineAccountDetailStatusRevenue:
             _statusLabel.text = @"分成奖励";
             break;
-
+            
         default:
             break;
     }

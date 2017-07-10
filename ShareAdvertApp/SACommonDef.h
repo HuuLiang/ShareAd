@@ -38,7 +38,7 @@ typedef NS_ENUM(NSUInteger, SADeviceType) {
 #define KDateFormatLong                   @"yyyyMMddHHmmss"
 
 
-#define kSAUserIsLoginNotification          @"ShareAd_user_isLogin_notification"
+#define kSAUserLoginNotification          @"ShareAd_user_login_notification"
 
 
 

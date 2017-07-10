@@ -8,7 +8,7 @@
 
 #import "SAMineUserInfoCell.h"
 
-@implementation SATextField
+@implementation SAUserField
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
@@ -23,7 +23,7 @@
 
 @interface SAMineUserInfoCell () <UITextFieldDelegate>
 @property (nonatomic) UILabel *titleLabel;
-@property (nonatomic) SATextField *textField;
+@property (nonatomic) SAUserField *textField;
 @end
 
 @implementation SAMineUserInfoCell
@@ -41,7 +41,7 @@
         _titleLabel.textColor = kColor(@"#666666");
         [self.contentView addSubview:_titleLabel];
         
-        self.textField = [[SATextField alloc] init];
+        self.textField = [[SAUserField alloc] init];
         _textField.font = kFont(12);
         _textField.textColor = kColor(@"#222222");
         _textField.returnKeyType = UIReturnKeyDone;

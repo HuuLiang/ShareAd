@@ -8,9 +8,12 @@
 
 #import "SATabBarController.h"
 #import "SANavigationController.h"
+#import "SALoginViewController.h"
+
 #import "SAShareViewController.h"
 #import "SARecruitViewController.h"
 #import "SAMineViewController.h"
+
 
 @interface SATabBarController () <UITabBarControllerDelegate>
 
@@ -26,7 +29,11 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(login) name:kSAUserLoginNotification object:nil];
 }
 
 - (void)configViewControllers {
@@ -52,6 +59,12 @@
     self.tabBar.translucent = NO;
     self.delegate = self;
     self.viewControllers = @[shareNav,recruitNav,mineNav];
+}
+
+- (void)login {
+    SALoginViewController *loginVC = [[SALoginViewController alloc] initWithTitle:@"登录"];
+    SANavigationController *loginNav = [[SANavigationController alloc] initWithRootViewController:loginVC];
+    [self presentViewController:loginNav animated:loginNav completion:nil];
 }
 
 @end

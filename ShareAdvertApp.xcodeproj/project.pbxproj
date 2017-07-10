@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		52C41F55F5428BB4260CB404 /* libPods-ShareAdvertApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5496C4D1F13C0BB324055565 /* libPods-ShareAdvertApp.a */; };
+		EC05A86B1F1376A300810F51 /* SALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A86A1F1376A300810F51 /* SALoginViewController.m */; };
+		EC05A86E1F1376F800810F51 /* SATextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A86D1F1376F800810F51 /* SATextField.m */; };
+		EC05A8711F13797C00810F51 /* SARegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A8701F13797C00810F51 /* SARegisterViewController.m */; };
+		EC05A8741F1379A600810F51 /* SALoginInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A8731F1379A600810F51 /* SALoginInfoView.m */; };
+		EC05A8771F138B5900810F51 /* SARegisterInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A8761F138B5900810F51 /* SARegisterInfoView.m */; };
 		EC58470E1F0A44B400FEBDC5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC58470D1F0A44B400FEBDC5 /* main.m */; };
 		EC5847111F0A44B400FEBDC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5847101F0A44B400FEBDC5 /* AppDelegate.m */; };
 		EC5847191F0A44B400FEBDC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC5847181F0A44B400FEBDC5 /* Assets.xcassets */; };
@@ -21,6 +26,14 @@
 		EC62027B1F0F7FE600623709 /* SAMineCenterAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC62027A1F0F7FE600623709 /* SAMineCenterAdCell.m */; };
 		EC62027E1F0F802500623709 /* SAMineCenterBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC62027D1F0F802500623709 /* SAMineCenterBalanceCell.m */; };
 		EC6202811F0F84F900623709 /* SAMineCenterFunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6202801F0F84F900623709 /* SAMineCenterFunctionCell.m */; };
+		EC7B5AE51F131C93002BF8F3 /* SAMineAlertUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AE41F131C93002BF8F3 /* SAMineAlertUIHelper.m */; };
+		EC7B5AEA1F132BC2002BF8F3 /* SAAboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AE91F132BC2002BF8F3 /* SAAboutUsVC.m */; };
+		EC7B5AED1F132DE7002BF8F3 /* SARecruitInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AEC1F132DE7002BF8F3 /* SARecruitInfoVC.m */; };
+		EC7B5AF01F132E11002BF8F3 /* SARecruitInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AEF1F132E11002BF8F3 /* SARecruitInfoCell.m */; };
+		EC7B5AF31F13320A002BF8F3 /* SARecruitHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AF21F13320A002BF8F3 /* SARecruitHeaderView.m */; };
+		EC7B5AFA1F136050002BF8F3 /* SABalanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AF91F136050002BF8F3 /* SABalanceVC.m */; };
+		EC7B5AFD1F136090002BF8F3 /* SABalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AFC1F136090002BF8F3 /* SABalanceCell.m */; };
+		EC7B5B001F1364E3002BF8F3 /* SABalanceHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AFF1F1364E3002BF8F3 /* SABalanceHeaderView.m */; };
 		ECBBBD0C1F0E0F0C00479075 /* SAShareHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD0B1F0E0F0C00479075 /* SAShareHeaderView.m */; };
 		ECBBBD131F0E17D600479075 /* SAUser.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD121F0E17D600479075 /* SAUser.m */; };
 		ECBBBD151F0E1E9100479075 /* 11111.png in Resources */ = {isa = PBXBuildFile; fileRef = ECBBBD141F0E1E9100479075 /* 11111.png */; };
@@ -92,6 +105,16 @@
 		5496C4D1F13C0BB324055565 /* libPods-ShareAdvertApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShareAdvertApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6AEB98F15287842F8DDECAE /* Pods-ShareAdvertApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareAdvertApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShareAdvertApp/Pods-ShareAdvertApp.release.xcconfig"; sourceTree = "<group>"; };
 		DE60EB8CCEAEBA73D44D787A /* Pods-ShareAdvertApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareAdvertApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareAdvertApp/Pods-ShareAdvertApp.debug.xcconfig"; sourceTree = "<group>"; };
+		EC05A8691F1376A300810F51 /* SALoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALoginViewController.h; sourceTree = "<group>"; };
+		EC05A86A1F1376A300810F51 /* SALoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALoginViewController.m; sourceTree = "<group>"; };
+		EC05A86C1F1376F800810F51 /* SATextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SATextField.h; sourceTree = "<group>"; };
+		EC05A86D1F1376F800810F51 /* SATextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATextField.m; sourceTree = "<group>"; };
+		EC05A86F1F13797C00810F51 /* SARegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARegisterViewController.h; sourceTree = "<group>"; };
+		EC05A8701F13797C00810F51 /* SARegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARegisterViewController.m; sourceTree = "<group>"; };
+		EC05A8721F1379A600810F51 /* SALoginInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALoginInfoView.h; sourceTree = "<group>"; };
+		EC05A8731F1379A600810F51 /* SALoginInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALoginInfoView.m; sourceTree = "<group>"; };
+		EC05A8751F138B5900810F51 /* SARegisterInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARegisterInfoView.h; sourceTree = "<group>"; };
+		EC05A8761F138B5900810F51 /* SARegisterInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARegisterInfoView.m; sourceTree = "<group>"; };
 		EC5847091F0A44B400FEBDC5 /* ShareAdvertApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareAdvertApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC58470D1F0A44B400FEBDC5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EC58470F1F0A44B400FEBDC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,6 +142,22 @@
 		EC62027D1F0F802500623709 /* SAMineCenterBalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMineCenterBalanceCell.m; sourceTree = "<group>"; };
 		EC62027F1F0F84F900623709 /* SAMineCenterFunctionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMineCenterFunctionCell.h; sourceTree = "<group>"; };
 		EC6202801F0F84F900623709 /* SAMineCenterFunctionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMineCenterFunctionCell.m; sourceTree = "<group>"; };
+		EC7B5AE31F131C93002BF8F3 /* SAMineAlertUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMineAlertUIHelper.h; sourceTree = "<group>"; };
+		EC7B5AE41F131C93002BF8F3 /* SAMineAlertUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMineAlertUIHelper.m; sourceTree = "<group>"; };
+		EC7B5AE81F132BC2002BF8F3 /* SAAboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAAboutUsVC.h; sourceTree = "<group>"; };
+		EC7B5AE91F132BC2002BF8F3 /* SAAboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAAboutUsVC.m; sourceTree = "<group>"; };
+		EC7B5AEB1F132DE7002BF8F3 /* SARecruitInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitInfoVC.h; sourceTree = "<group>"; };
+		EC7B5AEC1F132DE7002BF8F3 /* SARecruitInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARecruitInfoVC.m; sourceTree = "<group>"; };
+		EC7B5AEE1F132E11002BF8F3 /* SARecruitInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitInfoCell.h; sourceTree = "<group>"; };
+		EC7B5AEF1F132E11002BF8F3 /* SARecruitInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARecruitInfoCell.m; sourceTree = "<group>"; };
+		EC7B5AF11F13320A002BF8F3 /* SARecruitHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitHeaderView.h; sourceTree = "<group>"; };
+		EC7B5AF21F13320A002BF8F3 /* SARecruitHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARecruitHeaderView.m; sourceTree = "<group>"; };
+		EC7B5AF81F136050002BF8F3 /* SABalanceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SABalanceVC.h; sourceTree = "<group>"; };
+		EC7B5AF91F136050002BF8F3 /* SABalanceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SABalanceVC.m; sourceTree = "<group>"; };
+		EC7B5AFB1F136090002BF8F3 /* SABalanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SABalanceCell.h; sourceTree = "<group>"; };
+		EC7B5AFC1F136090002BF8F3 /* SABalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SABalanceCell.m; sourceTree = "<group>"; };
+		EC7B5AFE1F1364E3002BF8F3 /* SABalanceHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SABalanceHeaderView.h; sourceTree = "<group>"; };
+		EC7B5AFF1F1364E3002BF8F3 /* SABalanceHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SABalanceHeaderView.m; sourceTree = "<group>"; };
 		ECBBBD0A1F0E0F0C00479075 /* SAShareHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareHeaderView.h; sourceTree = "<group>"; };
 		ECBBBD0B1F0E0F0C00479075 /* SAShareHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareHeaderView.m; sourceTree = "<group>"; };
 		ECBBBD111F0E17D600479075 /* SAUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAUser.h; sourceTree = "<group>"; };
@@ -365,6 +404,8 @@
 				EC5847371F0A691700FEBDC5 /* SANavigationController.m */,
 				EC58473C1F0A695200FEBDC5 /* SATabBarController.h */,
 				EC58473D1F0A695200FEBDC5 /* SATabBarController.m */,
+				EC7B5AE31F131C93002BF8F3 /* SAMineAlertUIHelper.h */,
+				EC7B5AE41F131C93002BF8F3 /* SAMineAlertUIHelper.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -411,12 +452,50 @@
 			isa = PBXGroup;
 			children = (
 				ECDEAA841F106FB400EB8829 /* SAMineUserInfo */,
+				EC7B5AF71F136037002BF8F3 /* SAMineBalance */,
 				ECE217941F10CECA008BA7B4 /* SAMineDrawMoney */,
 				ECE2179E1F10DBE8008BA7B4 /* SAMineAccountDetail */,
 				ECE217A51F10E4CD008BA7B4 /* SAMineRankList */,
 				ECE217AF1F10E94D008BA7B4 /* SAMineCleanUp */,
+				EC7B5AE61F132B62002BF8F3 /* SAMineAboutUs */,
+				EC7B5AE71F132B99002BF8F3 /* SAMineRecruitInfo */,
 			);
 			path = SubMVCs;
+			sourceTree = "<group>";
+		};
+		EC7B5AE61F132B62002BF8F3 /* SAMineAboutUs */ = {
+			isa = PBXGroup;
+			children = (
+				EC7B5AE81F132BC2002BF8F3 /* SAAboutUsVC.h */,
+				EC7B5AE91F132BC2002BF8F3 /* SAAboutUsVC.m */,
+			);
+			path = SAMineAboutUs;
+			sourceTree = "<group>";
+		};
+		EC7B5AE71F132B99002BF8F3 /* SAMineRecruitInfo */ = {
+			isa = PBXGroup;
+			children = (
+				EC7B5AEB1F132DE7002BF8F3 /* SARecruitInfoVC.h */,
+				EC7B5AEC1F132DE7002BF8F3 /* SARecruitInfoVC.m */,
+				EC7B5AF11F13320A002BF8F3 /* SARecruitHeaderView.h */,
+				EC7B5AF21F13320A002BF8F3 /* SARecruitHeaderView.m */,
+				EC7B5AEE1F132E11002BF8F3 /* SARecruitInfoCell.h */,
+				EC7B5AEF1F132E11002BF8F3 /* SARecruitInfoCell.m */,
+			);
+			path = SAMineRecruitInfo;
+			sourceTree = "<group>";
+		};
+		EC7B5AF71F136037002BF8F3 /* SAMineBalance */ = {
+			isa = PBXGroup;
+			children = (
+				EC7B5AF81F136050002BF8F3 /* SABalanceVC.h */,
+				EC7B5AF91F136050002BF8F3 /* SABalanceVC.m */,
+				EC7B5AFB1F136090002BF8F3 /* SABalanceCell.h */,
+				EC7B5AFC1F136090002BF8F3 /* SABalanceCell.m */,
+				EC7B5AFE1F1364E3002BF8F3 /* SABalanceHeaderView.h */,
+				EC7B5AFF1F1364E3002BF8F3 /* SABalanceHeaderView.m */,
+			);
+			path = SAMineBalance;
 			sourceTree = "<group>";
 		};
 		ECBBBD0D1F0E17BD00479075 /* Account */ = {
@@ -432,6 +511,10 @@
 		ECBBBD0E1F0E17BD00479075 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EC05A8691F1376A300810F51 /* SALoginViewController.h */,
+				EC05A86A1F1376A300810F51 /* SALoginViewController.m */,
+				EC05A86F1F13797C00810F51 /* SARegisterViewController.h */,
+				EC05A8701F13797C00810F51 /* SARegisterViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -448,6 +531,12 @@
 		ECBBBD101F0E17BD00479075 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EC05A8721F1379A600810F51 /* SALoginInfoView.h */,
+				EC05A8731F1379A600810F51 /* SALoginInfoView.m */,
+				EC05A86C1F1376F800810F51 /* SATextField.h */,
+				EC05A86D1F1376F800810F51 /* SATextField.m */,
+				EC05A8751F138B5900810F51 /* SARegisterInfoView.h */,
+				EC05A8761F138B5900810F51 /* SARegisterInfoView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -920,12 +1009,14 @@
 				ECE217811F107F13008BA7B4 /* QUMBase64.m in Sources */,
 				ECE2177B1F107F13008BA7B4 /* POSLocking.m in Sources */,
 				EC62027B1F0F7FE600623709 /* SAMineCenterAdCell.m in Sources */,
+				EC7B5AF31F13320A002BF8F3 /* SARecruitHeaderView.m in Sources */,
 				ECDC0EDC1F0C9496002DBDA9 /* UIImage+Blur.m in Sources */,
 				ECE217AB1F10E524008BA7B4 /* SARankDetailVC.m in Sources */,
 				ECDC0ED91F0C9496002DBDA9 /* NSDate+timeStamp.m in Sources */,
 				ECE2179D1F10D348008BA7B4 /* SADrawMoneyCell.m in Sources */,
 				ECE2177C1F107F13008BA7B4 /* QiniuFile.m in Sources */,
 				ECBBBD131F0E17D600479075 /* SAUser.m in Sources */,
+				EC7B5B001F1364E3002BF8F3 /* SABalanceHeaderView.m in Sources */,
 				ECE217971F10CEEA008BA7B4 /* SADrawMoneyVC.m in Sources */,
 				ECE217891F107FEC008BA7B4 /* QBImageUploadManager.m in Sources */,
 				EC58472A1F0A4E2700FEBDC5 /* AppDelegate+configuration.m in Sources */,
@@ -937,12 +1028,14 @@
 				EC6202781F0F7BBB00623709 /* SAMineCenterUserInfoCell.m in Sources */,
 				ECDC0EC11F0C9285002DBDA9 /* SAHudManager.m in Sources */,
 				ECDC0EC41F0C9395002DBDA9 /* SAUtil.m in Sources */,
+				EC05A8771F138B5900810F51 /* SARegisterInfoView.m in Sources */,
 				ECBBBD0C1F0E0F0C00479075 /* SAShareHeaderView.m in Sources */,
 				ECDC0EFA1F0CE09E002DBDA9 /* QBNetworkingConfiguration.m in Sources */,
 				ECDC0EF91F0CE09E002DBDA9 /* QBNetworkInfo.m in Sources */,
 				EC58470E1F0A44B400FEBDC5 /* main.m in Sources */,
 				ECE2177A1F107F13008BA7B4 /* POSFastAssetReader.m in Sources */,
 				ECE217B21F10E976008BA7B4 /* SACleanUpVC.m in Sources */,
+				EC7B5AFA1F136050002BF8F3 /* SABalanceVC.m in Sources */,
 				ECDC0F0B1F0DE450002DBDA9 /* SAShareAllContentCell.m in Sources */,
 				ECDC0F051F0DD7BA002DBDA9 /* SAShareContentModel.m in Sources */,
 				ECDEAA871F10703400EB8829 /* SAMineUserInfoVC.m in Sources */,
@@ -950,6 +1043,8 @@
 				ECE217931F108221008BA7B4 /* QBPhotoManager.m in Sources */,
 				ECDC0EAB1F0C8E14002DBDA9 /* JKDBModel.m in Sources */,
 				ECDC0EBE1F0C91BF002DBDA9 /* SAConfiguration.m in Sources */,
+				EC7B5AFD1F136090002BF8F3 /* SABalanceCell.m in Sources */,
+				EC7B5AE51F131C93002BF8F3 /* SAMineAlertUIHelper.m in Sources */,
 				ECDC0EDB1F0C9496002DBDA9 /* NSString+Size.m in Sources */,
 				ECDC0F081F0DE399002DBDA9 /* SAShareAllContentVC.m in Sources */,
 				EC5847351F0A536400FEBDC5 /* SABaseViewController.m in Sources */,
@@ -958,10 +1053,15 @@
 				ECE2177D1F107F13008BA7B4 /* QiniuInputStream.m in Sources */,
 				ECE217741F107F13008BA7B4 /* ALAssetsLibrary+POS.m in Sources */,
 				ECE217A81F10E4F6008BA7B4 /* SARankListVC.m in Sources */,
+				EC7B5AF01F132E11002BF8F3 /* SARecruitInfoCell.m in Sources */,
 				ECBBBD1A1F0E6ADA00479075 /* SARecruitScrollView.m in Sources */,
 				ECDEAA8A1F1072C400EB8829 /* SAMineUserInfoCell.m in Sources */,
+				EC05A86E1F1376F800810F51 /* SATextField.m in Sources */,
+				EC05A8741F1379A600810F51 /* SALoginInfoView.m in Sources */,
 				ECDC0F021F0DC6E1002DBDA9 /* SAShareContentCell.m in Sources */,
 				ECDC0EDF1F0C9496002DBDA9 /* UIView+FrameEx.m in Sources */,
+				EC7B5AED1F132DE7002BF8F3 /* SARecruitInfoVC.m in Sources */,
+				EC05A86B1F1376A300810F51 /* SALoginViewController.m in Sources */,
 				ECE217771F107F13008BA7B4 /* POSAdjustedAssetReaderIOS8.m in Sources */,
 				ECE217791F107F13008BA7B4 /* POSBlobInputStreamAssetDataSource.m in Sources */,
 				ECE217801F107F13008BA7B4 /* QiniuUploader.m in Sources */,
@@ -980,6 +1080,7 @@
 				ECDC0EFB1F0CE09E002DBDA9 /* QBURLRequest.m in Sources */,
 				ECDC0EFC1F0CE09E002DBDA9 /* QBURLResponse.m in Sources */,
 				ECDC0E9A1F0C8A9D002DBDA9 /* SAMineViewController.m in Sources */,
+				EC05A8711F13797C00810F51 /* SARegisterViewController.m in Sources */,
 				ECE217B51F10EBA4008BA7B4 /* SACleanUpContentVC.m in Sources */,
 				ECDC0EE21F0C9496002DBDA9 /* UIView+RoundCorner.m in Sources */,
 				EC58473E1F0A695200FEBDC5 /* SATabBarController.m in Sources */,
@@ -988,6 +1089,7 @@
 				ECDC0EDE1F0C9496002DBDA9 /* UIScrollView+Refresh.m in Sources */,
 				ECDC0EE01F0C9496002DBDA9 /* UIView+Loading.m in Sources */,
 				ECDC0EF81F0CE09E002DBDA9 /* QBEncryptedURLRequest.m in Sources */,
+				EC7B5AEA1F132BC2002BF8F3 /* SAAboutUsVC.m in Sources */,
 				EC62026E1F0F3D8600623709 /* SAShareDetailVC.m in Sources */,
 				ECE2177E1F107F13008BA7B4 /* QiniuMultipartElement.m in Sources */,
 				ECE217761F107F13008BA7B4 /* POSAdjustedAssetReaderIOS7.m in Sources */,
