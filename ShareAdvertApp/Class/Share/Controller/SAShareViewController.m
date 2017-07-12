@@ -13,8 +13,9 @@
 #import "SAShareContentVC.h"
 #import "SAShareAllContentVC.h"
 #import "SAShareHeaderView.h"
-#import "SAShareModel.h"
 
+#import "SAShareModel.h"
+#import "SAReqManager.h"
 
 
 @interface SAShareViewController () <UIScrollViewDelegate,SAShareContentDelegate>
@@ -22,14 +23,12 @@
 @property (nonatomic) SAShareHeaderView *headerView;
 @property (nonatomic) UIImageView *moreContent;
 @property (nonatomic) UISliderView *sliderView;
-@property (nonatomic) NSMutableArray *dataSource;
-@property (nonatomic) SAShareModel *shareModel;
+@property (nonatomic) SAShareModel *response;
 @property (nonatomic) BOOL isLogin;
 @end
 
 @implementation SAShareViewController
-QBDefineLazyPropertyInitialization(NSMutableArray, dataSource)
-QBDefineLazyPropertyInitialization(SAShareModel, shareModel)
+QBDefineLazyPropertyInitialization(SAShareModel, response)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,27 +70,15 @@ QBDefineLazyPropertyInitialization(SAShareModel, shareModel)
 
 
 - (void)fetchColumnContent {
-    [self.dataSource removeAllObjects];
-    NSArray *arr = @[@"推荐",@"热点",@"高价",@"美女",@"娱乐",@"游戏",@"电影",@"图片",@"蘑菇",@"洋葱"];
-    for (NSInteger i = 0; i < 10 ; i ++) {
-        SAShareColumnModel *columnModel = [[SAShareColumnModel alloc] init];
-        columnModel.columnId = [NSString stringWithFormat:@"%ld",i];
-        columnModel.columnName = arr[i];
-        [self.dataSource addObject:columnModel];
-    }
-    [self configContentView];
-//    [self.view endLoading];
-//    [self.shareModel fetchShareColumnContent:^(BOOL success, NSArray * obj) {
-//        [self.view endLoading];
-//        if (success) {
-//            [self.dataSource addObjectsFromArray:obj];
-//            [self configContentView];
-//        }
-//    }];
+    [[SAReqManager manager] fetchColumnContentWithClass:[SAShareModel class] CompletionHandler:^(BOOL success, id obj) {
+        if (success) {
+            self.response = obj;
+            [self configContentView];
+        }
+    }];
 }
 
 - (void)configContentView {
-    
     self.headerView = [[SAShareHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kWidth(328))];
     _headerView.balance = @"2.060";
     _headerView.toRecruit = @"0";
@@ -103,17 +90,16 @@ QBDefineLazyPropertyInitialization(SAShareModel, shareModel)
     _sliderView.imageBackViewColor = kColor(@"#FF3366");
     
     NSMutableArray *columnTitles = [[NSMutableArray alloc] init];
-    for (SAShareColumnModel *columnModel in self.dataSource) {
-        [columnTitles addObject:columnModel.columnName];
+    for (SAShareColumnModel *columnModel in self.response.columns) {
+        [columnTitles addObject:columnModel.name];
     }
     _sliderView.titlesArr = columnTitles;
     [_backScrollView addSubview:_sliderView];
 
-    for (SAShareColumnModel *columnModel in self.dataSource) {
-        SAShareContentVC *contentVC = [[SAShareContentVC alloc] init];
-//        contentVC.enableScroll = YES;
+    for (SAShareColumnModel *columnModel in self.response.columns) {
+        SAShareContentVC *contentVC = [[SAShareContentVC alloc] initWithColumnId:columnModel.columnId];
         contentVC.delegate = self;
-        [_sliderView addChildViewController:contentVC title:columnModel.columnName];
+        [_sliderView addChildViewController:contentVC title:columnModel.name];
     }
     [_sliderView setSlideHeadView];
     
@@ -162,7 +148,6 @@ QBDefineLazyPropertyInitialization(SAShareModel, shareModel)
     if (!_isLogin) {
         return;
     }
-//    QBLog(@"%@ %f",NSStringFromCGPoint(scrollView.contentOffset),kWidth(328));
     CGFloat moveDistance = scrollView.contentOffset.y;
     if (moveDistance <= 0) {
         [_backScrollView setContentOffset:CGPointZero animated:YES];

@@ -11,7 +11,7 @@
 
 #import <NSString+md5.h>
 #import <UIColor+hexColor.h>
-#import <NSString+crypt.h>
+//#import <NSString+crypt.h>
 #import <RACEXTScope.h>
 #import <NSDate+Utilities.h>
 #import <UIImage+color.h>
@@ -26,5 +26,7 @@
 #import "NSString+Size.h"
 #import "UIImage+Blur.h"
 #import "UIScrollView+Refresh.h"
+#import "NSString+dataEncrypt.h"
+#import "NSObject+BaseRepresentation.h"
 
 #endif /* SAExtensions_h */

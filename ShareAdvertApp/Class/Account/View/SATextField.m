@@ -63,5 +63,24 @@
     return self;
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *hitView = [super hitTest:point withEvent:event];
+    
+    if (!hitView) {
+        return hitView;
+    }
+    
+    CGRect fieldFrame = _contentField.frame;
+    if (CGRectIsEmpty(fieldFrame)) {
+        return hitView;
+    }
+    
+    CGRect expandedFrame = CGRectInset(fieldFrame, -kWidth(78), -kWidth(20));
+    if (CGRectContainsPoint(expandedFrame, point)) {
+        return _contentField;
+    }
+    return hitView;
+}
+
 
 @end

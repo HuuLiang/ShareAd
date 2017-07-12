@@ -12,6 +12,11 @@ typedef NS_ENUM(NSInteger,SAMineAlertType) {
     SAMineAlertTypeNetworkError = 0,
     SAMineAlertTypeRecruitOffline,
     SAMineAlertTypeMineCenterOffline,
+    SAMineAlertTypeShareOffline,
+    SAMineAlertTypeAnnouncement,
+    SAMineAlertTypeSignIn,
+    SAMineAlertTypeDrawSuccess,
+    SAMineAlertTypeBingding,
     SAMineAlertTypeCount
 };
 

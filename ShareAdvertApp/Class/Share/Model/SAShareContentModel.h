@@ -6,19 +6,19 @@
 //  Copyright © 2017年 Liang. All rights reserved.
 //
 
-#import "QBEncryptedURLRequest.h"
+#import "QBDataResponse.h"
 
 @interface SAShareContentProgramModel : NSObject
-@property (nonatomic) NSString *imgUrl;
+@property (nonatomic) NSString *columnId;
+@property (nonatomic) NSString *coverImg;
+//@property (nonatomic) NSString *id;
+@property (nonatomic) NSString *readNumber;
+@property (nonatomic) NSString *shAmount;
+@property (nonatomic) NSString *shUrl;
 @property (nonatomic) NSString *title;
+
 @end
 
-@interface SAShareContentResponse : QBURLResponse
-@property (nonatomic) NSArray <SAShareContentProgramModel *> *programs;
-@end
-
-@interface SAShareContentModel : QBEncryptedURLRequest
-
-- (void)fetchColumnContentWithColumnId:(NSString *)columId CompletionHandler:(SACompletionHandler)handler;
-
+@interface SAShareContentResponse : QBDataResponse
+@property (nonatomic) NSArray <SAShareContentProgramModel *> *shares;
 @end

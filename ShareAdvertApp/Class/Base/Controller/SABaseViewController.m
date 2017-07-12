@@ -32,5 +32,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)pushViewControllerWith:(Class)classVC title:(NSString *)title {
+    UIViewController *targetVC = [[classVC alloc] initWithTitle:title];
+    [self.navigationController pushViewController:targetVC animated:YES];
+}
 
 @end

@@ -55,7 +55,7 @@
             
             [_sendCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(_accountField);
-                make.right.equalTo(_accountField.mas_right);
+                make.right.equalTo(_accountField.mas_right).offset(-kWidth(45));
                 make.size.mas_equalTo(CGSizeMake(kWidth(157), kWidth(58)));
             }];
             

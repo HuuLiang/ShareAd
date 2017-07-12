@@ -26,10 +26,9 @@
 }
     
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    [self checkNetworkInfoState];
     [self setCommonStyle];
-    [self showHomeViewController];
+    [self checkNetworkInfoState];
+//    [self showHomeViewController];
 
     return YES;
 }

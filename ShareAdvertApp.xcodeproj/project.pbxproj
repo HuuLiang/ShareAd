@@ -20,6 +20,10 @@
 		EC5847351F0A536400FEBDC5 /* SABaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5847341F0A536400FEBDC5 /* SABaseViewController.m */; };
 		EC5847381F0A691700FEBDC5 /* SANavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5847371F0A691700FEBDC5 /* SANavigationController.m */; };
 		EC58473E1F0A695200FEBDC5 /* SATabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC58473D1F0A695200FEBDC5 /* SATabBarController.m */; };
+		EC60C6C51F15B29C0004477D /* QBDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EC60C6C41F15B29C0004477D /* QBDataResponse.m */; };
+		EC60C6C81F15B3A00004477D /* SAReqManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC60C6C71F15B3A00004477D /* SAReqManager.m */; };
+		EC60C6D71F162C950004477D /* SAActivateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC60C6D61F162C950004477D /* SAActivateModel.m */; };
+		EC60C6DA1F162F850004477D /* SARegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC60C6D91F162F850004477D /* SARegisterModel.m */; };
 		EC62026E1F0F3D8600623709 /* SAShareDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC62026D1F0F3D8600623709 /* SAShareDetailVC.m */; };
 		EC6202711F0F6CCA00623709 /* SADetailFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6202701F0F6CCA00623709 /* SADetailFooterView.m */; };
 		EC6202781F0F7BBB00623709 /* SAMineCenterUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6202771F0F7BBB00623709 /* SAMineCenterUserInfoCell.m */; };
@@ -39,6 +43,11 @@
 		ECBBBD151F0E1E9100479075 /* 11111.png in Resources */ = {isa = PBXBuildFile; fileRef = ECBBBD141F0E1E9100479075 /* 11111.png */; };
 		ECBBBD1A1F0E6ADA00479075 /* SARecruitScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD191F0E6ADA00479075 /* SARecruitScrollView.m */; };
 		ECBBBD1D1F0E6CB200479075 /* SARecruitTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD1C1F0E6CB200479075 /* SARecruitTagView.m */; };
+		ECC98FEB1F14841B00481451 /* SADrawSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC98FEA1F14841B00481451 /* SADrawSuccessView.m */; };
+		ECC98FEE1F14AD1400481451 /* SABingdingWxView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC98FED1F14AD1400481451 /* SABingdingWxView.m */; };
+		ECC98FF21F14DC8B00481451 /* QBDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC98FF11F14DC8B00481451 /* QBDataManager.m */; };
+		ECC98FF51F14E53F00481451 /* NSString+dataEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC98FF41F14E53F00481451 /* NSString+dataEncrypt.m */; };
+		ECC98FF81F15028700481451 /* NSObject+BaseRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC98FF71F15028700481451 /* NSObject+BaseRepresentation.m */; };
 		ECDC0E941F0C8A77002DBDA9 /* SAShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0E931F0C8A77002DBDA9 /* SAShareViewController.m */; };
 		ECDC0E971F0C8A8C002DBDA9 /* SARecruitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0E961F0C8A8C002DBDA9 /* SARecruitViewController.m */; };
 		ECDC0E9A1F0C8A9D002DBDA9 /* SAMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0E991F0C8A9D002DBDA9 /* SAMineViewController.m */; };
@@ -59,11 +68,7 @@
 		ECDC0EE21F0C9496002DBDA9 /* UIView+RoundCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0ED81F0C9496002DBDA9 /* UIView+RoundCorner.m */; };
 		ECDC0EE91F0C9A37002DBDA9 /* UISliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EE81F0C9A37002DBDA9 /* UISliderView.m */; };
 		ECDC0EEC1F0CDC7E002DBDA9 /* SAShareContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EEB1F0CDC7E002DBDA9 /* SAShareContentVC.m */; };
-		ECDC0EF81F0CE09E002DBDA9 /* QBEncryptedURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EEF1F0CE09E002DBDA9 /* QBEncryptedURLRequest.m */; };
 		ECDC0EF91F0CE09E002DBDA9 /* QBNetworkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EF11F0CE09E002DBDA9 /* QBNetworkInfo.m */; };
-		ECDC0EFA1F0CE09E002DBDA9 /* QBNetworkingConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EF31F0CE09E002DBDA9 /* QBNetworkingConfiguration.m */; };
-		ECDC0EFB1F0CE09E002DBDA9 /* QBURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EF51F0CE09E002DBDA9 /* QBURLRequest.m */; };
-		ECDC0EFC1F0CE09E002DBDA9 /* QBURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EF71F0CE09E002DBDA9 /* QBURLResponse.m */; };
 		ECDC0EFF1F0CE372002DBDA9 /* SAShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0EFE1F0CE372002DBDA9 /* SAShareModel.m */; };
 		ECDC0F021F0DC6E1002DBDA9 /* SAShareContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0F011F0DC6E1002DBDA9 /* SAShareContentCell.m */; };
 		ECDC0F051F0DD7BA002DBDA9 /* SAShareContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDC0F041F0DD7BA002DBDA9 /* SAShareContentModel.m */; };
@@ -130,6 +135,14 @@
 		EC5847371F0A691700FEBDC5 /* SANavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANavigationController.m; sourceTree = "<group>"; };
 		EC58473C1F0A695200FEBDC5 /* SATabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SATabBarController.h; sourceTree = "<group>"; };
 		EC58473D1F0A695200FEBDC5 /* SATabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATabBarController.m; sourceTree = "<group>"; };
+		EC60C6C31F15B29C0004477D /* QBDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBDataResponse.h; sourceTree = "<group>"; };
+		EC60C6C41F15B29C0004477D /* QBDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBDataResponse.m; sourceTree = "<group>"; };
+		EC60C6C61F15B3A00004477D /* SAReqManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAReqManager.h; sourceTree = "<group>"; };
+		EC60C6C71F15B3A00004477D /* SAReqManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAReqManager.m; sourceTree = "<group>"; };
+		EC60C6D51F162C950004477D /* SAActivateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAActivateModel.h; sourceTree = "<group>"; };
+		EC60C6D61F162C950004477D /* SAActivateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAActivateModel.m; sourceTree = "<group>"; };
+		EC60C6D81F162F850004477D /* SARegisterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARegisterModel.h; sourceTree = "<group>"; };
+		EC60C6D91F162F850004477D /* SARegisterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARegisterModel.m; sourceTree = "<group>"; };
 		EC62026C1F0F3D8600623709 /* SAShareDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareDetailVC.h; sourceTree = "<group>"; };
 		EC62026D1F0F3D8600623709 /* SAShareDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareDetailVC.m; sourceTree = "<group>"; };
 		EC62026F1F0F6CCA00623709 /* SADetailFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SADetailFooterView.h; sourceTree = "<group>"; };
@@ -167,6 +180,16 @@
 		ECBBBD191F0E6ADA00479075 /* SARecruitScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARecruitScrollView.m; sourceTree = "<group>"; };
 		ECBBBD1B1F0E6CB200479075 /* SARecruitTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitTagView.h; sourceTree = "<group>"; };
 		ECBBBD1C1F0E6CB200479075 /* SARecruitTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARecruitTagView.m; sourceTree = "<group>"; };
+		ECC98FE91F14841B00481451 /* SADrawSuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SADrawSuccessView.h; sourceTree = "<group>"; };
+		ECC98FEA1F14841B00481451 /* SADrawSuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SADrawSuccessView.m; sourceTree = "<group>"; };
+		ECC98FEC1F14AD1400481451 /* SABingdingWxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SABingdingWxView.h; sourceTree = "<group>"; };
+		ECC98FED1F14AD1400481451 /* SABingdingWxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SABingdingWxView.m; sourceTree = "<group>"; };
+		ECC98FF01F14DC8B00481451 /* QBDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBDataManager.h; sourceTree = "<group>"; };
+		ECC98FF11F14DC8B00481451 /* QBDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBDataManager.m; sourceTree = "<group>"; };
+		ECC98FF31F14E53F00481451 /* NSString+dataEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+dataEncrypt.h"; sourceTree = "<group>"; };
+		ECC98FF41F14E53F00481451 /* NSString+dataEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+dataEncrypt.m"; sourceTree = "<group>"; };
+		ECC98FF61F15028700481451 /* NSObject+BaseRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BaseRepresentation.h"; sourceTree = "<group>"; };
+		ECC98FF71F15028700481451 /* NSObject+BaseRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BaseRepresentation.m"; sourceTree = "<group>"; };
 		ECDC0E921F0C8A77002DBDA9 /* SAShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareViewController.h; sourceTree = "<group>"; };
 		ECDC0E931F0C8A77002DBDA9 /* SAShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareViewController.m; sourceTree = "<group>"; };
 		ECDC0E951F0C8A8C002DBDA9 /* SARecruitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitViewController.h; sourceTree = "<group>"; };
@@ -209,16 +232,8 @@
 		ECDC0EE81F0C9A37002DBDA9 /* UISliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISliderView.m; sourceTree = "<group>"; };
 		ECDC0EEA1F0CDC7E002DBDA9 /* SAShareContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareContentVC.h; sourceTree = "<group>"; };
 		ECDC0EEB1F0CDC7E002DBDA9 /* SAShareContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareContentVC.m; sourceTree = "<group>"; };
-		ECDC0EEE1F0CE09E002DBDA9 /* QBEncryptedURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBEncryptedURLRequest.h; sourceTree = "<group>"; };
-		ECDC0EEF1F0CE09E002DBDA9 /* QBEncryptedURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBEncryptedURLRequest.m; sourceTree = "<group>"; };
 		ECDC0EF01F0CE09E002DBDA9 /* QBNetworkInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBNetworkInfo.h; sourceTree = "<group>"; };
 		ECDC0EF11F0CE09E002DBDA9 /* QBNetworkInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBNetworkInfo.m; sourceTree = "<group>"; };
-		ECDC0EF21F0CE09E002DBDA9 /* QBNetworkingConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBNetworkingConfiguration.h; sourceTree = "<group>"; };
-		ECDC0EF31F0CE09E002DBDA9 /* QBNetworkingConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBNetworkingConfiguration.m; sourceTree = "<group>"; };
-		ECDC0EF41F0CE09E002DBDA9 /* QBURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBURLRequest.h; sourceTree = "<group>"; };
-		ECDC0EF51F0CE09E002DBDA9 /* QBURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBURLRequest.m; sourceTree = "<group>"; };
-		ECDC0EF61F0CE09E002DBDA9 /* QBURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBURLResponse.h; sourceTree = "<group>"; };
-		ECDC0EF71F0CE09E002DBDA9 /* QBURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBURLResponse.m; sourceTree = "<group>"; };
 		ECDC0EFD1F0CE372002DBDA9 /* SAShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareModel.h; sourceTree = "<group>"; };
 		ECDC0EFE1F0CE372002DBDA9 /* SAShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareModel.m; sourceTree = "<group>"; };
 		ECDC0F001F0DC6E1002DBDA9 /* SAShareContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareContentCell.h; sourceTree = "<group>"; };
@@ -420,6 +435,10 @@
 		EC58472F1F0A52CC00FEBDC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ECC98FE91F14841B00481451 /* SADrawSuccessView.h */,
+				ECC98FEA1F14841B00481451 /* SADrawSuccessView.m */,
+				ECC98FEC1F14AD1400481451 /* SABingdingWxView.h */,
+				ECC98FED1F14AD1400481451 /* SABingdingWxView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -524,6 +543,8 @@
 			children = (
 				ECBBBD111F0E17D600479075 /* SAUser.h */,
 				ECBBBD121F0E17D600479075 /* SAUser.m */,
+				EC60C6D81F162F850004477D /* SARegisterModel.h */,
+				EC60C6D91F162F850004477D /* SARegisterModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -539,6 +560,17 @@
 				EC05A8761F138B5900810F51 /* SARegisterInfoView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		ECC98FEF1F14DC6C00481451 /* DataModule */ = {
+			isa = PBXGroup;
+			children = (
+				ECC98FF01F14DC8B00481451 /* QBDataManager.h */,
+				ECC98FF11F14DC8B00481451 /* QBDataManager.m */,
+				EC60C6C31F15B29C0004477D /* QBDataResponse.h */,
+				EC60C6C41F15B29C0004477D /* QBDataResponse.m */,
+			);
+			path = DataModule;
 			sourceTree = "<group>";
 		};
 		ECDC0E831F0C8972002DBDA9 /* Mine */ = {
@@ -674,6 +706,7 @@
 		ECDC0EA41F0C8E14002DBDA9 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				ECC98FEF1F14DC6C00481451 /* DataModule */,
 				ECE2178A1F1081B1008BA7B4 /* ImagePicker */,
 				ECE2174D1F107F13008BA7B4 /* QiniuUpload */,
 				ECDC0EED1F0CE086002DBDA9 /* NetWorking */,
@@ -697,12 +730,16 @@
 		ECDC0EAD1F0C8FA9002DBDA9 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				ECC98FF61F15028700481451 /* NSObject+BaseRepresentation.h */,
+				ECC98FF71F15028700481451 /* NSObject+BaseRepresentation.m */,
 				ECDC0EC51F0C9496002DBDA9 /* NSDate+timeStamp.h */,
 				ECDC0EC61F0C9496002DBDA9 /* NSDate+timeStamp.m */,
 				ECDC0EC71F0C9496002DBDA9 /* NSObject+PropertyAccessInspecting.h */,
 				ECDC0EC81F0C9496002DBDA9 /* NSObject+PropertyAccessInspecting.m */,
 				ECDC0EC91F0C9496002DBDA9 /* NSString+Size.h */,
 				ECDC0ECA1F0C9496002DBDA9 /* NSString+Size.m */,
+				ECC98FF31F14E53F00481451 /* NSString+dataEncrypt.h */,
+				ECC98FF41F14E53F00481451 /* NSString+dataEncrypt.m */,
 				ECDC0ECB1F0C9496002DBDA9 /* UIImage+Blur.h */,
 				ECDC0ECC1F0C9496002DBDA9 /* UIImage+Blur.m */,
 				ECDC0ECD1F0C9496002DBDA9 /* UIImage+Resource.h */,
@@ -730,6 +767,10 @@
 		ECDC0EAF1F0C8FA9002DBDA9 /* System */ = {
 			isa = PBXGroup;
 			children = (
+				EC60C6C61F15B3A00004477D /* SAReqManager.h */,
+				EC60C6C71F15B3A00004477D /* SAReqManager.m */,
+				EC60C6D51F162C950004477D /* SAActivateModel.h */,
+				EC60C6D61F162C950004477D /* SAActivateModel.m */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -748,14 +789,6 @@
 			children = (
 				ECDC0EF01F0CE09E002DBDA9 /* QBNetworkInfo.h */,
 				ECDC0EF11F0CE09E002DBDA9 /* QBNetworkInfo.m */,
-				ECDC0EF21F0CE09E002DBDA9 /* QBNetworkingConfiguration.h */,
-				ECDC0EF31F0CE09E002DBDA9 /* QBNetworkingConfiguration.m */,
-				ECDC0EEE1F0CE09E002DBDA9 /* QBEncryptedURLRequest.h */,
-				ECDC0EEF1F0CE09E002DBDA9 /* QBEncryptedURLRequest.m */,
-				ECDC0EF41F0CE09E002DBDA9 /* QBURLRequest.h */,
-				ECDC0EF51F0CE09E002DBDA9 /* QBURLRequest.m */,
-				ECDC0EF61F0CE09E002DBDA9 /* QBURLResponse.h */,
-				ECDC0EF71F0CE09E002DBDA9 /* QBURLResponse.m */,
 			);
 			path = NetWorking;
 			sourceTree = "<group>";
@@ -1018,11 +1051,13 @@
 				ECBBBD131F0E17D600479075 /* SAUser.m in Sources */,
 				EC7B5B001F1364E3002BF8F3 /* SABalanceHeaderView.m in Sources */,
 				ECE217971F10CEEA008BA7B4 /* SADrawMoneyVC.m in Sources */,
+				ECC98FEB1F14841B00481451 /* SADrawSuccessView.m in Sources */,
 				ECE217891F107FEC008BA7B4 /* QBImageUploadManager.m in Sources */,
 				EC58472A1F0A4E2700FEBDC5 /* AppDelegate+configuration.m in Sources */,
 				EC5847111F0A44B400FEBDC5 /* AppDelegate.m in Sources */,
 				ECDC0EE91F0C9A37002DBDA9 /* UISliderView.m in Sources */,
 				ECDC0EAA1F0C8E14002DBDA9 /* JKDBHelper.m in Sources */,
+				EC60C6C81F15B3A00004477D /* SAReqManager.m in Sources */,
 				EC5847381F0A691700FEBDC5 /* SANavigationController.m in Sources */,
 				ECE2179A1F10D014008BA7B4 /* SADrawMoneyDetailVC.m in Sources */,
 				EC6202781F0F7BBB00623709 /* SAMineCenterUserInfoCell.m in Sources */,
@@ -1030,7 +1065,6 @@
 				ECDC0EC41F0C9395002DBDA9 /* SAUtil.m in Sources */,
 				EC05A8771F138B5900810F51 /* SARegisterInfoView.m in Sources */,
 				ECBBBD0C1F0E0F0C00479075 /* SAShareHeaderView.m in Sources */,
-				ECDC0EFA1F0CE09E002DBDA9 /* QBNetworkingConfiguration.m in Sources */,
 				ECDC0EF91F0CE09E002DBDA9 /* QBNetworkInfo.m in Sources */,
 				EC58470E1F0A44B400FEBDC5 /* main.m in Sources */,
 				ECE2177A1F107F13008BA7B4 /* POSFastAssetReader.m in Sources */,
@@ -1051,6 +1085,7 @@
 				ECDC0E971F0C8A8C002DBDA9 /* SARecruitViewController.m in Sources */,
 				EC62027E1F0F802500623709 /* SAMineCenterBalanceCell.m in Sources */,
 				ECE2177D1F107F13008BA7B4 /* QiniuInputStream.m in Sources */,
+				EC60C6C51F15B29C0004477D /* QBDataResponse.m in Sources */,
 				ECE217741F107F13008BA7B4 /* ALAssetsLibrary+POS.m in Sources */,
 				ECE217A81F10E4F6008BA7B4 /* SARankListVC.m in Sources */,
 				EC7B5AF01F132E11002BF8F3 /* SARecruitInfoCell.m in Sources */,
@@ -1058,6 +1093,8 @@
 				ECDEAA8A1F1072C400EB8829 /* SAMineUserInfoCell.m in Sources */,
 				EC05A86E1F1376F800810F51 /* SATextField.m in Sources */,
 				EC05A8741F1379A600810F51 /* SALoginInfoView.m in Sources */,
+				ECC98FF81F15028700481451 /* NSObject+BaseRepresentation.m in Sources */,
+				ECC98FEE1F14AD1400481451 /* SABingdingWxView.m in Sources */,
 				ECDC0F021F0DC6E1002DBDA9 /* SAShareContentCell.m in Sources */,
 				ECDC0EDF1F0C9496002DBDA9 /* UIView+FrameEx.m in Sources */,
 				EC7B5AED1F132DE7002BF8F3 /* SARecruitInfoVC.m in Sources */,
@@ -1066,10 +1103,12 @@
 				ECE217791F107F13008BA7B4 /* POSBlobInputStreamAssetDataSource.m in Sources */,
 				ECE217801F107F13008BA7B4 /* QiniuUploader.m in Sources */,
 				ECDC0EEC1F0CDC7E002DBDA9 /* SAShareContentVC.m in Sources */,
+				ECC98FF21F14DC8B00481451 /* QBDataManager.m in Sources */,
 				EC6202711F0F6CCA00623709 /* SADetailFooterView.m in Sources */,
 				ECBBBD1D1F0E6CB200479075 /* SARecruitTagView.m in Sources */,
 				ECE217A11F10DC26008BA7B4 /* SAAccountDetailVC.m in Sources */,
 				ECE217751F107F13008BA7B4 /* NSInputStream+POS.m in Sources */,
+				EC60C6D71F162C950004477D /* SAActivateModel.m in Sources */,
 				ECDEAA8D1F1074DF00EB8829 /* SAMineUserInfoHeaderView.m in Sources */,
 				ECDC0EDA1F0C9496002DBDA9 /* NSObject+PropertyAccessInspecting.m in Sources */,
 				ECDC0EFF1F0CE372002DBDA9 /* SAShareModel.m in Sources */,
@@ -1077,8 +1116,6 @@
 				ECE217A41F10DE69008BA7B4 /* SAAccountDetailCell.m in Sources */,
 				ECE217781F107F13008BA7B4 /* POSBlobInputStream.m in Sources */,
 				ECDC0EDD1F0C9496002DBDA9 /* UIImage+Resource.m in Sources */,
-				ECDC0EFB1F0CE09E002DBDA9 /* QBURLRequest.m in Sources */,
-				ECDC0EFC1F0CE09E002DBDA9 /* QBURLResponse.m in Sources */,
 				ECDC0E9A1F0C8A9D002DBDA9 /* SAMineViewController.m in Sources */,
 				EC05A8711F13797C00810F51 /* SARegisterViewController.m in Sources */,
 				ECE217B51F10EBA4008BA7B4 /* SACleanUpContentVC.m in Sources */,
@@ -1086,9 +1123,10 @@
 				EC58473E1F0A695200FEBDC5 /* SATabBarController.m in Sources */,
 				ECE217AE1F10E5B3008BA7B4 /* SARankDetailCell.m in Sources */,
 				EC6202811F0F84F900623709 /* SAMineCenterFunctionCell.m in Sources */,
+				ECC98FF51F14E53F00481451 /* NSString+dataEncrypt.m in Sources */,
 				ECDC0EDE1F0C9496002DBDA9 /* UIScrollView+Refresh.m in Sources */,
+				EC60C6DA1F162F850004477D /* SARegisterModel.m in Sources */,
 				ECDC0EE01F0C9496002DBDA9 /* UIView+Loading.m in Sources */,
-				ECDC0EF81F0CE09E002DBDA9 /* QBEncryptedURLRequest.m in Sources */,
 				EC7B5AEA1F132BC2002BF8F3 /* SAAboutUsVC.m in Sources */,
 				EC62026E1F0F3D8600623709 /* SAShareDetailVC.m in Sources */,
 				ECE2177E1F107F13008BA7B4 /* QiniuMultipartElement.m in Sources */,

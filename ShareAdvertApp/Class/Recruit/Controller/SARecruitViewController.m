@@ -19,11 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if ([SAUtil checkUserIsLogin]) {
-        [self configRecruitContent];
-    } else {
-        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeRecruitOffline onCurrentVC:self];
-    }
+    [self configRecruitContent];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +30,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if (![SAUtil checkUserIsLogin]) {
+        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeRecruitOffline onCurrentVC:self];
+    }
+    _recruitScrollView.hidden = ![SAUtil checkUserIsLogin];
 }
 
 - (void)configRecruitContent {

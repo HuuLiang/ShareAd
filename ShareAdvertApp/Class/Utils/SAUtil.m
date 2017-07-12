@@ -56,6 +56,7 @@ static NSString *const kSAMessageReplayTodayKeyName = @"kSAMessageReplayTodayKey
 #pragma mark - 判断用户是否登录
 
 + (BOOL)checkUserIsLogin {
+    return YES;
     NSString *currentUserId = [[NSUserDefaults standardUserDefaults] objectForKey:SACurrentUserKeyName];
     if (currentUserId.length > 0) {
         return YES;
@@ -125,14 +126,14 @@ static NSString *const kSAMessageReplayTodayKeyName = @"kSAMessageReplayTodayKey
     if (!imageToken) {
         return nil;
     }
-    
-    return [imageToken decryptedStringWithPassword:kImageTokenCryptPassword];
+    return nil;
+//    return [imageToken decryptedStringWithPassword:kImageTokenCryptPassword];
 }
 
 
 + (void)setImageToken:(NSString *)imageToken {
     if (imageToken) {
-        imageToken = [imageToken encryptedStringWithPassword:kImageTokenCryptPassword];
+//        imageToken = [imageToken encryptedStringWithPassword:kImageTokenCryptPassword];
         [[NSUserDefaults standardUserDefaults] setObject:imageToken forKey:kImageTokenKeyName];
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kImageTokenKeyName];

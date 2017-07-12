@@ -12,6 +12,7 @@
 
 typedef void (^SAAction)(void);
 typedef void (^SACompletionHandler)(BOOL success, id obj);
+//typedef void (^SAFetchDataHandler)(id obj,NSError * error);
 
 typedef NS_ENUM(NSUInteger, SADeviceType) {
     SADeviceTypeUnknown,
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSUInteger, SADeviceType) {
 
 
 #define kSAUserLoginNotification          @"ShareAd_user_login_notification"
-
+#define kSABindingWxNotification          @"ShareAd_user_binding_notification"
 
 
 #endif /* SACommonDef_h */

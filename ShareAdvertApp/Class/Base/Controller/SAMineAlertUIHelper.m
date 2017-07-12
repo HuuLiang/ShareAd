@@ -7,9 +7,13 @@
 //
 
 #import "SAMineAlertUIHelper.h"
+#import "SADrawSuccessView.h"
+#import "SABingdingWxView.h"
 
 @interface SAMineAlertUIHelper ()
 @property (nonatomic) SAMineAlertType type;
+@property (nonatomic) SADrawSuccessView *drawView;
+@property (nonatomic) SABingdingWxView *bindingView;
 @end
 
 @implementation SAMineAlertUIHelper
@@ -37,7 +41,24 @@
             
         case SAMineAlertTypeRecruitOffline:
         case SAMineAlertTypeMineCenterOffline:
+        case SAMineAlertTypeShareOffline:
             [self showOfflineError];
+            break;
+        
+        case SAMineAlertTypeAnnouncement:
+            [self showAnnouncement];
+            break;
+        
+        case SAMineAlertTypeSignIn:
+            [self showSignIn];
+            break;
+            
+        case SAMineAlertTypeDrawSuccess:
+            [self showDrawSuccess];
+            break;
+            
+        case SAMineAlertTypeBingding:
+            [self showBingding];
             break;
             
         default:
@@ -69,6 +90,7 @@
     [currentVC addChildViewController:self];
     self.view.frame = currentVC.view.bounds;
     self.view.alpha = 0;
+    self.view.backgroundColor = [kColor(@"#000000") colorWithAlphaComponent:0.5];
     [currentVC.view addSubview:self.view];
     [self didMoveToParentViewController:currentVC];
     
@@ -108,7 +130,7 @@
                          otherButtonTitles:@[@"确定"]
                                    handler:^(UIAlertView *alertView, NSInteger buttonIndex)
     {
-        
+        [self hide];
     }];
 }
 
@@ -121,22 +143,89 @@
         case SAMineAlertTypeMineCenterOffline:
             notice = @"您还没登录，登录后才能进入个人中心";
             break;
-            
+        case SAMineAlertTypeShareOffline:
+            notice = @"您还没登录，登录后才能分享文章";
+            break;
         default:
             break;
     }
-    UIAlertView *alertView = [UIAlertView bk_showAlertViewWithTitle:@"温馨提示"
-                                                            message:notice
-                                                  cancelButtonTitle:@"取消"
-                                                  otherButtonTitles:@[@"知道了"]
-                                                            handler:^(UIAlertView *alertView, NSInteger buttonIndex)
-                              {
-                                  if (buttonIndex == 1) {
-                                      [self hide];
-                                      [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginNotification object:nil];
-                                  }
-                              }];
-    [alertView show];
+    [UIAlertView bk_showAlertViewWithTitle:@"温馨提示"
+                                   message:notice
+                         cancelButtonTitle:@"取消"
+                         otherButtonTitles:@[@"知道了"]
+                                   handler:^(UIAlertView *alertView, NSInteger buttonIndex)
+     {
+         [self hide];
+         if (buttonIndex == 1) {
+             [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginNotification object:nil];
+         }
+     }];
+}
+
+- (void)showAnnouncement {
+    [UIAlertView bk_showAlertViewWithTitle:@"最新公告"
+                                   message:@"平台活动，阅读单价限时涨至0.18元，阅读随机红包送不停，收徒奖励涨至3元，涨分飞快，时间有限。"
+                         cancelButtonTitle:@"知道了"
+                         otherButtonTitles:nil
+                                   handler:^(UIAlertView *alertView, NSInteger buttonIndex)
+     {
+        [self hide];
+    }];
+}
+
+- (void)showSignIn {
+    [UIAlertView bk_showAlertViewWithTitle:@"签到成功"
+                                   message:nil
+                         cancelButtonTitle:@"签到奖励已经发放"
+                         otherButtonTitles:nil
+                                   handler:^(UIAlertView *alertView, NSInteger buttonIndex)
+     {
+         [self hide];
+     }];
+}
+
+- (void)showDrawSuccess {
+    self.drawView = [[SADrawSuccessView alloc] init];
+    [self.view addSubview:_drawView];
+    
+    {
+        [_drawView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.view);
+            make.size.mas_equalTo(CGSizeMake(kWidth(510), kWidth(414)));
+        }];
+    }
+    
+    @weakify(self);
+    _drawView.compleAction = ^{
+        @strongify(self);
+        [self.drawView removeFromSuperview];
+        self.drawView = nil;
+        [self hide];
+    };
+}
+
+- (void)showBingding {
+    self.bindingView = [[SABingdingWxView alloc] init];
+    [self.view addSubview:_bindingView];
+    
+    {
+        [_bindingView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.view);
+            make.size.mas_equalTo(CGSizeMake(kWidth(510), kWidth(417)));
+        }];
+    }
+    
+    @weakify(self);
+    _bindingView.confirmAction = ^{
+        @strongify(self);
+        [self.bindingView removeFromSuperview];
+        self.bindingView = nil;
+        [self hide];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kSABindingWxNotification object:nil];
+        });
+    };
 }
 
 @end

@@ -38,7 +38,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view resignFirstResponder];
+    if (_loginInfoView) {
+        [_loginInfoView resignFirstResponder];
+    }
 }
 
 - (void)configLoginInfo {

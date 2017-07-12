@@ -6,19 +6,14 @@
 //  Copyright © 2017年 Liang. All rights reserved.
 //
 
-#import "QBEncryptedURLRequest.h"
+#import <Foundation/Foundation.h>
+#import "QBDataResponse.h"
 
 @interface SAShareColumnModel : NSObject
 @property (nonatomic) NSString *columnId;
-@property (nonatomic) NSString *columnName;
+@property (nonatomic) NSString *name;
 @end
 
-@interface SAShareResponse : QBURLResponse
+@interface SAShareModel : QBDataResponse
 @property (nonatomic) NSArray *columns;
-@end
-
-@interface SAShareModel : QBEncryptedURLRequest
-
-- (void)fetchShareColumnContent:(SACompletionHandler)handler;
-
 @end

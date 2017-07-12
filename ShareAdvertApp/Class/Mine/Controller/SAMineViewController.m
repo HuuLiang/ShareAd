@@ -57,11 +57,7 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if ([SAUtil checkUserIsLogin]) {
-        [self configMineCenter];
-    } else {
-        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeMineCenterOffline onCurrentVC:self];
-    }
+    [self configMineCenter];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,6 +66,11 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    if (![SAUtil checkUserIsLogin]) {
+        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeMineCenterOffline onCurrentVC:self];
+    }
+    _tableView.hidden = ![SAUtil checkUserIsLogin];
 }
 
 - (void)configMineCenter {
@@ -267,11 +268,6 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
             [self pushViewControllerWith:[SARecruitInfoVC class] title:@"收徒信息"];
         }
     }
-}
-
-- (void)pushViewControllerWith:(Class)classVC title:(NSString *)title {
-    UIViewController *targetVC = [[classVC alloc] initWithTitle:title];
-    [self.navigationController pushViewController:targetVC animated:YES];
 }
 
 @end

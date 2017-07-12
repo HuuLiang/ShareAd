@@ -11,9 +11,10 @@
 
 //baseInfo
 #define SA_CHANNEL_NO               [SAConfiguration sharedConfig].channelNo
-#define SA_REST_APPID               @"QUBA_2029"
-#define SA_REST_PV                  @"100"
-#define SA_PAYMENT_PV               @"100"
+#define SA_REST_APPID               @"QUBA_3001"
+//#define SA_REST_PV                  @"100"
+//#define SA_PAYMENT_PV               @"100"
+#define SA_CONTENT_VERSION          @"1.0"
 #define SA_PACKAGE_CERTIFICATE      @"iPhone Distribution: Neijiang Fenghuang Enterprise (Group) Co., Ltd."
 
 #define SA_REST_APP_VERSION         ((NSString *)([NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]))
@@ -24,8 +25,12 @@
 
 
 //URL
-#define SA_BASE_URL                    @""
+#define SA_BASE_URL                    @"http://120.24.252.114:8095"
 #define SA_STANDBY_BASE_URL            @""
+#define SA_ACTIVATE_URL                @"/share/activat.htm"
+#define SA_REGISTER_URL                @"/share/register.htm"
+#define SA_SHARECOLUMN_URL             @"/share/column.htm"
+#define SA_SHARELIST_URL               @"/share/shareList.htm"
 
 //secret
 #define SA_ENCRYPT_PASSWORD            @"qb%Fr@2016_&"

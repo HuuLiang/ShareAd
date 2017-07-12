@@ -23,6 +23,12 @@
 
 @property (nonatomic) NSString *city;
 
-@property (nonatomic) BOOL isLogin;
+@property (nonatomic) NSString *weixin;
+
+@property (nonatomic) NSString *account;
+
+@property (nonatomic) NSString *password;
+
+@property (nonatomic) NSString *code;
 
 @end

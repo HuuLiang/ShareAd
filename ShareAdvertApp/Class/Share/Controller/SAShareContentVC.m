@@ -9,19 +9,19 @@
 #import "SAShareContentVC.h"
 #import "SAShareContentCell.h"
 #import "SAShareContentModel.h"
+#import "SAReqManager.h"
+#import "SAShareDetailVC.h"
 
 static NSString *const kSAShareContentCellReusableIdentifier = @"kSAShareContentCellReusableIdentifier";
 
 @interface SAShareContentVC () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) NSString *columnId;
 @property (nonatomic) UITableView *tableView;
-@property (nonatomic) NSMutableArray *dataSource;
-@property (nonatomic) SAShareContentModel *contentModel;
+@property (nonatomic) SAShareContentResponse *response;
 @end
 
 @implementation SAShareContentVC
-QBDefineLazyPropertyInitialization(NSMutableArray, dataSource)
-QBDefineLazyPropertyInitialization(SAShareContentModel, contentModel)
+QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
 
 - (instancetype)initWithColumnId:(NSString *)columnId
 {
@@ -42,7 +42,6 @@ QBDefineLazyPropertyInitialization(SAShareContentModel, contentModel)
     [_tableView registerClass:[SAShareContentCell class] forCellReuseIdentifier:kSAShareContentCellReusableIdentifier];
     [_tableView setSeparatorInset:UIEdgeInsetsZero];
     [_tableView setSeparatorColor:kColor(@"#efefef")];
-//    _tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
     
     {
@@ -78,47 +77,46 @@ QBDefineLazyPropertyInitialization(SAShareContentModel, contentModel)
 }
 
 - (void)fetchSourceWithColumnId:(NSString *)columnId {
-    [self.dataSource removeAllObjects];
-    for (NSInteger i = 0; i < 10; i++) {
-        SAShareContentProgramModel *programModel = [[SAShareContentProgramModel alloc] init];
-        [self.dataSource addObject:programModel];
-    }
-    [self.tableView SA_endPullToRefresh];
-    [self.tableView reloadData];
-    
-//    @weakify(self);
-//    [self.contentModel fetchColumnContentWithColumnId:self.columnId CompletionHandler:^(BOOL success, id obj) {
-//        @strongify(self);
-//        [self.tableView SA_endPullToRefresh];
-//        if (success) {
-//            [self.dataSource removeAllObjects];
-//            [self.dataSource addObjectsFromArray:obj];
-//            [self.tableView reloadData];
-//        }
-//    }];
+    @weakify(self);
+    [[SAReqManager manager] fetchShareListWithColumnId:_columnId class:[SAShareContentResponse class] handler:^(BOOL success, id obj) {
+        @strongify(self);
+        [self.tableView SA_endPullToRefresh];
+        if (success) {
+            self.response = obj;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate,UITalbeViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataSource.count;
+    return self.response.shares.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SAShareContentCell *cell = [tableView dequeueReusableCellWithIdentifier:kSAShareContentCellReusableIdentifier forIndexPath:indexPath];
-    if (indexPath.row < self.dataSource.count) {
-        SAShareContentProgramModel *programModel = self.dataSource[indexPath.row];
-        cell.imgUrl = @"";
+    if (indexPath.row < self.response.shares.count) {
+        SAShareContentProgramModel *programModel = self.response.shares[indexPath.row];
+        cell.imgUrl = programModel.coverImg;
         cell.specilTitle = @"限时上涨到2毛";
-        cell.title = @"边玩边赚，还可以天天赢红包，最高200%收益，让红包非起来！";
-        cell.price = @"高价  0.200元/阅读";
-        cell.read = @"阅读:20438";
+        cell.title = programModel.title;
+        cell.price = [NSString stringWithFormat:@"高价  %@元/阅读",programModel.shAmount];
+        cell.read = [NSString stringWithFormat:@"阅读:%@",programModel.readNumber];
     }
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kWidth(200);
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SAShareContentProgramModel *programModel = self.response.shares[indexPath.row];
+    if (indexPath.row < self.response.shares.count) {
+        SAShareDetailVC *detailVC = [[SAShareDetailVC alloc] initWithUrl:programModel.shUrl];
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate

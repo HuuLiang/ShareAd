@@ -14,5 +14,6 @@
 
 - (instancetype)initWithTitle:(NSString *)title;
 
+- (void)pushViewControllerWith:(Class)classVC title:(NSString *)title;
 
 @end

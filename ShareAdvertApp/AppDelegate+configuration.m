@@ -7,12 +7,13 @@
 //
 
 #import "AppDelegate+configuration.h"
-#import "QBNetworkingConfiguration.h"
 #import "QBNetworkInfo.h"
 #import <UMMobClick/MobClick.h>
 #import "SATabBarController.h"
 #import "QBImageUploadManager.h"
-
+#import "QBDataManager.h"
+#import "SAReqManager.h"
+#import "SAActivateModel.h"
 
 @implementation AppDelegate (configuration)
 
@@ -83,18 +84,18 @@
 //                                     [[aspectInfo originalInvocation] setReturnValue:&result];
 //                                 } error:nil];
 //    
-//    [UIViewController aspect_hookSelector:@selector(hidesBottomBarWhenPushed)
-//                              withOptions:AspectPositionInstead
-//                               usingBlock:^(id<AspectInfo> aspectInfo)
-//     {
-//         UIViewController *thisVC = [aspectInfo instance];
-//         BOOL hidesBottomBar = NO;
-//         if (thisVC.navigationController.viewControllers.count > 1) {
-//             hidesBottomBar = YES;
-//         }
-//         [[aspectInfo originalInvocation] setReturnValue:&hidesBottomBar];
-//     } error:nil];
-//    
+    [UIViewController aspect_hookSelector:@selector(hidesBottomBarWhenPushed)
+                              withOptions:AspectPositionInstead
+                               usingBlock:^(id<AspectInfo> aspectInfo)
+     {
+         UIViewController *thisVC = [aspectInfo instance];
+         BOOL hidesBottomBar = NO;
+         if (thisVC.navigationController.viewControllers.count > 1) {
+             hidesBottomBar = YES;
+         }
+         [[aspectInfo originalInvocation] setReturnValue:&hidesBottomBar];
+     } error:nil];
+//
 //    [UIScrollView aspect_hookSelector:@selector(showsVerticalScrollIndicator)
 //                          withOptions:AspectPositionInstead
 //                           usingBlock:^(id<AspectInfo> aspectInfo)
@@ -105,26 +106,16 @@
 }
 
 - (void)checkNetworkInfoState {
-    
-    [QBNetworkingConfiguration defaultConfiguration].RESTAppId = SA_REST_APPID;
-    [QBNetworkingConfiguration defaultConfiguration].RESTpV = @([SA_REST_PV integerValue]);
-    [QBNetworkingConfiguration defaultConfiguration].channelNo = SA_CHANNEL_NO;
-    [QBNetworkingConfiguration defaultConfiguration].baseURL = SA_BASE_URL;
-    [QBNetworkingConfiguration defaultConfiguration].useStaticBaseUrl = NO;
-    [QBNetworkingConfiguration defaultConfiguration].encryptedType = QBURLEncryptedTypeNew;
-    [QBNetworkingConfiguration defaultConfiguration].encryptionPasssword = SA_ENCRYPT_PASSWORD;
-#ifdef DEBUG
-    //    [[QBPaymentManager sharedManager] usePaymentConfigInTestServer:YES];
-#endif
+    [QBDataConfiguration configuration].baseUrl = SA_BASE_URL;
     
     [[QBNetworkInfo sharedInfo] startMonitoring];
     
     [QBNetworkInfo sharedInfo].reachabilityChangedAction = ^ (BOOL reachable) {
         
         if (reachable && [SAUtil isRegisteredUUID]) {
-            
+            [self showHomeViewController];
         } else {
-            
+            [self activate];
         }
         
         //网络错误提示
@@ -145,5 +136,14 @@
     };
 }
 
+/** 激活 */
+- (void)activate {
+    [[SAReqManager manager] fetchActivateInfoWithClass:[SAActivateModel class] Handler:^(BOOL success, SAActivateModel * obj) {
+        if (success) {
+            [SAUtil setRegisteredWithUUID:obj.uuid];
+            [self showHomeViewController];
+        }
+    }];
+}
 
 @end

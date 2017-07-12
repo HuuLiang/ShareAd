@@ -37,6 +37,7 @@
         [_shareButton setTitle:@"赚钱转发" forState:UIControlStateNormal];
         [_shareButton setTitleColor:kColor(@"#ffffff") forState:UIControlStateNormal];
         _shareButton.titleLabel.font = kFont(14);
+        _shareButton.backgroundColor = kColor(@"#FF3366");
         _shareButton.layer.cornerRadius = kWidth(32);
         [self addSubview:_shareButton];
         

@@ -84,7 +84,11 @@
 }
 
 - (void)startToShareContent {
-    
+    if (![SAUtil checkUserIsLogin]) {
+        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeShareOffline onCurrentVC:self];
+    } else {
+        
+    }
 }
 
 #pragma mark - UIWebViewDelegate

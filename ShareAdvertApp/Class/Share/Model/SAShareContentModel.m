@@ -14,45 +14,8 @@
 
 @implementation SAShareContentResponse
 
-- (Class)programsElementClass {
+- (Class)sharesElementClass {
     return [SAShareContentProgramModel class];
 }
-
-@end
-
-
-@implementation SAShareContentModel
-
-+ (Class)responseClass {
-    return [SAShareContentResponse class];
-}
-
-- (QBURLRequestMethod)requestMethod {
-    return QBURLPostRequest;
-}
-
-- (NSTimeInterval)requestTimeInterval {
-    return 10;
-}
-
-- (void)fetchColumnContentWithColumnId:(NSString *)columId CompletionHandler:(SACompletionHandler)handler {
-    NSDictionary *params = @{};
-    
-    [self requestURLPath:nil
-          standbyURLPath:nil
-              withParams:params
-         responseHandler:^(QBURLResponseStatus respStatus, NSString *errorMessage)
-    {
-        SAShareContentResponse *resp = nil;
-        if (respStatus == QBURLResponseSuccess) {
-            resp = self.response;
-        }
-        
-        if (handler) {
-            handler(respStatus == QBURLResponseSuccess,resp.programs);
-        }
-    }];
-}
-
 
 @end
