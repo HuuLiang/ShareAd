@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SABalanceCell : UITableViewCell
-@property (nonatomic) NSString *price;
+@property (nonatomic) NSInteger price;
 @end

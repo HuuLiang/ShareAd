@@ -17,6 +17,7 @@ typedef NS_ENUM(NSInteger,SAMineAlertType) {
     SAMineAlertTypeSignIn,
     SAMineAlertTypeDrawSuccess,
     SAMineAlertTypeBingding,
+    SAMineAlertTypeQRCode,
     SAMineAlertTypeCount
 };
 

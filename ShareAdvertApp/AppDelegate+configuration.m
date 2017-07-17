@@ -14,17 +14,25 @@
 #import "QBDataManager.h"
 #import "SAReqManager.h"
 #import "SAActivateModel.h"
+#import <WXApi.h>
+#import "SAShareManager.h"
+
+@interface AppDelegate () <WXApiDelegate>
+
+@end
 
 @implementation AppDelegate (configuration)
 
 - (void)showHomeViewController {
+    [self defaultConfiguration];
+    
     SATabBarController *rootVC = [[SATabBarController alloc] init];
     self.window.rootViewController = rootVC;
 }
 
 - (void)defaultConfiguration {
     [self setupMobStatistics];
-    
+    [WXApi registerApp:SA_WEXIN_APP_ID];
     [QBImageUploadManager registerWithSecretKey:SA_UPLOAD_SECRET_KEY accessKey:SA_UPLOAD_ACCESS_KEY scope:SA_UPLOAD_SCOPE];
 }
 
@@ -145,5 +153,23 @@
         }
     }];
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    [WXApi handleOpenURL:url delegate:self];
+    return YES;
+}
+
+
+#pragma mark - WXApiDelegate
+- (void)onReq:(BaseReq *)req {
+    QBLog(@"%@",req);
+}
+
+- (void)onResp:(BaseResp *)resp {
+    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+        [[SAShareManager manager] receiveWxResp:resp];
+    }
+}
+
 
 @end

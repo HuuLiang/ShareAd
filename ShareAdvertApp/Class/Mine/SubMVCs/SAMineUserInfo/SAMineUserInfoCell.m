@@ -67,7 +67,13 @@
 }
 
 - (void)setTitle:(NSString *)title {
+    _title = title;
     _titleLabel.text = title;
+}
+
+- (void)setContent:(NSString *)content {
+    _content = content;
+    _textField.text = content;
 }
 
 - (void)setTextFieldResponder:(BOOL)textFieldResponder {
@@ -79,7 +85,11 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    _content = _textField.text;
     [_textField resignFirstResponder];
+    if (self.action) {
+        self.action();
+    }
     return YES;
 }
 

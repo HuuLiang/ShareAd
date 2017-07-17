@@ -12,7 +12,19 @@
 #import "QBPhotoManager.h"
 #import "QBImageUploadManager.h"
 
+#import "SAReqManager.h"
+#import "SAUserInfoModel.h"
+
 static NSString *const kSAMineUserInfoCellReusableIdentifier = @"kSAMineUserInfoCellReusableIdentifier";
+
+//static NSString *const kSAUserInfoWeixinKeyName              = @"Weixin";
+//static NSString *const kSAuserInfoAliPayKeyName              = @"aliPay";
+//static NSString *const kSAUserInfoNameKeyName                = @"name";
+//static NSString *const kSAUserInfoNickNameKeyName            = @"nickName";
+//static NSString *const kSAUserInfoPhoneKeyName               = @"phone";
+//static NSString *const kSAUserInfoSexKeyName                 = @"sex";
+//static NSString *const kSAUserInfoCityKeyName                = @"city";
+//static NSString *const kSAUserInfoMasterKeyName              = @"masterId";
 
 typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
     SAMineUserInfoRowWX = 0,
@@ -26,10 +38,12 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
     SAMineUserInfoRowCount
 };
 
+
 @interface SAMineUserInfoVC () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) SAMineUserInfoHeaderView *headerView;
 @property (nonatomic) CGFloat selectedTextFieldHeight;
+@property (nonatomic) NSArray *userInfoKeys;
 @end
 
 @implementation SAMineUserInfoVC
@@ -51,11 +65,27 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
             make.edges.equalTo(self.view);
         }];
     }
-    [_tableView reloadData];
+    
+    self.userInfoKeys = @[@"Weixin",@"aliPay",@"name",@"nickName",@"phone",@"sex",@"city",@"masterId"];
+
+    
+    [self fetchUserInfo];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)fetchUserInfo {
+    @weakify(self);
+    [[SAReqManager manager] fetchUserInfoWithUserId:[SAUser user].userId class:[SAUserInfoModel class] handler:^(BOOL success, SAUserInfoModel * userInfoModel) {
+        @strongify(self);
+        if (success) {
+            [[SAUser user] setValueWithObj:userInfoModel.user];
+            
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (UIView *)configHeaderView {
@@ -87,6 +117,66 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [self updateUserInfoAll:YES indexPath:nil];
+}
+
+- (void)updateUserInfoAll:(BOOL)allInfo indexPath:(NSIndexPath *)indexPath {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"userId":[SAUser user].userId}];
+    __block NSMutableDictionary *userInfoDics = [[NSMutableDictionary alloc] init];
+    
+    __block SAUser *user = [SAUser user];
+    NSArray *allUserProperties = user.allProperties;
+    
+    //获取cell里的更新内容
+    if (allInfo) {
+        for (NSInteger cellRow = 0; cellRow < SAMineUserInfoRowCount; cellRow++) {
+            [userInfoDics addEntriesFromDictionary:[self updateUserInfoAtIndexPath:[NSIndexPath indexPathForRow:cellRow inSection:0]]];
+        }
+    } else {
+        [userInfoDics addEntriesFromDictionary:[self updateUserInfoAtIndexPath:indexPath]];
+    }
+    
+    [userInfoDics enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull userInfokey, id  _Nonnull userInfoValue, BOOL * _Nonnull stop) {
+        [allUserProperties enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            //如果在修改内容的字典里找到用户的属性key
+            if ([obj isEqualToString:userInfokey]) {
+                //判断值是否相等 不相等才提交更新  相等就从userInfoDics里移除
+                if ([userInfoValue isEqualToString:[user valueForKey:userInfokey]]) {
+                    [userInfoDics removeObjectForKey:userInfokey];
+                }
+            }
+        }];
+    }];
+    
+    if (userInfoDics.allKeys.count == 0) {
+        return;
+    }
+    
+    [params addEntriesFromDictionary:userInfoDics];
+    
+    [[SAReqManager manager] updateUserInfoWithInfo:params class:[SAUserInfoModel class] handler:^(BOOL success, id obj) {
+        if (success) {
+            [userInfoDics enumerateKeysAndObjectsUsingBlock:^(NSString *  _Nonnull userInfokey, id  _Nonnull userInfoValue, BOOL * _Nonnull stop) {
+                [allUserProperties enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isEqualToString:userInfokey]) {
+                        [user setValue:userInfoValue forKey:userInfokey];
+                    }
+                }];
+            }];
+            [user saveOrUpdate];
+        }
+    }];
+}
+
+- (NSDictionary *)updateUserInfoAtIndexPath:(NSIndexPath *)indexPath {
+    SAMineUserInfoCell *cell = (SAMineUserInfoCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    NSString *cellContent = nil;
+    if (!cell.content) {
+        cellContent = @"";
+    } else {
+        cellContent = cell.content;
+    }
+    return @{_userInfoKeys[indexPath.row]:cellContent};
 }
 
 - (void)handleKeyBoardActionHide:(NSNotification *)notification {
@@ -120,21 +210,35 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
     SAMineUserInfoCell *cell  = [tableView dequeueReusableCellWithIdentifier:kSAMineUserInfoCellReusableIdentifier forIndexPath:indexPath];
     if (indexPath.row == SAMineUserInfoRowWX) {
         cell.title = @"绑定微信";
+        cell.content = [SAUser user].weixin;
     } else if (indexPath.row == SAMineUserInfoRowAli) {
         cell.title = @"绑定支付宝";
+        cell.content = [SAUser user].aliPay;
     } else if (indexPath.row == SAMineUserInfoRowName) {
         cell.title = @"真实姓名";
+        cell.content = [SAUser user].name;
     } else if (indexPath.row == SAMineUserInfoRowNick) {
         cell.title = @"昵称";
+        cell.content = [SAUser user].nickName;
     } else if (indexPath.row == SAMineUserInfoRowPhone) {
         cell.title = @"手机";
+        cell.content = [SAUser user].phone;
     } else if (indexPath.row == SAMineUserInfoRowSex) {
         cell.title = @"性别";
+        cell.content = [SAUser user].sex;
     } else if (indexPath.row == SAMineUserInfoRowCity) {
         cell.title = @"城市";
+        cell.content = [SAUser user].city;
     } else if (indexPath.row == SAMineUserInfoRowMaster) {
         cell.title = @"师傅ID";
+        cell.content = [SAUser user].masterId;
     }
+    
+    @weakify(self);
+    cell.action = ^{
+        @strongify(self);
+        [self updateUserInfoAll:NO indexPath:indexPath];
+    };
     
     return cell;
 }

@@ -14,9 +14,12 @@
 
 @interface SAMineUserInfoCell : UITableViewCell
 
-@property (nonatomic) NSString *title;
+@property (nonatomic,nullable) SAAction action;
 
+@property (nonatomic,nonnull) NSString * title;
 
 @property (nonatomic) BOOL textFieldResponder;
+
+@property (nonatomic,nullable) NSString *content;
 
 @end

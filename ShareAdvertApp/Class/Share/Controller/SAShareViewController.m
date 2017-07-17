@@ -16,10 +16,10 @@
 
 #import "SAShareModel.h"
 #import "SAReqManager.h"
+#import "SAUserAccountModel.h"
 
-
-@interface SAShareViewController () <UIScrollViewDelegate,SAShareContentDelegate>
-@property (nonatomic) UIScrollView *backScrollView;
+@interface SAShareViewController () <UIScrollViewDelegate,SAShareContentDelegate,UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic) UITableView *tableView;
 @property (nonatomic) SAShareHeaderView *headerView;
 @property (nonatomic) UIImageView *moreContent;
 @property (nonatomic) UISliderView *sliderView;
@@ -35,13 +35,30 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     
     self.view.backgroundColor = kColor(@"#FF3366");
     
-    self.backScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    _backScrollView.backgroundColor = kColor(@"#FFFFFF");
-    _backScrollView.showsVerticalScrollIndicator = NO;
-    _backScrollView.delegate = self;
-    [self.view addSubview:_backScrollView];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.backgroundColor = kColor(@"#ffffff");
+    [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view addSubview:_tableView];
     
     [self fetchColumnContent];
+    
+    self.isLogin = [SAUtil checkUserIsLogin];
+    
+    if (_isLogin) {
+        [self configShareTableHeaderView];
+    }
+    
+    {
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configShareTableHeaderView) name:kSAUserLoginSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushContentVCWithColumnId:) name:kSAPushShareContentVCNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshHeaderViewInfo) name:kSARefreshAccountInfoNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,14 +67,10 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.isLogin = [SAUtil checkUserIsLogin];
-    _backScrollView.contentOffset = CGPointMake(0, _isLogin ? 0 :kWidth(328));
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    _backScrollView.contentSize = CGSizeMake(kScreenWidth, _headerView.height + kScreenHeight);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,7 +81,6 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     imgV.backgroundColor = kColor(@"#FF3366");
 }
 
-
 - (void)fetchColumnContent {
     [[SAReqManager manager] fetchColumnContentWithClass:[SAShareModel class] CompletionHandler:^(BOOL success, id obj) {
         if (success) {
@@ -78,15 +90,34 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     }];
 }
 
-- (void)configContentView {
-    self.headerView = [[SAShareHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kWidth(328))];
-    _headerView.balance = @"2.060";
-    _headerView.toRecruit = @"0";
-    _headerView.toEarnings = @"0.030";
-    [_backScrollView addSubview:_headerView];
+- (void)refreshHeaderViewInfo {
+    [SAUser user].amount = [SAUserAccountModel account].account.amount;
+    [[SAUser user] saveOrUpdate];
+    if (_headerView) {
+        _headerView.balance = [SAUserAccountModel account].account.amount;
+        _headerView.toRecruit = [SAUserAccountModel account].account.todayApNumber;
+        _headerView.toEarnings = [SAUserAccountModel account].account.todayAmount;
+    }
+}
+
+- (void)configShareTableHeaderView {
+    _isLogin = YES;
+    self.headerView = [[SAShareHeaderView alloc] init];
+    _headerView.size = CGSizeMake(kScreenWidth, kWidth(328));
+    self.tableView.tableHeaderView = _headerView;
     
-    self.sliderView = [[UISliderView alloc] initWithSuperView:_backScrollView];
-    _sliderView.titleScrollViewFrame = CGRectMake(0, kWidth(328), kScreenWidth - kWidth(80), kWidth(80));
+    _headerView.balance = [SAUserAccountModel account].account.amount;
+    _headerView.toRecruit = [SAUserAccountModel account].account.todayApNumber;
+    _headerView.toEarnings = [SAUserAccountModel account].account.todayAmount;
+}
+
+- (void)configContentView {
+    UIView *tableFooterView = [[UIView alloc] init];
+    tableFooterView.size = CGSizeMake(kScreenWidth, kScreenHeight);
+    _tableView.tableFooterView = tableFooterView;
+    
+    self.sliderView = [[UISliderView alloc] initWithSuperView:tableFooterView];
+    _sliderView.titleScrollViewFrame = CGRectMake(0, 0, kScreenWidth - kWidth(80), kWidth(80));
     _sliderView.imageBackViewColor = kColor(@"#FF3366");
     
     NSMutableArray *columnTitles = [[NSMutableArray alloc] init];
@@ -94,7 +125,7 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
         [columnTitles addObject:columnModel.name];
     }
     _sliderView.titlesArr = columnTitles;
-    [_backScrollView addSubview:_sliderView];
+    [tableFooterView addSubview:_sliderView];
 
     for (SAShareColumnModel *columnModel in self.response.columns) {
         SAShareContentVC *contentVC = [[SAShareContentVC alloc] initWithColumnId:columnModel.columnId];
@@ -104,21 +135,41 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     [_sliderView setSlideHeadView];
     
     self.moreContent = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"share_more"]];
-    _moreContent.frame = CGRectMake(kScreenWidth - kWidth(80), kWidth(328), kWidth(80), kWidth(78));
+    _moreContent.frame = CGRectMake(kScreenWidth - kWidth(80), 0, kWidth(80), kWidth(78));
     _moreContent.userInteractionEnabled = YES;
-    [_backScrollView addSubview:_moreContent];
+    [tableFooterView addSubview:_moreContent];
     
     @weakify(self);
     [_moreContent bk_whenTapped:^{
         @strongify(self);
-        [SAShareAllContentVC showAllContentVCInCurrentVC:self];
+        [SAShareAllContentVC showAllContentVCWithDataSource:self.response.columns height:self.tableView.contentOffset.y+kWidth(328) InCurrentVC:self];
     }];
-    _backScrollView.scrollEnabled = NO;
 }
 
 - (SAShareContentVC *)currentContentVC {
     return (SAShareContentVC *)self.childViewControllers[_sliderView.selectedBtn.tag];
 }
+
+- (void)pushContentVCWithColumnId:(NSNotification *)notification {
+    NSString *columnId = (NSString *)[notification object];
+    SAShareContentVC *contentVC = [[SAShareContentVC alloc] initWithColumnId:columnId];
+    [self.navigationController pushViewController:contentVC animated:YES];
+}
+
+#pragma mark - UITableViewDelagate,UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+}
+
 
 #pragma mark - UIScrollViewDelegate
 
@@ -140,7 +191,7 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     }
     CGFloat moveDistance = scrollView.contentOffset.y;
     if (moveDistance > 0 && moveDistance < _headerView.height) {
-        [_backScrollView setContentOffset:CGPointMake(0, moveDistance) animated:NO];
+        [_tableView setContentOffset:CGPointMake(0, moveDistance) animated:NO];
     }
 }
 
@@ -150,9 +201,9 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     }
     CGFloat moveDistance = scrollView.contentOffset.y;
     if (moveDistance <= 0) {
-        [_backScrollView setContentOffset:CGPointZero animated:YES];
+        [_tableView setContentOffset:CGPointZero animated:YES];
     } else if (moveDistance > _headerView.height) {
-        [_backScrollView setContentOffset:CGPointMake(0, _headerView.height) animated:YES];
+        [_tableView setContentOffset:CGPointMake(0, _headerView.height) animated:YES];
     }
 }
 

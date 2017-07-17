@@ -42,6 +42,31 @@
         case 200:
             return YES;
             break;
+        
+        case 300:
+            [[SAHudManager manager] showHudWithText:@"参数不正确"];
+            return YES;
+            break;
+            
+        case 301:
+            [[SAHudManager manager] showHudWithText:@"手机号已经注册"];
+            return YES;
+            break;
+            
+        case 302:
+            [[SAHudManager manager] showHudWithText:@"账号或密码不正确"];
+            return YES;
+            break;
+            
+        case 303:
+            [[SAHudManager manager] showHudWithText:@"账号余额不足"];
+            return YES;
+            break;
+            
+        case 304:
+            [[SAHudManager manager] showHudWithText:@"已签到"];
+            return YES;
+            break;
             
         default:
             return NO;
@@ -81,17 +106,167 @@
     }];
 }
 
-- (void)registerUserWithInfo:(NSDictionary *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler {
+- (void)registerUserWithInfo:(SAUser *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
-    [params addEntriesFromDictionary:userInfo];
+    [params addEntriesFromDictionary:@{@"phone":userInfo.phone,
+                                       @"password":userInfo.password,
+                                       @"nickName":userInfo.nickName}];
     
     [[QBDataManager manager] requestUrl:SA_REGISTER_URL
                              withParams:params
                                   class:modelClass
                                 handler:^(id obj, NSError *error)
     {
-        
+        handler([self checkResponseCodeObject:obj error:error],obj);
     }];
+}
+
+- (void)loginWithPhontNumber:(NSString *)phone password:(NSString *)password class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"phone":phone,
+                                       @"password":password}];
+    
+    [[QBDataManager manager] requestUrl:SA_LOGIN_URL withParams:params class:modelClass handler:^(id obj, NSError *error) {
+        handler([self checkResponseCodeObject:obj error:error],obj);
+    }];
+}
+
+- (void)fetchConfigInfoClass:(Class)modelClass handler:(SACompletionHandler)handler {
+    [[QBDataManager manager] requestUrl:SA_CONFIG_URL
+                             withParams:[self params]
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+        handler([self checkResponseCodeObject:obj error:error],obj);
+    }];
+}
+
+- (void)fetchUserInfoWithUserId:(NSString *)userId class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"userId":userId}];
+    
+    [[QBDataManager manager] requestUrl:SA_USERINFO_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+    {
+        handler([self checkResponseCodeObject:obj error:error],obj);
+    }];
+}
+
+- (void)updateUserInfoWithInfo:(NSDictionary *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:userInfo];
+    
+    [[QBDataManager manager] requestUrl:SA_UPDATEUSER_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
+- (void)fetchDrawMoenyStatusWithStatus:(NSString *)status
+                                  Page:(NSInteger)page
+                                 class:(Class)modelClass
+                               handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"wiStatus":status,
+                                       @"page":@(page),
+                                       @"userId":[SAUser user].userId}];
+    
+    [[QBDataManager manager] requestUrl:SA_QUERYWITHDRAW_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
+- (void)fetchAccountDetailWithPage:(NSInteger)page class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"page":@(page),
+                                       @"userId":[SAUser user].userId}];
+    
+    [[QBDataManager manager] requestUrl:SA_QUERYACCOUNT_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
+- (void)fetchRankingListWithType:(NSInteger)type class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"type":@(type),
+                                       @"userId":[SAUser user].userId}];
+    
+    [[QBDataManager manager] requestUrl:SA_RANKING_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
+- (void)fetchUserAccountInfoWithClass:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"userId":[SAUser user].userId}];
+    
+    [[QBDataManager manager] requestUrl:SA_ACCOUNT_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
+- (void)updateShareBountyWithPrice:(NSInteger)amount shareId:(NSString *)shareId class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"userId":[SAUser user].userId,
+                                       @"amount":@(amount),
+                                       @"shareId":shareId}];
+    
+    [[QBDataManager manager] requestUrl:SA_SHAREBOUNTY_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
+- (void)signWithClass:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"userId":[SAUser user].userId}];
+    
+    [[QBDataManager manager] requestUrl:SA_SIGN_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
+- (void)drwaMoneyWithAmount:(NSInteger)amount class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"userId":[SAUser user].userId,
+                                       @"amount":@(amount)}];
+    
+    [[QBDataManager manager] requestUrl:SA_WITHDRAW_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+
 }
 
 @end

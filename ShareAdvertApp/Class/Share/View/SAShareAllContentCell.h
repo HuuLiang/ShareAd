@@ -10,4 +10,6 @@
 
 @interface SAShareAllContentCell : UICollectionViewCell
 
+@property (nonatomic) NSString *title;
+
 @end

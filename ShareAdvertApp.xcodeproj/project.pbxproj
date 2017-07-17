@@ -30,6 +30,7 @@
 		EC62027B1F0F7FE600623709 /* SAMineCenterAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC62027A1F0F7FE600623709 /* SAMineCenterAdCell.m */; };
 		EC62027E1F0F802500623709 /* SAMineCenterBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC62027D1F0F802500623709 /* SAMineCenterBalanceCell.m */; };
 		EC6202811F0F84F900623709 /* SAMineCenterFunctionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6202801F0F84F900623709 /* SAMineCenterFunctionCell.m */; };
+		EC65FC7D1F1C4908002F1243 /* NSString+getQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = EC65FC7C1F1C4907002F1243 /* NSString+getQRCode.m */; };
 		EC7B5AE51F131C93002BF8F3 /* SAMineAlertUIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AE41F131C93002BF8F3 /* SAMineAlertUIHelper.m */; };
 		EC7B5AEA1F132BC2002BF8F3 /* SAAboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AE91F132BC2002BF8F3 /* SAAboutUsVC.m */; };
 		EC7B5AED1F132DE7002BF8F3 /* SARecruitInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AEC1F132DE7002BF8F3 /* SARecruitInfoVC.m */; };
@@ -38,9 +39,15 @@
 		EC7B5AFA1F136050002BF8F3 /* SABalanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AF91F136050002BF8F3 /* SABalanceVC.m */; };
 		EC7B5AFD1F136090002BF8F3 /* SABalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AFC1F136090002BF8F3 /* SABalanceCell.m */; };
 		EC7B5B001F1364E3002BF8F3 /* SABalanceHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7B5AFF1F1364E3002BF8F3 /* SABalanceHeaderView.m */; };
+		ECB9ABF81F170DCF00D9F8E3 /* SALoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB9ABF71F170DCF00D9F8E3 /* SALoginModel.m */; };
+		ECB9ABFB1F170E2D00D9F8E3 /* SAVerifyCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB9ABFA1F170E2D00D9F8E3 /* SAVerifyCodeModel.m */; };
+		ECB9ABFE1F17988500D9F8E3 /* SAConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB9ABFD1F17988500D9F8E3 /* SAConfigModel.m */; };
+		ECB9AC011F179AF200D9F8E3 /* SAUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB9AC001F179AF200D9F8E3 /* SAUserInfoModel.m */; };
+		ECB9AC041F186DED00D9F8E3 /* SADrawMoneyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB9AC031F186DED00D9F8E3 /* SADrawMoneyModel.m */; };
+		ECB9AC071F18765200D9F8E3 /* SAAccountDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB9AC061F18765200D9F8E3 /* SAAccountDetailModel.m */; };
+		ECB9AC0D1F18A26200D9F8E3 /* SARankingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB9AC0C1F18A26200D9F8E3 /* SARankingModel.m */; };
 		ECBBBD0C1F0E0F0C00479075 /* SAShareHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD0B1F0E0F0C00479075 /* SAShareHeaderView.m */; };
 		ECBBBD131F0E17D600479075 /* SAUser.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD121F0E17D600479075 /* SAUser.m */; };
-		ECBBBD151F0E1E9100479075 /* 11111.png in Resources */ = {isa = PBXBuildFile; fileRef = ECBBBD141F0E1E9100479075 /* 11111.png */; };
 		ECBBBD1A1F0E6ADA00479075 /* SARecruitScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD191F0E6ADA00479075 /* SARecruitScrollView.m */; };
 		ECBBBD1D1F0E6CB200479075 /* SARecruitTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBBBD1C1F0E6CB200479075 /* SARecruitTagView.m */; };
 		ECC98FEB1F14841B00481451 /* SADrawSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC98FEA1F14841B00481451 /* SADrawSuccessView.m */; };
@@ -104,6 +111,11 @@
 		ECE217AE1F10E5B3008BA7B4 /* SARankDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE217AD1F10E5B3008BA7B4 /* SARankDetailCell.m */; };
 		ECE217B21F10E976008BA7B4 /* SACleanUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE217B11F10E976008BA7B4 /* SACleanUpVC.m */; };
 		ECE217B51F10EBA4008BA7B4 /* SACleanUpContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE217B41F10EBA4008BA7B4 /* SACleanUpContentVC.m */; };
+		ECFF3FAB1F18A50E006AF85E /* SAUserAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF3FAA1F18A50E006AF85E /* SAUserAccountModel.m */; };
+		ECFF3FAE1F18A75A006AF85E /* SASignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF3FAD1F18A75A006AF85E /* SASignModel.m */; };
+		ECFF3FB11F18AC54006AF85E /* SAShareBountyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF3FB01F18AC54006AF85E /* SAShareBountyModel.m */; };
+		ECFF3FB41F18BE72006AF85E /* SAShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF3FB31F18BE72006AF85E /* SAShareManager.m */; };
+		ECFF3FB71F18CD23006AF85E /* SABalanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF3FB61F18CD23006AF85E /* SABalanceModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -155,6 +167,8 @@
 		EC62027D1F0F802500623709 /* SAMineCenterBalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMineCenterBalanceCell.m; sourceTree = "<group>"; };
 		EC62027F1F0F84F900623709 /* SAMineCenterFunctionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMineCenterFunctionCell.h; sourceTree = "<group>"; };
 		EC6202801F0F84F900623709 /* SAMineCenterFunctionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMineCenterFunctionCell.m; sourceTree = "<group>"; };
+		EC65FC7B1F1C4907002F1243 /* NSString+getQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+getQRCode.h"; sourceTree = "<group>"; };
+		EC65FC7C1F1C4907002F1243 /* NSString+getQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+getQRCode.m"; sourceTree = "<group>"; };
 		EC7B5AE31F131C93002BF8F3 /* SAMineAlertUIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMineAlertUIHelper.h; sourceTree = "<group>"; };
 		EC7B5AE41F131C93002BF8F3 /* SAMineAlertUIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMineAlertUIHelper.m; sourceTree = "<group>"; };
 		EC7B5AE81F132BC2002BF8F3 /* SAAboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAAboutUsVC.h; sourceTree = "<group>"; };
@@ -171,11 +185,24 @@
 		EC7B5AFC1F136090002BF8F3 /* SABalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SABalanceCell.m; sourceTree = "<group>"; };
 		EC7B5AFE1F1364E3002BF8F3 /* SABalanceHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SABalanceHeaderView.h; sourceTree = "<group>"; };
 		EC7B5AFF1F1364E3002BF8F3 /* SABalanceHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SABalanceHeaderView.m; sourceTree = "<group>"; };
+		ECB9ABF61F170DCF00D9F8E3 /* SALoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALoginModel.h; sourceTree = "<group>"; };
+		ECB9ABF71F170DCF00D9F8E3 /* SALoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALoginModel.m; sourceTree = "<group>"; };
+		ECB9ABF91F170E2D00D9F8E3 /* SAVerifyCodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAVerifyCodeModel.h; sourceTree = "<group>"; };
+		ECB9ABFA1F170E2D00D9F8E3 /* SAVerifyCodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAVerifyCodeModel.m; sourceTree = "<group>"; };
+		ECB9ABFC1F17988500D9F8E3 /* SAConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAConfigModel.h; sourceTree = "<group>"; };
+		ECB9ABFD1F17988500D9F8E3 /* SAConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAConfigModel.m; sourceTree = "<group>"; };
+		ECB9ABFF1F179AF200D9F8E3 /* SAUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAUserInfoModel.h; sourceTree = "<group>"; };
+		ECB9AC001F179AF200D9F8E3 /* SAUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAUserInfoModel.m; sourceTree = "<group>"; };
+		ECB9AC021F186DED00D9F8E3 /* SADrawMoneyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SADrawMoneyModel.h; sourceTree = "<group>"; };
+		ECB9AC031F186DED00D9F8E3 /* SADrawMoneyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SADrawMoneyModel.m; sourceTree = "<group>"; };
+		ECB9AC051F18765200D9F8E3 /* SAAccountDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAAccountDetailModel.h; sourceTree = "<group>"; };
+		ECB9AC061F18765200D9F8E3 /* SAAccountDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAAccountDetailModel.m; sourceTree = "<group>"; };
+		ECB9AC0B1F18A26200D9F8E3 /* SARankingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARankingModel.h; sourceTree = "<group>"; };
+		ECB9AC0C1F18A26200D9F8E3 /* SARankingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARankingModel.m; sourceTree = "<group>"; };
 		ECBBBD0A1F0E0F0C00479075 /* SAShareHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareHeaderView.h; sourceTree = "<group>"; };
 		ECBBBD0B1F0E0F0C00479075 /* SAShareHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareHeaderView.m; sourceTree = "<group>"; };
 		ECBBBD111F0E17D600479075 /* SAUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAUser.h; sourceTree = "<group>"; };
 		ECBBBD121F0E17D600479075 /* SAUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAUser.m; sourceTree = "<group>"; };
-		ECBBBD141F0E1E9100479075 /* 11111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11111.png; sourceTree = "<group>"; };
 		ECBBBD181F0E6ADA00479075 /* SARecruitScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitScrollView.h; sourceTree = "<group>"; };
 		ECBBBD191F0E6ADA00479075 /* SARecruitScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARecruitScrollView.m; sourceTree = "<group>"; };
 		ECBBBD1B1F0E6CB200479075 /* SARecruitTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitTagView.h; sourceTree = "<group>"; };
@@ -309,6 +336,16 @@
 		ECE217B11F10E976008BA7B4 /* SACleanUpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACleanUpVC.m; sourceTree = "<group>"; };
 		ECE217B31F10EBA4008BA7B4 /* SACleanUpContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SACleanUpContentVC.h; sourceTree = "<group>"; };
 		ECE217B41F10EBA4008BA7B4 /* SACleanUpContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SACleanUpContentVC.m; sourceTree = "<group>"; };
+		ECFF3FA91F18A50E006AF85E /* SAUserAccountModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAUserAccountModel.h; sourceTree = "<group>"; };
+		ECFF3FAA1F18A50E006AF85E /* SAUserAccountModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAUserAccountModel.m; sourceTree = "<group>"; };
+		ECFF3FAC1F18A75A006AF85E /* SASignModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASignModel.h; sourceTree = "<group>"; };
+		ECFF3FAD1F18A75A006AF85E /* SASignModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SASignModel.m; sourceTree = "<group>"; };
+		ECFF3FAF1F18AC54006AF85E /* SAShareBountyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareBountyModel.h; sourceTree = "<group>"; };
+		ECFF3FB01F18AC54006AF85E /* SAShareBountyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareBountyModel.m; sourceTree = "<group>"; };
+		ECFF3FB21F18BE72006AF85E /* SAShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAShareManager.h; sourceTree = "<group>"; };
+		ECFF3FB31F18BE72006AF85E /* SAShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAShareManager.m; sourceTree = "<group>"; };
+		ECFF3FB51F18CD23006AF85E /* SABalanceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SABalanceModel.h; sourceTree = "<group>"; };
+		ECFF3FB61F18CD23006AF85E /* SABalanceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SABalanceModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,15 +483,15 @@
 		EC5847301F0A52CC00FEBDC5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				ECDC0EAD1F0C8FA9002DBDA9 /* Extension */,
-				ECDC0EAE1F0C8FA9002DBDA9 /* Payment */,
-				ECDC0EAF1F0C8FA9002DBDA9 /* System */,
 				ECDC0EBC1F0C91BF002DBDA9 /* SAConfiguration.h */,
 				ECDC0EBD1F0C91BF002DBDA9 /* SAConfiguration.m */,
 				ECDC0EBF1F0C9285002DBDA9 /* SAHudManager.h */,
 				ECDC0EC01F0C9285002DBDA9 /* SAHudManager.m */,
 				ECDC0EC21F0C9395002DBDA9 /* SAUtil.h */,
 				ECDC0EC31F0C9395002DBDA9 /* SAUtil.m */,
+				ECDC0EAD1F0C8FA9002DBDA9 /* Extension */,
+				ECDC0EAE1F0C8FA9002DBDA9 /* Payment */,
+				ECDC0EAF1F0C8FA9002DBDA9 /* System */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -462,7 +499,6 @@
 		EC5847321F0A52CC00FEBDC5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ECBBBD141F0E1E9100479075 /* 11111.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -513,6 +549,8 @@
 				EC7B5AFC1F136090002BF8F3 /* SABalanceCell.m */,
 				EC7B5AFE1F1364E3002BF8F3 /* SABalanceHeaderView.h */,
 				EC7B5AFF1F1364E3002BF8F3 /* SABalanceHeaderView.m */,
+				ECFF3FB51F18CD23006AF85E /* SABalanceModel.h */,
+				ECFF3FB61F18CD23006AF85E /* SABalanceModel.m */,
 			);
 			path = SAMineBalance;
 			sourceTree = "<group>";
@@ -545,6 +583,10 @@
 				ECBBBD121F0E17D600479075 /* SAUser.m */,
 				EC60C6D81F162F850004477D /* SARegisterModel.h */,
 				EC60C6D91F162F850004477D /* SARegisterModel.m */,
+				ECB9ABF61F170DCF00D9F8E3 /* SALoginModel.h */,
+				ECB9ABF71F170DCF00D9F8E3 /* SALoginModel.m */,
+				ECB9ABF91F170E2D00D9F8E3 /* SAVerifyCodeModel.h */,
+				ECB9ABFA1F170E2D00D9F8E3 /* SAVerifyCodeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -587,6 +629,8 @@
 		ECDC0E841F0C8972002DBDA9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ECFF3FAC1F18A75A006AF85E /* SASignModel.h */,
+				ECFF3FAD1F18A75A006AF85E /* SASignModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -619,6 +663,8 @@
 		ECDC0E881F0C8972002DBDA9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ECFF3FA91F18A50E006AF85E /* SAUserAccountModel.h */,
+				ECFF3FAA1F18A50E006AF85E /* SAUserAccountModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -651,6 +697,8 @@
 				ECDC0EFE1F0CE372002DBDA9 /* SAShareModel.m */,
 				ECDC0F031F0DD7BA002DBDA9 /* SAShareContentModel.h */,
 				ECDC0F041F0DD7BA002DBDA9 /* SAShareContentModel.m */,
+				ECFF3FAF1F18AC54006AF85E /* SAShareBountyModel.h */,
+				ECFF3FB01F18AC54006AF85E /* SAShareBountyModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -740,6 +788,8 @@
 				ECDC0ECA1F0C9496002DBDA9 /* NSString+Size.m */,
 				ECC98FF31F14E53F00481451 /* NSString+dataEncrypt.h */,
 				ECC98FF41F14E53F00481451 /* NSString+dataEncrypt.m */,
+				EC65FC7B1F1C4907002F1243 /* NSString+getQRCode.h */,
+				EC65FC7C1F1C4907002F1243 /* NSString+getQRCode.m */,
 				ECDC0ECB1F0C9496002DBDA9 /* UIImage+Blur.h */,
 				ECDC0ECC1F0C9496002DBDA9 /* UIImage+Blur.m */,
 				ECDC0ECD1F0C9496002DBDA9 /* UIImage+Resource.h */,
@@ -771,6 +821,10 @@
 				EC60C6C71F15B3A00004477D /* SAReqManager.m */,
 				EC60C6D51F162C950004477D /* SAActivateModel.h */,
 				EC60C6D61F162C950004477D /* SAActivateModel.m */,
+				ECB9ABFC1F17988500D9F8E3 /* SAConfigModel.h */,
+				ECB9ABFD1F17988500D9F8E3 /* SAConfigModel.m */,
+				ECFF3FB21F18BE72006AF85E /* SAShareManager.h */,
+				ECFF3FB31F18BE72006AF85E /* SAShareManager.m */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -802,6 +856,8 @@
 				ECDEAA8C1F1074DF00EB8829 /* SAMineUserInfoHeaderView.m */,
 				ECDEAA881F1072C400EB8829 /* SAMineUserInfoCell.h */,
 				ECDEAA891F1072C400EB8829 /* SAMineUserInfoCell.m */,
+				ECB9ABFF1F179AF200D9F8E3 /* SAUserInfoModel.h */,
+				ECB9AC001F179AF200D9F8E3 /* SAUserInfoModel.m */,
 			);
 			path = SAMineUserInfo;
 			sourceTree = "<group>";
@@ -876,6 +932,8 @@
 				ECE217991F10D014008BA7B4 /* SADrawMoneyDetailVC.m */,
 				ECE2179B1F10D348008BA7B4 /* SADrawMoneyCell.h */,
 				ECE2179C1F10D348008BA7B4 /* SADrawMoneyCell.m */,
+				ECB9AC021F186DED00D9F8E3 /* SADrawMoneyModel.h */,
+				ECB9AC031F186DED00D9F8E3 /* SADrawMoneyModel.m */,
 			);
 			path = SAMineDrawMoney;
 			sourceTree = "<group>";
@@ -887,6 +945,8 @@
 				ECE217A01F10DC26008BA7B4 /* SAAccountDetailVC.m */,
 				ECE217A21F10DE69008BA7B4 /* SAAccountDetailCell.h */,
 				ECE217A31F10DE69008BA7B4 /* SAAccountDetailCell.m */,
+				ECB9AC051F18765200D9F8E3 /* SAAccountDetailModel.h */,
+				ECB9AC061F18765200D9F8E3 /* SAAccountDetailModel.m */,
 			);
 			path = SAMineAccountDetail;
 			sourceTree = "<group>";
@@ -900,6 +960,8 @@
 				ECE217AA1F10E524008BA7B4 /* SARankDetailVC.m */,
 				ECE217AC1F10E5B3008BA7B4 /* SARankDetailCell.h */,
 				ECE217AD1F10E5B3008BA7B4 /* SARankDetailCell.m */,
+				ECB9AC0B1F18A26200D9F8E3 /* SARankingModel.h */,
+				ECB9AC0C1F18A26200D9F8E3 /* SARankingModel.m */,
 			);
 			path = SAMineRankList;
 			sourceTree = "<group>";
@@ -977,7 +1039,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECBBBD151F0E1E9100479075 /* 11111.png in Resources */,
 				ECDC0EBA1F0C901A002DBDA9 /* config.plist in Resources */,
 				ECE217821F107F13008BA7B4 /* version.json in Resources */,
 				EC5847191F0A44B400FEBDC5 /* Assets.xcassets in Resources */,
@@ -1059,16 +1120,21 @@
 				ECDC0EAA1F0C8E14002DBDA9 /* JKDBHelper.m in Sources */,
 				EC60C6C81F15B3A00004477D /* SAReqManager.m in Sources */,
 				EC5847381F0A691700FEBDC5 /* SANavigationController.m in Sources */,
+				ECFF3FAB1F18A50E006AF85E /* SAUserAccountModel.m in Sources */,
+				EC65FC7D1F1C4908002F1243 /* NSString+getQRCode.m in Sources */,
 				ECE2179A1F10D014008BA7B4 /* SADrawMoneyDetailVC.m in Sources */,
 				EC6202781F0F7BBB00623709 /* SAMineCenterUserInfoCell.m in Sources */,
+				ECB9ABFE1F17988500D9F8E3 /* SAConfigModel.m in Sources */,
 				ECDC0EC11F0C9285002DBDA9 /* SAHudManager.m in Sources */,
 				ECDC0EC41F0C9395002DBDA9 /* SAUtil.m in Sources */,
+				ECFF3FB11F18AC54006AF85E /* SAShareBountyModel.m in Sources */,
 				EC05A8771F138B5900810F51 /* SARegisterInfoView.m in Sources */,
 				ECBBBD0C1F0E0F0C00479075 /* SAShareHeaderView.m in Sources */,
 				ECDC0EF91F0CE09E002DBDA9 /* QBNetworkInfo.m in Sources */,
 				EC58470E1F0A44B400FEBDC5 /* main.m in Sources */,
 				ECE2177A1F107F13008BA7B4 /* POSFastAssetReader.m in Sources */,
 				ECE217B21F10E976008BA7B4 /* SACleanUpVC.m in Sources */,
+				ECFF3FB41F18BE72006AF85E /* SAShareManager.m in Sources */,
 				EC7B5AFA1F136050002BF8F3 /* SABalanceVC.m in Sources */,
 				ECDC0F0B1F0DE450002DBDA9 /* SAShareAllContentCell.m in Sources */,
 				ECDC0F051F0DD7BA002DBDA9 /* SAShareContentModel.m in Sources */,
@@ -1078,6 +1144,7 @@
 				ECDC0EAB1F0C8E14002DBDA9 /* JKDBModel.m in Sources */,
 				ECDC0EBE1F0C91BF002DBDA9 /* SAConfiguration.m in Sources */,
 				EC7B5AFD1F136090002BF8F3 /* SABalanceCell.m in Sources */,
+				ECB9AC071F18765200D9F8E3 /* SAAccountDetailModel.m in Sources */,
 				EC7B5AE51F131C93002BF8F3 /* SAMineAlertUIHelper.m in Sources */,
 				ECDC0EDB1F0C9496002DBDA9 /* NSString+Size.m in Sources */,
 				ECDC0F081F0DE399002DBDA9 /* SAShareAllContentVC.m in Sources */,
@@ -1088,16 +1155,20 @@
 				EC60C6C51F15B29C0004477D /* QBDataResponse.m in Sources */,
 				ECE217741F107F13008BA7B4 /* ALAssetsLibrary+POS.m in Sources */,
 				ECE217A81F10E4F6008BA7B4 /* SARankListVC.m in Sources */,
+				ECFF3FB71F18CD23006AF85E /* SABalanceModel.m in Sources */,
 				EC7B5AF01F132E11002BF8F3 /* SARecruitInfoCell.m in Sources */,
 				ECBBBD1A1F0E6ADA00479075 /* SARecruitScrollView.m in Sources */,
 				ECDEAA8A1F1072C400EB8829 /* SAMineUserInfoCell.m in Sources */,
+				ECB9AC0D1F18A26200D9F8E3 /* SARankingModel.m in Sources */,
 				EC05A86E1F1376F800810F51 /* SATextField.m in Sources */,
+				ECFF3FAE1F18A75A006AF85E /* SASignModel.m in Sources */,
 				EC05A8741F1379A600810F51 /* SALoginInfoView.m in Sources */,
 				ECC98FF81F15028700481451 /* NSObject+BaseRepresentation.m in Sources */,
 				ECC98FEE1F14AD1400481451 /* SABingdingWxView.m in Sources */,
 				ECDC0F021F0DC6E1002DBDA9 /* SAShareContentCell.m in Sources */,
 				ECDC0EDF1F0C9496002DBDA9 /* UIView+FrameEx.m in Sources */,
 				EC7B5AED1F132DE7002BF8F3 /* SARecruitInfoVC.m in Sources */,
+				ECB9ABFB1F170E2D00D9F8E3 /* SAVerifyCodeModel.m in Sources */,
 				EC05A86B1F1376A300810F51 /* SALoginViewController.m in Sources */,
 				ECE217771F107F13008BA7B4 /* POSAdjustedAssetReaderIOS8.m in Sources */,
 				ECE217791F107F13008BA7B4 /* POSBlobInputStreamAssetDataSource.m in Sources */,
@@ -1107,6 +1178,7 @@
 				EC6202711F0F6CCA00623709 /* SADetailFooterView.m in Sources */,
 				ECBBBD1D1F0E6CB200479075 /* SARecruitTagView.m in Sources */,
 				ECE217A11F10DC26008BA7B4 /* SAAccountDetailVC.m in Sources */,
+				ECB9AC041F186DED00D9F8E3 /* SADrawMoneyModel.m in Sources */,
 				ECE217751F107F13008BA7B4 /* NSInputStream+POS.m in Sources */,
 				EC60C6D71F162C950004477D /* SAActivateModel.m in Sources */,
 				ECDEAA8D1F1074DF00EB8829 /* SAMineUserInfoHeaderView.m in Sources */,
@@ -1122,12 +1194,14 @@
 				ECDC0EE21F0C9496002DBDA9 /* UIView+RoundCorner.m in Sources */,
 				EC58473E1F0A695200FEBDC5 /* SATabBarController.m in Sources */,
 				ECE217AE1F10E5B3008BA7B4 /* SARankDetailCell.m in Sources */,
+				ECB9ABF81F170DCF00D9F8E3 /* SALoginModel.m in Sources */,
 				EC6202811F0F84F900623709 /* SAMineCenterFunctionCell.m in Sources */,
 				ECC98FF51F14E53F00481451 /* NSString+dataEncrypt.m in Sources */,
 				ECDC0EDE1F0C9496002DBDA9 /* UIScrollView+Refresh.m in Sources */,
 				EC60C6DA1F162F850004477D /* SARegisterModel.m in Sources */,
 				ECDC0EE01F0C9496002DBDA9 /* UIView+Loading.m in Sources */,
 				EC7B5AEA1F132BC2002BF8F3 /* SAAboutUsVC.m in Sources */,
+				ECB9AC011F179AF200D9F8E3 /* SAUserInfoModel.m in Sources */,
 				EC62026E1F0F3D8600623709 /* SAShareDetailVC.m in Sources */,
 				ECE2177E1F107F13008BA7B4 /* QiniuMultipartElement.m in Sources */,
 				ECE217761F107F13008BA7B4 /* POSAdjustedAssetReaderIOS7.m in Sources */,
@@ -1162,6 +1236,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1211,6 +1286,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

@@ -47,8 +47,8 @@
     return self;
 }
 
-- (void)setPrice:(NSString *)price {
-    _priceLabel.text = [NSString stringWithFormat:@"%@元",price];
+- (void)setPrice:(NSInteger)price {
+    _priceLabel.text = [NSString stringWithFormat:@"%ld元",price/100];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

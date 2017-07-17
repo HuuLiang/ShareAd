@@ -10,4 +10,11 @@
 
 @interface SADrawMoneyDetailVC : SABaseViewController
 
+- (instancetype)initWithStatus:(NSString *)status;
+
 @end
+
+extern NSString *const kSADrawMoneyStatusAllKeyName;
+extern NSString *const kSADrawMoneyStatusProcessing;
+extern NSString *const kSADrawMoneyStatusSuccess;
+extern NSString *const kSADrawMoneyStatusFailed;

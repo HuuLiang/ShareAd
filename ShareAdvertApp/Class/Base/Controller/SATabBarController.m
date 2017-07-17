@@ -14,6 +14,8 @@
 #import "SARecruitViewController.h"
 #import "SAMineViewController.h"
 
+#import "SAReqManager.h"
+#import "SAConfigModel.h"
 
 @interface SATabBarController () <UITabBarControllerDelegate>
 
@@ -33,6 +35,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self fetchSystemConfigInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(login) name:kSAUserLoginNotification object:nil];
 }
 
@@ -61,10 +64,21 @@
     self.viewControllers = @[shareNav,recruitNav,mineNav];
 }
 
+- (void)fetchSystemConfigInfo {
+    [[SAReqManager manager] fetchConfigInfoClass:[SAConfigModel class] handler:^(BOOL success, SAConfigModel * obj) {
+        if (success) {
+            [SAConfigModel defaultConfig].config = obj.config;
+            NSLog(@"系统配置获取成功");
+        }
+    }];
+}
+
 - (void)login {
     SALoginViewController *loginVC = [[SALoginViewController alloc] initWithTitle:@"登录"];
     SANavigationController *loginNav = [[SANavigationController alloc] initWithRootViewController:loginVC];
-    [self presentViewController:loginNav animated:loginNav completion:nil];
+    if (!self.presentedViewController) {
+        [self presentViewController:loginNav animated:loginNav completion:nil];
+    }
 }
 
 @end

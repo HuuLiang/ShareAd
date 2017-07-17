@@ -8,8 +8,10 @@
 
 #import "SABaseViewController.h"
 
+@class SAShareContentProgramModel;
+
 @interface SAShareDetailVC : SABaseViewController
 
-- (instancetype)initWithUrl:(NSString *)urlStr;
+- (instancetype)initWithInfo:(SAShareContentProgramModel *)programModel;
 
 @end

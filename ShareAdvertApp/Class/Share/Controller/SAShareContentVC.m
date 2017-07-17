@@ -11,6 +11,8 @@
 #import "SAShareContentModel.h"
 #import "SAReqManager.h"
 #import "SAShareDetailVC.h"
+#import "SAShareManager.h"
+#import "SAMineAlertUIHelper.h"
 
 static NSString *const kSAShareContentCellReusableIdentifier = @"kSAShareContentCellReusableIdentifier";
 
@@ -34,6 +36,8 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = kColor(@"#ffffff");
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.delegate = self;
@@ -76,6 +80,14 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
     _tableView.scrollEnabled = enableScroll;
 }
 
+- (void)startToShareContentWithProgramModel:(SAShareContentProgramModel *)programModel {
+    if (![SAUtil checkUserIsLogin]) {
+        [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeShareOffline onCurrentVC:self];
+    } else {
+        [[SAShareManager manager] startToShareWithModel:programModel];
+    }
+}
+
 - (void)fetchSourceWithColumnId:(NSString *)columnId {
     @weakify(self);
     [[SAReqManager manager] fetchShareListWithColumnId:_columnId class:[SAShareContentResponse class] handler:^(BOOL success, id obj) {
@@ -103,6 +115,11 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
         cell.title = programModel.title;
         cell.price = [NSString stringWithFormat:@"高价  %@元/阅读",programModel.shAmount];
         cell.read = [NSString stringWithFormat:@"阅读:%@",programModel.readNumber];
+        @weakify(self);
+        cell.shareAction = ^{
+            @strongify(self);
+            [self startToShareContentWithProgramModel:programModel];
+        };
     }
     return cell;
 }
@@ -114,7 +131,7 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SAShareContentProgramModel *programModel = self.response.shares[indexPath.row];
     if (indexPath.row < self.response.shares.count) {
-        SAShareDetailVC *detailVC = [[SAShareDetailVC alloc] initWithUrl:programModel.shUrl];
+        SAShareDetailVC *detailVC = [[SAShareDetailVC alloc] initWithInfo:programModel];
         [self.navigationController pushViewController:detailVC animated:YES];
     }
 }

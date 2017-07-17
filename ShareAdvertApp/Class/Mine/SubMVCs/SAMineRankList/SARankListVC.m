@@ -28,8 +28,10 @@
     _sliderView.titlesArr = titles;
     [self.view addSubview:_sliderView];
     
+    NSInteger count = 0;
     for (NSString *title in titles) {
-        SARankDetailVC *detailVC = [[SARankDetailVC alloc] init];
+        count++;
+        SARankDetailVC *detailVC = [[SARankDetailVC alloc] initWithType:count];
         [_sliderView addChildViewController:detailVC title:title];
     }
     [_sliderView setSlideHeadView];

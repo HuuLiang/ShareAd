@@ -9,6 +9,8 @@
 #import "SALoginViewController.h"
 #import "SALoginInfoView.h"
 #import "SARegisterViewController.h"
+#import "SAReqManager.h"
+#import "SALoginModel.h"
 
 @interface SALoginViewController ()
 @property (nonatomic) SALoginInfoView *loginInfoView;
@@ -82,13 +84,28 @@
     @weakify(self);
     [_loginButton bk_addEventHandler:^(id sender) {
         @strongify(self);
+        [[SAReqManager manager] loginWithPhontNumber:self.loginInfoView.phoneNumber
+                                            password:self.loginInfoView.password
+                                               class:[SALoginModel class]
+                                             handler:^(BOOL success, SALoginModel * obj)
+        {
+            if (success) {
+                [[SAUser user] setValueWithObj:obj.user];
+                
+                if ([[SAUser user] saveOrUpdate]) {
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginSuccessNotification object:nil];
+                    }];
+                }
+            }
+        }];
         
     } forControlEvents:UIControlEventTouchUpInside];
     
-    [_forgotLabel bk_whenTapped:^{
-        @strongify(self);
+//    [_forgotLabel bk_whenTapped:^{
+//        @strongify(self);
         
-    }];
+//    }];
     
     [_registerLabel bk_whenTapped:^{
         @strongify(self);

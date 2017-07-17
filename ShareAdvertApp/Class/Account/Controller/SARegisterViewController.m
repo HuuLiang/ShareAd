@@ -8,6 +8,8 @@
 
 #import "SARegisterViewController.h"
 #import "SARegisterInfoView.h"
+#import "SAReqManager.h"
+#import "SARegisterModel.h"
 
 @interface SARegisterViewController ()
 @property (nonatomic) SARegisterInfoView *registerInfoView;
@@ -34,6 +36,7 @@
 
 - (void)configRegisterInfoView {
     self.registerInfoView = [[SARegisterInfoView alloc] init];
+    
     [self.view addSubview:_registerInfoView];
     
     {
@@ -65,6 +68,15 @@
     @weakify(self);
     [_confirmButton bk_addEventHandler:^(id sender) {
         @strongify(self);
+        [SAUser user].phone = self.registerInfoView.phoneNumber;
+        [SAUser user].password = self.registerInfoView.password;
+        [SAUser user].verifyCode = self.registerInfoView.verifyCode;
+        [SAUser user].nickName = self.registerInfoView.nickName;
+        
+        [[SAReqManager manager] registerUserWithInfo:[SAUser user] class:[SARegisterModel class] handler:^(BOOL success, SARegisterModel * obj) {
+            [SAUser user].userId = obj.userId;
+            [[SAUser user] saveOrUpdate];
+        }];
         
     } forControlEvents:UIControlEventTouchUpInside];
     

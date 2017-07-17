@@ -62,26 +62,17 @@
     return self;
 }
 
-- (void)setIncomeStatus:(SAMineAccountDetailStatus)incomeStatus {
-    switch (incomeStatus) {
-        case SAMineAccountDetailStatusRegister:
-            _statusLabel.text = @"注册奖励";
-            break;
-        case SAMineAccountDetailStatusSignIn:
-            _statusLabel.text = @"签到奖励";
-            break;
-        case SAMineAccountDetailStatusShare:
-            _statusLabel.text = @"分享奖励";
-            break;
-        case SAMineAccountDetailStatusRecruit:
-            _statusLabel.text = @"招募奖励";
-            break;
-        case SAMineAccountDetailStatusRevenue:
-            _statusLabel.text = @"分成奖励";
-            break;
-            
-        default:
-            break;
+- (void)setType:(NSString *)type {
+    if ([type isEqualToString:@"REGISTER"]) {
+        _statusLabel.text = @"注册奖励";
+    } else if ([type isEqualToString:@"SIGN"]) {
+        _statusLabel.text = @"签到奖励";
+    } else if ([type isEqualToString:@"APPRENTICE"]) {
+        _statusLabel.text = @"招募奖励";
+    } else if ([type isEqualToString:@"SHARE"]) {
+        _statusLabel.text = @"分享奖励";
+    } else if ([type isEqualToString:@"WITHDRAW"]) {
+        _statusLabel.text = @"分成奖励";
     }
 }
 

@@ -8,8 +8,14 @@
 
 #import "SABaseViewController.h"
 
+@class SAShareColumnModel;
+
 @interface SAShareAllContentVC : SABaseViewController
 
-+ (void)showAllContentVCInCurrentVC:(UIViewController *)currentVC;
++ (void)showAllContentVCWithDataSource:(NSArray *)dataSource height:(CGFloat)height InCurrentVC:(UIViewController *)currentVC;
+
+@property (nonatomic) NSArray <SAShareColumnModel *> *dataSource;
+
+@property (nonatomic) CGFloat height;
 
 @end

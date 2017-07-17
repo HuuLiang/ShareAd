@@ -10,8 +10,8 @@
 
 @interface SAShareHeaderView : UIView
 
-@property (nonatomic) NSString *balance;
-@property (nonatomic) NSString *toRecruit;
-@property (nonatomic) NSString *toEarnings;
+@property (nonatomic) NSInteger balance;
+@property (nonatomic) NSInteger toRecruit;
+@property (nonatomic) NSInteger toEarnings;
 
 @end

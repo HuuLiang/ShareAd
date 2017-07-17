@@ -9,19 +9,22 @@
 #import "SAShareDetailVC.h"
 #import "SADetailFooterView.h"
 #import "SAMineAlertUIHelper.h"
+#import "SAShareContentModel.h"
+#import "SAShareManager.h"
+#import "SAAboutUsVC.h"
 
 @interface SAShareDetailVC () <UIWebViewDelegate>
 @property (nonatomic) UIWebView *shareDetailView;
-@property (nonatomic) NSString *urlStr;
+@property (nonatomic) SAShareContentProgramModel *programModel;
 @property (nonatomic) SADetailFooterView *footerView;
 @end
 
 @implementation SAShareDetailVC
 
-- (instancetype)initWithUrl:(NSString *)urlStr {
+- (instancetype)initWithInfo:(SAShareContentProgramModel *)programModel {
     self = [super init];
     if (self) {
-        _urlStr = urlStr;
+        _programModel = programModel;
     }
     return self;
 }
@@ -40,8 +43,8 @@
         }];
     }
     
-    if (_urlStr.length > 0) {
-        [_shareDetailView loadHTMLString:_urlStr baseURL:nil];
+    if (_programModel.shUrl.length > 0) {
+        [_shareDetailView loadHTMLString:_programModel.shUrl baseURL:nil];
     } else {
         [self showError];
     }
@@ -67,7 +70,8 @@
     
     _footerView.ruleAction = ^{
         @strongify(self);
-        
+        SAAboutUsVC *aboutUsVC = [[SAAboutUsVC alloc] initWithUrl:[NSString stringWithFormat:@"%@%@",SA_BASE_URL,SA_RULE_URL]];
+        [self.navigationController pushViewController:aboutUsVC animated:YES];
     };
     
     _footerView.shareAction = ^{
@@ -87,7 +91,7 @@
     if (![SAUtil checkUserIsLogin]) {
         [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeShareOffline onCurrentVC:self];
     } else {
-        
+        [[SAShareManager manager] startToShareWithModel:_programModel];
     }
 }
 

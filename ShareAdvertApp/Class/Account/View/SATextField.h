@@ -12,4 +12,8 @@
 
 - (instancetype)initWithTitle:(NSString *)title placeholder:(NSString *)placeholder;
 
+@property (nonatomic,readonly,nullable) NSString *text;
+
+@property (nonatomic) UIKeyboardType keyboardType;
+
 @end

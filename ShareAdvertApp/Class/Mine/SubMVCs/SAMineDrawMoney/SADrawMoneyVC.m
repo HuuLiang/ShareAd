@@ -25,13 +25,17 @@
     _sliderView.imageBackViewFrame = CGRectMake(10, kWidth(80) - 3.5, 85, 3);
     
     NSArray *titles = @[@"全部记录",@"正在处理",@"提现成功",@"提现失败"];
+    NSArray *statusKeys = @[kSADrawMoneyStatusAllKeyName,kSADrawMoneyStatusProcessing,kSADrawMoneyStatusSuccess,kSADrawMoneyStatusFailed];
     _sliderView.titlesArr = titles;
     [self.view addSubview:_sliderView];
     
-    for (NSString *title in titles) {
-        SADrawMoneyDetailVC *contentVC = [[SADrawMoneyDetailVC alloc] init];
+    for (NSInteger i = 0; i < titles.count; i++) {
+        NSString *title = titles[i];
+        NSString *status = statusKeys[i];
+        SADrawMoneyDetailVC *contentVC = [[SADrawMoneyDetailVC alloc] initWithStatus:status];
         [_sliderView addChildViewController:contentVC title:title];
     }
+    
     [_sliderView setSlideHeadView];
 }
 

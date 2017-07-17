@@ -9,11 +9,13 @@
 #import "SAMineAlertUIHelper.h"
 #import "SADrawSuccessView.h"
 #import "SABingdingWxView.h"
+#import "SAConfigModel.h"
 
 @interface SAMineAlertUIHelper ()
 @property (nonatomic) SAMineAlertType type;
 @property (nonatomic) SADrawSuccessView *drawView;
 @property (nonatomic) SABingdingWxView *bindingView;
+@property (nonatomic) BOOL touchHide;
 @end
 
 @implementation SAMineAlertUIHelper
@@ -33,6 +35,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.touchHide = NO;
     
     switch (_type) {
         case SAMineAlertTypeNetworkError:
@@ -59,6 +63,11 @@
             
         case SAMineAlertTypeBingding:
             [self showBingding];
+            break;
+            
+        case  SAMineAlertTypeQRCode:
+            self.touchHide = YES;
+            [self showQRCode];
             break;
             
         default:
@@ -90,7 +99,11 @@
     [currentVC addChildViewController:self];
     self.view.frame = currentVC.view.bounds;
     self.view.alpha = 0;
-    self.view.backgroundColor = [kColor(@"#000000") colorWithAlphaComponent:0.5];
+    if (_type == SAMineAlertTypeShareOffline || _type == SAMineAlertTypeRecruitOffline || _type == SAMineAlertTypeMineCenterOffline) {
+        
+    } else {
+        self.view.backgroundColor = [kColor(@"#000000") colorWithAlphaComponent:0.5];
+    }
     [currentVC.view addSubview:self.view];
     [self didMoveToParentViewController:currentVC];
     
@@ -100,7 +113,9 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    [self hide];
+    if (self.touchHide) {
+        [self hide];
+    }
 }
 
 - (void)dealloc {
@@ -157,7 +172,9 @@
      {
          [self hide];
          if (buttonIndex == 1) {
-             [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginNotification object:nil];
+//             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                 [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginNotification object:nil];
+//             });
          }
      }];
 }
@@ -226,6 +243,20 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kSABindingWxNotification object:nil];
         });
     };
+}
+
+- (void)showQRCode {
+    NSString *recruitUrl = [NSString stringWithFormat:@"%@?userId=%@",[SAConfigModel defaultConfig].config.AP_URL,[SAUser user].userId];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[recruitUrl getQRCode]];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.userInteractionEnabled = YES;
+    [self.view addSubview:imageView];
+    
+    {
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+    }
 }
 
 @end

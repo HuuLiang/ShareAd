@@ -29,8 +29,23 @@
 #define SA_STANDBY_BASE_URL            @""
 #define SA_ACTIVATE_URL                @"/share/activat.htm"
 #define SA_REGISTER_URL                @"/share/register.htm"
+#define SA_CONFIG_URL                  @"/share/config.htm"
+#define SA_LOGIN_URL                   @"/share/login.htm"
+#define SA_USERINFO_URL                @"/share/user.htm"
+#define SA_UPDATEUSER_URL              @"/share/updateUser.htm"
 #define SA_SHARECOLUMN_URL             @"/share/column.htm"
 #define SA_SHARELIST_URL               @"/share/shareList.htm"
+#define SA_QUERYWITHDRAW_URL           @"/share/queryWithdraw.htm"
+#define SA_QUERYACCOUNT_URL            @"/share/queryAccounting.htm"
+#define SA_RANKING_URL                 @"/share/ranking.htm"
+#define SA_ACCOUNT_URL                 @"/share/account.htm"
+#define SA_SHAREBOUNTY_URL             @"/share/shareBounty.htm"
+#define SA_SIGN_URL                    @"/share/sign.htm"
+#define SA_WITHDRAW_URL                @"/share/withdraw.htm"
+#define SA_ABOUNTUS_URL                @"/share/aboutus.html"
+#define SA_APPRENTICEMM_URL            @"/share/apprenticemm.html"
+#define SA_RULE_URL                    @"/share/rule.html"
+#define SA_SHAREMM_URL                 @"/share/sharemm.html"
 
 //secret
 #define SA_ENCRYPT_PASSWORD            @"qb%Fr@2016_&"
@@ -39,9 +54,9 @@
 #define SA_UMENG_APP_ID                @"5914208be88bad6c13000e6e"
 
 //微信
-#define SA_WEXIN_APP_ID                @"wx2b2846687e296e95"
+#define SA_WEXIN_APP_ID                @"wx077ffc9a06be35f4"
 #define SA_WECHAT_TOKEN                @"https://api.weixin.qq.com/sns/oauth2/access_token?"
-#define SA_WECHAT_SECRET               @"0a4e146c0c399b706514f22ad2f1e078"
+#define SA_WECHAT_SECRET               @"bd21431991f8725c6befca233fca8cd3"
 #define SA_WECHAT_USERINFO             @"https://api.weixin.qq.com/sns/userinfo?"
 
 //七牛图片

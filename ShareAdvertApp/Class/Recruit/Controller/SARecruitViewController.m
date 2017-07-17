@@ -9,6 +9,9 @@
 #import "SARecruitViewController.h"
 #import "SARecruitScrollView.h"
 #import "SAMineAlertUIHelper.h"
+#import "SAReqManager.h"
+#import "SAUserAccountModel.h"
+#import "SAShareManager.h"
 
 @interface SARecruitViewController ()
 @property (nonatomic) SARecruitScrollView *recruitScrollView;
@@ -19,12 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configRecruitContent];
+    [self fetchUserAccountInfo];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshRecruitScrollView) name:kSARefreshAccountInfoNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -33,21 +37,55 @@
     if (![SAUtil checkUserIsLogin]) {
         [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeRecruitOffline onCurrentVC:self];
     }
-    _recruitScrollView.hidden = ![SAUtil checkUserIsLogin];
+}
+
+- (void)fetchUserAccountInfo {
+    @weakify(self);
+    [[SAReqManager manager] fetchUserAccountInfoWithClass:[SAUserAccountModel class] handler:^(BOOL success, SAUserAccountModel * obj) {
+        @strongify(self);
+        if (success) {
+            [SAUserAccountModel account].account = obj.account;
+            [self configRecruitContent];
+        }
+    }];
+}
+
+- (void)refreshRecruitScrollView {
+    [SAUser user].amount = [SAUserAccountModel account].account.amount;
+    [[SAUser user] saveOrUpdate];
+    if (_recruitScrollView) {
+        _recruitScrollView.toRecruitCount = [SAUserAccountModel account].account.todayApNumber;
+        _recruitScrollView.allRecruitCount = [SAUserAccountModel account].account.apNumber;
+        _recruitScrollView.toBalanceCount = [SAUserAccountModel account].account.apDiAmount;
+        _recruitScrollView.allBalanceCount = [SAUserAccountModel account].account.apAmount;
+    }
 }
 
 - (void)configRecruitContent {
-    self.recruitScrollView = [[SARecruitScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    [self.view addSubview:_recruitScrollView];
+    if (!_recruitScrollView) {
+        self.recruitScrollView = [[SARecruitScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        [self.view addSubview:_recruitScrollView];
+        
+        @weakify(self);
+        _recruitScrollView.startRecruitAction = ^{
+            @strongify(self);
+            [[SAShareManager manager] startToRecruitUrlWoWx];
+        };
+        
+        _recruitScrollView.QRCodeRecruitAction = ^{
+            @strongify(self);
+            [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeQRCode onCurrentVC:self];
+        };
+        
+        _recruitScrollView.hidden = ![SAUtil checkUserIsLogin];
+    }
+    [SAUser user].amount = [SAUserAccountModel account].account.amount;
+    [[SAUser user] saveOrUpdate];
     
-    @weakify(self);
-    _recruitScrollView.startRecruitAction = ^{
-        @strongify(self);
-    };
-    
-    _recruitScrollView.QRCodeRecruitAction = ^{
-        @strongify(self);
-    };
+    _recruitScrollView.toRecruitCount = [SAUserAccountModel account].account.todayApNumber;
+    _recruitScrollView.allRecruitCount = [SAUserAccountModel account].account.apNumber;
+    _recruitScrollView.toBalanceCount = [SAUserAccountModel account].account.apDiAmount;
+    _recruitScrollView.allBalanceCount = [SAUserAccountModel account].account.apAmount;
 }
 
 @end

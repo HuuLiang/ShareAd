@@ -11,24 +11,36 @@
 
 @interface SAUser : JKDBModel
 
-+ (instancetype)user;
++ (instancetype _Nonnull)user;
 
-@property (nonatomic) NSString *userId;
+- (void)setValueWithObj:(SAUser * _Nullable)responseUser;
 
-@property (nonatomic) NSString *nickName;
+@property (nonatomic,nullable) NSString *userId;
 
-@property (nonatomic) NSString *portraitUrl;
+@property (nonatomic,nullable) NSString *phone;
 
-@property (nonatomic) NSString *sex;
+@property (nonatomic,nullable) NSString *password;
 
-@property (nonatomic) NSString *city;
+@property (nonatomic,nullable) NSString *portraitUrl;
 
-@property (nonatomic) NSString *weixin;
+@property (nonatomic,nullable) NSString *nickName;
 
-@property (nonatomic) NSString *account;
+@property (nonatomic,nullable) NSString *weixin;
 
-@property (nonatomic) NSString *password;
+@property (nonatomic,nullable) NSString *aliPay;
 
-@property (nonatomic) NSString *code;
+@property (nonatomic,nullable) NSString *name;
+
+@property (nonatomic,nullable) NSString *sex;
+
+@property (nonatomic,nullable) NSString *province;
+
+@property (nonatomic,nullable) NSString *city;
+
+@property (nonatomic,nullable) NSString *masterId;
+
+@property (nonatomic,assign) NSInteger amount;
+
+@property (nonatomic,nullable) NSString *verifyCode;
 
 @end

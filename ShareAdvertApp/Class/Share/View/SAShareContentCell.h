@@ -10,6 +10,8 @@
 
 @interface SAShareContentCell : UITableViewCell
 
+@property (nonatomic) SAAction shareAction;
+
 @property (nonatomic) NSString *imgUrl;
 @property (nonatomic) NSString *specilTitle;
 @property (nonatomic) NSString *title;

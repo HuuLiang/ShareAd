@@ -46,6 +46,14 @@
         self.nickField = [[SATextField alloc] initWithTitle:@"昵称" placeholder:@"请输入你的昵称"];
         [self addSubview:_nickField];
         
+        @weakify(self);
+        [_sendCodeButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            if (self.codeAction) {
+                self.codeAction();
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+        
         {
             [_accountField mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self);
@@ -81,6 +89,22 @@
         
     }
     return self;
+}
+
+- (NSString *)phoneNumber {
+    return _accountField.text;
+}
+
+- (NSString *)verifyCode {
+    return _codeField.text;
+}
+
+- (NSString *)password {
+    return _passwordField.text;
+}
+
+- (NSString *)nickName {
+    return _nickField.text;
 }
 
 @end

@@ -99,16 +99,16 @@
     return self;
 }
 
-- (void)setBalance:(NSString *)balance {
-    _balanceLabel.text = balance;
+- (void)setBalance:(NSInteger)balance {
+    _balanceLabel.text = [NSString stringWithFormat:@"%.3f",(float)balance/1000];
 }
 
-- (void)setToRecruit:(NSString *)toRecruit {
-    _toRecruitLabel.text = [NSString stringWithFormat:@"今日收徒 %@ 人",toRecruit];
+- (void)setToRecruit:(NSInteger)toRecruit {
+    _toRecruitLabel.text = [NSString stringWithFormat:@"今日收徒 %ld 人",toRecruit];
 }
 
-- (void)setToEarnings:(NSString *)toEarnings {
-    _toEarningsLabel.text = [NSString stringWithFormat:@"今日收入 %@ 元",toEarnings];
+- (void)setToEarnings:(NSInteger)toEarnings {
+    _toEarningsLabel.text = [NSString stringWithFormat:@"今日收入 %ld 元",toEarnings];
 }
 
 @end

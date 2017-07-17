@@ -37,17 +37,21 @@
         }];
     }
     
+    NSString *contentUrl = nil;
+    
     switch (_type) {
         case SAMineCleanUpTypeShare:
-            [_webView loadHTMLString:@"" baseURL:nil];
+            contentUrl = [NSString stringWithFormat:@"%@%@",SA_BASE_URL,SA_SHAREMM_URL];
             break;
         case SAMineCleanUpTypeRecruit:
-            [_webView loadHTMLString:@"" baseURL:nil];
+            contentUrl = [NSString stringWithFormat:@"%@%@",SA_BASE_URL,SA_APPRENTICEMM_URL];
             break;
             
         default:
             break;
     }
+    
+    [_webView loadHTMLString:contentUrl baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning {

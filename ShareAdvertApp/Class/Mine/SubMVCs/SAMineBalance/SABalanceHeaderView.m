@@ -60,6 +60,7 @@
             [_noticeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(_modeLabel);
                 make.top.equalTo(_modeLabel.mas_bottom).offset(kWidth(16));
+                make.right.equalTo(self.mas_right).offset(-kWidth(18));
                 make.height.mas_equalTo(_noticeLabel.font.lineHeight*2);
             }];
         }

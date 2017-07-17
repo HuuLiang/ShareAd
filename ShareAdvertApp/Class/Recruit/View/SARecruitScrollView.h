@@ -13,4 +13,9 @@
 @property (nonatomic) SAAction startRecruitAction;
 @property (nonatomic) SAAction QRCodeRecruitAction;
 
+@property (nonatomic) NSInteger toRecruitCount;
+@property (nonatomic) NSInteger allRecruitCount;
+@property (nonatomic) NSInteger toBalanceCount;
+@property (nonatomic) NSInteger allBalanceCount;
+
 @end

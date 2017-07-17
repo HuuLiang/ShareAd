@@ -11,6 +11,9 @@
 #import "SABalanceCell.h"
 #import "SAMineUserInfoVC.h"
 #import "SAMineAlertUIHelper.h"
+#import "SABalanceModel.h"
+#import "SAReqManager.h"
+#import "SAConfigModel.h"
 
 static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusableIdentifier";
 
@@ -18,6 +21,8 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) SABalanceHeaderView *headerView;
 @property (nonatomic) UIButton *drawButton;
+@property (nonatomic) NSArray *priceArr;
+@property (nonatomic) NSIndexPath *selectedIndexPath;
 @end
 
 @implementation SABalanceVC
@@ -40,8 +45,13 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
         }];
     }
     
+    self.priceArr =  [[[SAConfigModel defaultConfig].config.DRAW_CONFIG componentsSeparatedByString:@"|"] bk_select:^BOOL(NSString * obj) {
+        return [obj integerValue];
+    }];
+    
     [self configTableHeaderView];
-    [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [_tableView selectRowAtIndexPath:_selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,7 +79,14 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
 }
 
 - (void)startDrawMoney {
-    
+    NSInteger selectedPrice = (NSInteger)self.priceArr[_selectedIndexPath.row];
+    @weakify(self);
+    [[SAReqManager manager] drwaMoneyWithAmount:selectedPrice class:[SABalanceModel class] handler:^(BOOL success, id obj) {
+        @strongify(self);
+        if (success) {
+            [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeDrawSuccess onCurrentVC:self];
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
@@ -78,13 +95,13 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return self.priceArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SABalanceCell *cell = [tableView dequeueReusableCellWithIdentifier:kSABalanceCellReusableIdentifier forIndexPath:indexPath];
-    if (cell) {
-        cell.price = @"50";
+    if (indexPath.row < self.priceArr.count) {
+        cell.price = [self.priceArr[indexPath.row] integerValue];
     }
     return cell;
 }
@@ -135,5 +152,8 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
     return kWidth(370);
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    _selectedIndexPath = indexPath;
+}
 
 @end

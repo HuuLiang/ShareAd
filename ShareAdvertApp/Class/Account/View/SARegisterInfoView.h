@@ -10,4 +10,14 @@
 
 @interface SARegisterInfoView : UIView
 
+@property (nonatomic,copy) SAAction _Nullable codeAction;
+
+@property (nonatomic,readonly,nullable) NSString *phoneNumber;
+
+@property (nonatomic,readonly,nullable) NSString *verifyCode;
+
+@property (nonatomic,readonly,nullable) NSString *password;
+
+@property (nonatomic,readonly,nullable) NSString *nickName;
+
 @end

@@ -155,25 +155,41 @@
                 make.height.mas_equalTo(_descTitleLabel.font.lineHeight);
             }];
             
-//            CGFloat firstDescLabelHeight = [_firstDescLabel.text sizeWithFont:_firstDescLabel.font maxWidth:kWidth(670)].height;
             [_firstDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self).offset(kWidth(40));
                 make.right.equalTo(self.mas_right).offset(-kWidth(40));
                 make.top.equalTo(_descTitleLabel.mas_bottom).offset(kWidth(50));
-//                make.height.mas_equalTo(firstDescLabelHeight);
             }];
             
-//            CGFloat secondDescLabelHeight = [_secondDescLabel.text sizeWithFont:_secondDescLabel.font maxWidth:kWidth(670)].height;
             [_secondDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self).offset(kWidth(40));
                 make.right.equalTo(self.mas_right).offset(-kWidth(40));
                 make.top.equalTo(_firstDescLabel.mas_bottom).offset(kWidth(20));
-//                make.height.mas_equalTo(secondDescLabelHeight);
             }];
         }
         
     }
     return self;
+}
+
+- (void)setToRecruitCount:(NSInteger)toRecruitCount {
+    _toRecruitView.tagType = SATagViewTypeTodayRecruit;
+    _toRecruitView.count = [NSString stringWithFormat:@"%ld",toRecruitCount];
+}
+
+- (void)setAllRecruitCount:(NSInteger)allRecruitCount {
+    _allRecruitView.tagType = SATagViewTypeAllRecruit;
+    _allRecruitView.count = [NSString stringWithFormat:@"%ld",allRecruitCount];
+}
+
+- (void)setToBalanceCount:(NSInteger)toBalanceCount {
+    _toBalanceView.tagType = SATagViewTypeTodayBalance;
+    _toBalanceView.count = [NSString stringWithFormat:@"%.3f",(float)toBalanceCount/1000];
+}
+
+- (void)setAllBalanceCount:(NSInteger)allBalanceCount {
+    _allBalanceView.tagType = SATagViewTypeAllBalance;
+    _allBalanceView.count = [NSString stringWithFormat:@"%.3f",(float)allBalanceCount];
 }
 
 @end

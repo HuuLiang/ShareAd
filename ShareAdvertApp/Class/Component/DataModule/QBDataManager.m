@@ -10,7 +10,6 @@
 #import "AFNetworking.h"
 #import "QBDataResponse.h"
 
-
 static NSString *const kEncryptionPasssword = @"gqi*&^R8*TfB2";
 
 NSString *const kSAShareErrorDomain           = @"com.sharead.errordomain";

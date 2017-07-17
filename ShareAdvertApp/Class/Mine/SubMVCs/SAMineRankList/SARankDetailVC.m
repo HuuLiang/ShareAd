@@ -8,14 +8,27 @@
 
 #import "SARankDetailVC.h"
 #import "SARankDetailCell.h"
+#import "SAReqManager.h"
+#import "SARankingModel.h"
 
 static NSString *const kSARankDetailCellReusableIdentifier = @"kSARankDetailCellReusableIdentifier";
 
 @interface SARankDetailVC () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
+@property (nonatomic) SARankingListType type;
+@property (nonatomic) SARankingModel *response;
 @end
 
 @implementation SARankDetailVC
+QBDefineLazyPropertyInitialization(SARankingModel, response)
+
+- (instancetype)initWithType:(SARankingListType)type {
+    self = [super init];
+    if (self) {
+        _type = type;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +46,30 @@ static NSString *const kSARankDetailCellReusableIdentifier = @"kSARankDetailCell
             make.bottom.equalTo(self.view.mas_bottom).offset(-kWidth(80));
         }];
     }
+    
+    @weakify(self);
+    [_tableView SA_addPullToRefreshWithHandler:^{
+        @strongify(self);
+        [self fetchRankingListInfo];
+    }];
+    
+    [_tableView SA_triggerPullToRefresh];
+
+}
+
+- (void)fetchRankingListInfo {
+    @weakify(self);
+    [[SAReqManager manager] fetchRankingListWithType:self.type
+                                               class:[SARankingModel class]
+                                             handler:^(BOOL success, id obj)
+    {
+        @strongify(self);
+        [self.tableView SA_endPullToRefresh];
+        if (success) {
+            self.response = obj;
+        }
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,15 +79,16 @@ static NSString *const kSARankDetailCellReusableIdentifier = @"kSARankDetailCell
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return  10;
+    return self.response.ranking.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SARankDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:kSARankDetailCellReusableIdentifier forIndexPath:indexPath];
-    if (indexPath.row < 10) {
-        cell.portraitUrl = @"";
-        cell.nickName = @"Liang";
-        cell.count = @"123";
+    if (indexPath.row < self.response.ranking.count) {
+        SARankDetailModel *detailModel = self.response.ranking[indexPath.row];
+        cell.portraitUrl = detailModel.portraitUrl;
+        cell.nickName = detailModel.nickName;
+        cell.count = [NSString stringWithFormat:@"%ld",detailModel.value];
     }
     return cell;
 }

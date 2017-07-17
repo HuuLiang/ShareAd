@@ -10,4 +10,6 @@
 
 @interface SAMineCenterAdCell : UITableViewCell
 
+@property (nonatomic) NSString *title;
+
 @end

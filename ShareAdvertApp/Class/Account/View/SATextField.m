@@ -63,6 +63,10 @@
     return self;
 }
 
+- (void)setKeyboardType:(UIKeyboardType)keyboardType {
+    _contentField.keyboardType = keyboardType;
+}
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
     
@@ -82,5 +86,8 @@
     return hitView;
 }
 
+- (NSString *)text {
+    return _contentField.text;
+}
 
 @end

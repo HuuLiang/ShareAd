@@ -8,6 +8,13 @@
 
 #import "SABaseViewController.h"
 
+typedef NS_ENUM(NSInteger,SARankingListType) {
+    SARankingListTypeIncome = 1,
+    SARankingListTypeRecruit
+};
+
 @interface SARankDetailVC : SABaseViewController
+
+- (instancetype)initWithType:(SARankingListType)type;
 
 @end

@@ -14,6 +14,8 @@
 
 - (void)checkNetworkInfoState;
 
+- (void)defaultConfiguration;
+
 - (void)setCommonStyle;
 
 @end

@@ -11,9 +11,20 @@
 
 @interface SAAboutUsVC () <UIWebViewDelegate>
 @property (nonatomic) UIWebView *webView;
+@property (nonatomic) NSString *contentUrl;
 @end
 
+
 @implementation SAAboutUsVC
+
+- (instancetype)initWithUrl:(NSString *)url
+{
+    self = [super init];
+    if (self) {
+        _contentUrl = url;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,7 +39,7 @@
         }];
     }
     
-    [_webView loadHTMLString:@"" baseURL:nil];
+    [_webView loadHTMLString:_contentUrl baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -22,5 +22,39 @@
 - (void)fetchActivateInfoWithClass:(Class)modelClass Handler:(SACompletionHandler)handler;
 
 /** 注册 */
-- (void)registerUserWithInfo:(NSDictionary *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler;
+- (void)registerUserWithInfo:(SAUser *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 登录 */
+- (void)loginWithPhontNumber:(NSString *)phone password:(NSString *)password class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 配置 */
+- (void)fetchConfigInfoClass:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 个人资料 */
+- (void)fetchUserInfoWithUserId:(NSString *)userId class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 更新个人资料 */
+- (void)updateUserInfoWithInfo:(NSDictionary *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 提现记录 */
+- (void)fetchDrawMoenyStatusWithStatus:(NSString *)status Page:(NSInteger)page class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 账户明细 */
+- (void)fetchAccountDetailWithPage:(NSInteger)page class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 排行榜 */
+- (void)fetchRankingListWithType:(NSInteger)type class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 账户金额信息 */
+- (void)fetchUserAccountInfoWithClass:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 分享收益上传 */
+- (void)updateShareBountyWithPrice:(NSInteger)amount shareId:(NSString *)shareId class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 签到 */
+- (void)signWithClass:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 提现 */
+- (void)drwaMoneyWithAmount:(NSInteger)amount class:(Class)modelClass handler:(SACompletionHandler)handler;
+
 @end

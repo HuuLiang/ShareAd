@@ -28,9 +28,10 @@
         _shareRuleLabel.text = @"赚钱转发规则";
         _shareRuleLabel.textColor = kColor(@"#666666");
         _shareRuleLabel.font = kFont(14);
+        _shareRuleLabel.userInteractionEnabled = YES;
         [self addSubview:_shareRuleLabel];
         
-        self.shareRuleImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+        self.shareRuleImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"share_into"]];
         [self addSubview:_shareRuleImgV];
         
         self.shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -75,10 +76,7 @@
                 make.size.mas_equalTo(CGSizeMake(kWidth(180), kWidth(64)));
             }];
         }
-        
     }
     return self;
 }
-
-
 @end

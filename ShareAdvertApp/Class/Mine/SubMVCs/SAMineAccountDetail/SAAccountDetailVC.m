@@ -8,17 +8,24 @@
 
 #import "SAAccountDetailVC.h"
 #import "SAAccountDetailCell.h"
+#import "SAAccountDetailModel.h"
+#import "SAReqManager.h"
 
 static NSString *const kSAAccountDetailCellReusableIdentifier = @"kSAAccountDetailCellReusableIdentifier";
 
 @interface SAAccountDetailVC () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
+@property (nonatomic) NSInteger page;
+@property (nonatomic) SAAccountDetailModel *response;
 @end
 
 @implementation SAAccountDetailVC
+QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _page = 0;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.backgroundColor = kColor(@"#efefef");
@@ -32,6 +39,33 @@ static NSString *const kSAAccountDetailCellReusableIdentifier = @"kSAAccountDeta
             make.edges.equalTo(self.view);
         }];
     }
+    
+    @weakify(self);
+    [_tableView SA_addPullToRefreshWithHandler:^{
+        @strongify(self);
+        self.page = 0;
+        [self fetchAccountDetailWithPage:self.page];
+    }];
+    
+    [_tableView SA_addPagingRefreshWithHandler:^{
+        @strongify(self);
+        self.page++;
+        [self fetchAccountDetailWithPage:self.page];
+    }];
+    
+    [_tableView SA_triggerPullToRefresh];
+}
+
+- (void)fetchAccountDetailWithPage:(NSInteger)page {
+    @weakify(self);
+    [[SAReqManager manager] fetchAccountDetailWithPage:self.page class:[SAAccountDetailModel class] handler:^(BOOL success, id obj) {
+        @strongify(self);
+        [self.tableView SA_endPullToRefresh];
+        if (success) {
+            self.response = obj;
+        }
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,15 +75,16 @@ static NSString *const kSAAccountDetailCellReusableIdentifier = @"kSAAccountDeta
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return  10;
+    return self.response.accounting.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SAAccountDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:kSAAccountDetailCellReusableIdentifier forIndexPath:indexPath];
-    if (indexPath.row < 10) {
-        cell.incomeStatus = 1;
-        cell.count = @"10.00";
-        cell.timeStr = @"2017-07-04";
+    if (indexPath.row < self.response.accounting.count) {
+        SADetailModel *detailModel = self.response.accounting[indexPath.row];
+        cell.type = detailModel.type;
+        cell.count = [NSString stringWithFormat:@"%ld",detailModel.amount];
+        cell.timeStr = detailModel.createTime;
     }
     return cell;
 }

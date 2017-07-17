@@ -8,17 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger,SAMineAccountDetailStatus) {
-    SAMineAccountDetailStatusRegister = 0,  //注册
-    SAMineAccountDetailStatusSignIn,        //签到
-    SAMineAccountDetailStatusShare,         //分享
-    SAMineAccountDetailStatusRecruit,       //招募
-    SAMineAccountDetailStatusRevenue        //分成
-};
+//typedef NS_ENUM(NSInteger,SAMineAccountDetailStatus) {
+//    SAMineAccountDetailStatusRegister = 0,  //注册
+//    SAMineAccountDetailStatusSignIn,        //签到
+//    SAMineAccountDetailStatusShare,         //分享
+//    SAMineAccountDetailStatusRecruit,       //招募
+//    SAMineAccountDetailStatusRevenue        //分成
+//};
 
 @interface SAAccountDetailCell : UITableViewCell
 
-@property (nonatomic) SAMineAccountDetailStatus incomeStatus;
+//@property (nonatomic) SAMineAccountDetailStatus incomeStatus;
+
+@property (nonatomic) NSString *type;
 
 @property (nonatomic) NSString *count;
 

@@ -10,4 +10,8 @@
 
 @interface SALoginInfoView : UIView
 
+@property (nonatomic,readonly,nullable) NSString *phoneNumber;
+
+@property (nonatomic,readonly,nullable) NSString *password;
+
 @end

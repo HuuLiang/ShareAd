@@ -29,7 +29,7 @@
     [self.view addSubview:_sliderView];
     
     for (NSString *title in titles) {
-        SACleanUpContentVC *cleanUpContent = [[SACleanUpContentVC alloc] init];
+        SACleanUpContentVC *cleanUpContent = [[SACleanUpContentVC alloc] initWithType:[titles indexOfObject:title]];
         [_sliderView addChildViewController:cleanUpContent title:title];
     }
     [_sliderView setSlideHeadView];

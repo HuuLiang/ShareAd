@@ -25,6 +25,7 @@
         self.backgroundColor = [kColor(@"#ffffff") colorWithAlphaComponent:0.85];
         
         self.accountField = [[SATextField alloc] initWithTitle:@"账号" placeholder:@"请输入你的手机号码"];
+        _accountField.keyboardType = UIKeyboardTypeNumberPad;
         [self addSubview:_accountField];
         
         self.passwordField = [[SATextField alloc] initWithTitle:@"密码" placeholder:@"******"];
@@ -47,5 +48,15 @@
     }
     return self;
 }
+
+
+- (NSString *)phoneNumber {
+    return _accountField.text;
+}
+
+- (NSString *)password {
+    return _passwordField.text;
+}
+
 
 @end

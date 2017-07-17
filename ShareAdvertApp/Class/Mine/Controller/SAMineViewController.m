@@ -24,6 +24,10 @@
 #import "SAAboutUsVC.h"
 #import "SARecruitInfoVC.h"
 
+#import "SAReqManager.h"
+#import "SAConfigModel.h"
+#import "SASignModel.h"
+
 static NSString *const kSAMineCenterUserInfoCellReusableIdentifier = @"kSAMineCenterUserInfoCellReusableIdentifier";
 static NSString *const kSAMineCenterAdCellReusableIdentifier = @"kSAMineCenterAdCellReusableIdentifier";
 static NSString *const kSAMineCenterBalanceCellReusableIdentifier = @"kSAMineCenterBalanceCellReusableIdentifier";
@@ -58,6 +62,8 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
     [super viewDidLoad];
     
     [self configMineCenter];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshBalanceSection) name:kSARefreshAccountInfoNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,8 +99,13 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
     }
     
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"" style:UIBarButtonItemStylePlain handler:^(id sender) {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"签到" style:UIBarButtonItemStylePlain handler:^(id sender) {
         //签到
+        [[SAReqManager manager] signWithClass:[SASignModel class] handler:^(BOOL success, id obj) {
+            if (success) {
+                [[SAHudManager manager] showHudWithText:@"签到成功"];
+            }
+        }];
     }];
 }
 
@@ -118,6 +129,12 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
      }];
 }
 
+- (void)refreshBalanceSection {
+    if (_tableView) {
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:SAMineCenterBalanceSection];
+        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
@@ -145,16 +162,17 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == SAMineCenterUserInfoSection) {
         SAMineCenterUserInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:kSAMineCenterUserInfoCellReusableIdentifier forIndexPath:indexPath];
-        cell.portraitUrl = @"";
-        cell.nickName = @"牛氓哥";
-        cell.userId = @"93867";
+        cell.portraitUrl = [SAUser user].portraitUrl;
+        cell.nickName = [SAUser user].nickName;
+        cell.userId = [SAUser user].userId;
         return cell;
     } else if (indexPath.section == SAMineCenterAdSection) {
         SAMineCenterAdCell *cell = [tableView dequeueReusableCellWithIdentifier:kSAMineCenterAdCellReusableIdentifier forIndexPath:indexPath];
+        cell.title = [SAConfigModel defaultConfig].config.SCROLLING;
         return cell;
     } else if (indexPath.section == SAMineCenterBalanceSection) {
         SAMineCenterBalanceCell *cell = [tableView dequeueReusableCellWithIdentifier:kSAMineCenterBalanceCellReusableIdentifier forIndexPath:indexPath];
-        cell.balance = @"2.060";
+        cell.balance = [NSString stringWithFormat:@"%.3f",(float)[SAUser user].amount/1000];
         
         @weakify(self);
         cell.withDrawAction = ^{
@@ -263,7 +281,9 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
         } else if (indexPath.row == SAMineFunctionCleanUpRow) {
             [self pushViewControllerWith:[SACleanUpVC class] title:@"赚钱攻略"];
         } else if (indexPath.row == SAMineFunctionAboutUsRow) {
-            [self pushViewControllerWith:[SAAboutUsVC class] title:@"关于我们"];
+//            [self pushViewControllerWith:[SAAboutUsVC class] title:@"关于我们"];
+            SAAboutUsVC *aboutUsVC = [[SAAboutUsVC alloc] initWithUrl:[NSString stringWithFormat:@"%@%@",SA_BASE_URL,SA_ABOUNTUS_URL]];
+            [self.navigationController pushViewController:aboutUsVC animated:YES];
         } else if (indexPath.row == SAMineFunctionRecruitInfoRow) {
             [self pushViewControllerWith:[SARecruitInfoVC class] title:@"收徒信息"];
         }

@@ -10,4 +10,6 @@
 
 @interface SAAboutUsVC : SABaseViewController
 
+- (instancetype)initWithUrl:(NSString *)url;
+
 @end

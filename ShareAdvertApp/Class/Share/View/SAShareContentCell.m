@@ -61,6 +61,14 @@
         _shareButton.layer.borderColor = kColor(@"#FF3366").CGColor;
         [self.contentView addSubview:_shareButton];
         
+        @weakify(self);
+        [_shareButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            if (self.shareAction) {
+                self.shareAction();
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+        
         _shareButton.imageEdgeInsets = UIEdgeInsetsMake(_shareButton.imageEdgeInsets.top, _shareButton.imageEdgeInsets.left, _shareButton.imageEdgeInsets.bottom, _shareButton.imageEdgeInsets.right);
         _shareButton.titleEdgeInsets = UIEdgeInsetsMake(_shareButton.titleEdgeInsets.top, _shareButton.titleEdgeInsets.left, _shareButton.titleEdgeInsets.bottom, _shareButton.titleEdgeInsets.right);
         
@@ -106,7 +114,7 @@
 }
 
 - (void)setImgUrl:(NSString *)imgUrl {
-    _imgV.image = [UIImage imageNamed:@"11111"];
+    [_imgV sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
 }
 
 - (void)setSpecilTitle:(NSString *)specilTitle {
