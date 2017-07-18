@@ -10,6 +10,8 @@
 
 @interface SAVerifyCodeModel : QBDataResponse
 
-@property (nonatomic) NSString *verifyCode;
+/** 验证码 */
+- (void)fetchVerifyCodeWithPhoneNumber:(NSString *)phoneNumber class:(Class)modelClass handler:(SACompletionHandler)handler;
+
 
 @end

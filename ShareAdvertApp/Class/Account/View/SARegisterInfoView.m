@@ -16,6 +16,8 @@
 @property (nonatomic) SATextField *codeField;
 @property (nonatomic) SATextField *passwordField;
 @property (nonatomic) SATextField *nickField;
+@property (nonatomic) NSTimer *timer;
+@property (nonatomic) NSTimeInterval timeInterval;
 @end
 
 @implementation SARegisterInfoView
@@ -24,6 +26,7 @@
 {
     self = [super init];
     if (self) {
+        _timeInterval = 60;
         
         self.backgroundColor = [kColor(@"#ffffff") colorWithAlphaComponent:0.85];
         
@@ -49,10 +52,26 @@
         @weakify(self);
         [_sendCodeButton bk_addEventHandler:^(id sender) {
             @strongify(self);
+            if (_accountField.text.length != 11) {
+                [[SAHudManager manager] showHudWithText:@"输入错误"];
+                return ;
+            }
+            [self setButtonSendingStatus:YES];
             if (self.codeAction) {
                 self.codeAction();
             }
         } forControlEvents:UIControlEventTouchUpInside];
+        
+        _timer = [NSTimer bk_scheduledTimerWithTimeInterval:1 block:^(NSTimer *timer) {
+            @strongify(self);
+            [self.sendCodeButton setTitle:[NSString stringWithFormat:@"%ld秒后重发",(long)self.timeInterval--] forState:UIControlStateNormal];
+            if (self.timeInterval < 0) {
+                self.timer.fireDate = [NSDate distantFuture];
+                self.timeInterval = 60;
+                [self setButtonSendingStatus:NO];
+            }
+        } repeats:YES];
+        _timer.fireDate = [NSDate distantFuture];
         
         {
             [_accountField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -85,10 +104,22 @@
                 make.size.mas_equalTo(CGSizeMake(kWidth(690), kWidth(97)));
             }];
         }
-        
-        
     }
     return self;
+}
+
+- (void)setButtonSendingStatus:(BOOL)isSend {
+    //已发送
+    if (isSend) {
+        _sendCodeButton.userInteractionEnabled = NO;
+        _sendCodeButton.backgroundColor = kColor(@"#efefef");
+        _timer.fireDate = [NSDate distantPast];
+    } else {
+        _sendCodeButton.userInteractionEnabled = YES;
+        [_sendCodeButton setTitle:@"发送验证码" forState:UIControlStateNormal];
+        _sendCodeButton.backgroundColor = kColor(@"#ff3366");
+        _timer.fireDate = [NSDate distantFuture];
+    }
 }
 
 - (NSString *)phoneNumber {

@@ -60,7 +60,8 @@
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithHexString:@"#ffffff"]];
     [[UINavigationBar appearance] setBarTintColor:kColor(@"#FF3366")];
     [[UINavigationBar appearance] setBackgroundColor:kColor(@"#FF3366")];
-    [[UINavigationBar appearance] setTranslucent:NO];
+//    [[UINavigationBar appearance] setTranslucent:NO];
+//    [UINavigationBar appearance].translucent = NO;
     
 //    [UITabBarController aspect_hookSelector:@selector(shouldAutorotate)
 //                                withOptions:AspectPositionInstead

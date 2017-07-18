@@ -172,16 +172,16 @@
      {
          [self hide];
          if (buttonIndex == 1) {
-//             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                  [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginNotification object:nil];
-//             });
+             });
          }
      }];
 }
 
 - (void)showAnnouncement {
     [UIAlertView bk_showAlertViewWithTitle:@"最新公告"
-                                   message:@"平台活动，阅读单价限时涨至0.18元，阅读随机红包送不停，收徒奖励涨至3元，涨分飞快，时间有限。"
+                                   message:[SAConfigModel defaultConfig].config.NOTICE
                          cancelButtonTitle:@"知道了"
                          otherButtonTitles:nil
                                    handler:^(UIAlertView *alertView, NSInteger buttonIndex)

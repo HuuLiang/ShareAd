@@ -39,7 +39,7 @@
 
 @property (nonatomic,nullable) NSString *masterId;
 
-@property (nonatomic,assign) NSInteger amount;
+@property (nonatomic) NSInteger amount;
 
 @property (nonatomic,nullable) NSString *verifyCode;
 

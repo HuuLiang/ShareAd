@@ -19,10 +19,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = kColor(@"#ffffff");
+    
     self.sliderView = [[UISliderView alloc] initWithSuperView:self.view];
-    _sliderView.titleScrollViewFrame = CGRectMake(0, 0, kScreenWidth, kWidth(80));
+    _sliderView.titleScrollViewFrame = CGRectMake(0, 64, kScreenWidth, kWidth(80));
     _sliderView.imageBackViewColor = kColor(@"#FF3366");
-    _sliderView.imageBackViewFrame = CGRectMake(10, kWidth(80) - 3.5, 85, 3);
+    _sliderView.imageBackViewFrame = CGRectMake(10, kWidth(80) - 3.5, kScreenWidth/4-20, 3);
     
     NSArray *titles = @[@"全部记录",@"正在处理",@"提现成功",@"提现失败"];
     NSArray *statusKeys = @[kSADrawMoneyStatusAllKeyName,kSADrawMoneyStatusProcessing,kSADrawMoneyStatusSuccess,kSADrawMoneyStatusFailed];

@@ -36,7 +36,6 @@
         self.titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = kColor(@"#999999");
         _titleLabel.font = kFont(12);
-        _titleLabel.text = @"累计收益";
         _titleLabel.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_titleLabel];
         
@@ -83,6 +82,9 @@
     _nickNameLabel.text = nickName;
 }
 
+- (void)setTitle:(NSString *)title {
+    _titleLabel.text = title;;
+}
 
 - (void)setCount:(NSString *)count {
     _incomeLabel.text = [NSString stringWithFormat:@"%@元",count];

@@ -24,6 +24,9 @@
 /** 注册 */
 - (void)registerUserWithInfo:(SAUser *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler;
 
+/** 修改密码 */
+- (void)changePasswordWithInfo:(SAUser *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler;
+
 /** 登录 */
 - (void)loginWithPhontNumber:(NSString *)phone password:(NSString *)password class:(Class)modelClass handler:(SACompletionHandler)handler;
 
@@ -56,5 +59,8 @@
 
 /** 提现 */
 - (void)drwaMoneyWithAmount:(NSInteger)amount class:(Class)modelClass handler:(SACompletionHandler)handler;
+
+/** 查询收徒信息 */
+- (void)fetchRecruitInfoWithClass:(Class)modelClass hanler:(SACompletionHandler)handler;
 
 @end

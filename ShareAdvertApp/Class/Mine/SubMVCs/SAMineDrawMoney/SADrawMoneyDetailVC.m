@@ -112,7 +112,7 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
             status = SAMineDrawMoneyStatusFailed;
         }
         cell.drawStatus = status;
-        cell.count = [NSString stringWithFormat:@"%ld",detailModel.wiAmount];
+        cell.count = [NSString stringWithFormat:@"%.2f",(float)detailModel.wiAmount/100];
         cell.timeStr = detailModel.reatTime;
     }
     return cell;

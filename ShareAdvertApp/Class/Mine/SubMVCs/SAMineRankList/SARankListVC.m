@@ -20,9 +20,9 @@
     [super viewDidLoad];
     
     self.sliderView = [[UISliderView alloc] initWithSuperView:self.view];
-    _sliderView.titleScrollViewFrame = CGRectMake(0, 0, kScreenWidth, kWidth(80));
+    _sliderView.titleScrollViewFrame = CGRectMake(0, 64, kScreenWidth, kWidth(80));
     _sliderView.imageBackViewColor = kColor(@"#FF3366");
-    _sliderView.imageBackViewFrame = CGRectMake(kWidth(80), kWidth(80) - 3.5, kWidth(170), 3);
+    _sliderView.imageBackViewFrame = CGRectMake(kWidth(80), kWidth(80) - 3.5, kScreenWidth/2- kWidth(160), 3);
     
     NSArray *titles = @[@"收益排行榜",@"收徒排行榜"];
     _sliderView.titlesArr = titles;

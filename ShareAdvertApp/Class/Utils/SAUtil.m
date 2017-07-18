@@ -9,6 +9,7 @@
 #import "SAUtil.h"
 #import <sys/sysctl.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SAUserAccountModel.h"
 
 static NSString *const SACurrentUserKeyName         = @"SACurrentUserKeyName";
 
@@ -63,7 +64,10 @@ static NSString *const kSAMessageReplayTodayKeyName = @"kSAMessageReplayTodayKey
     return NO;
 }
 
-
++ (void)fetchAccountInfo {
+    SAUserAccountModel *accountModel = [[SAUserAccountModel alloc] init];
+    [accountModel refreshAccountInfo];
+}
 
 #pragma mark - 设备类型
 + (BOOL)isIpad {

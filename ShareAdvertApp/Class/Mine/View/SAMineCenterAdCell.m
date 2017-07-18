@@ -50,7 +50,7 @@
 }
 
 - (void)startScroll {
-    NSLog(@"%@  _currentOffsetX = %f",NSStringFromCGSize(_scrollView.contentSize), _currentOffsetX);
+//    NSLog(@"%@  _currentOffsetX = %f",NSStringFromCGSize(_scrollView.contentSize), _currentOffsetX);
     _currentOffsetX += 1.0f;
     if (_currentOffsetX > self.width + kScreenWidth) {
         _currentOffsetX = 0;

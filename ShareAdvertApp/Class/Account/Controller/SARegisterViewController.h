@@ -8,6 +8,13 @@
 
 #import "SABaseViewController.h"
 
+typedef NS_ENUM(NSInteger,SARegisterType) {
+    SARegisterTypeRegister,
+    SARegisterTypeForgot
+};
+
 @interface SARegisterViewController : SABaseViewController
+
+@property (nonatomic) SARegisterType type;
 
 @end

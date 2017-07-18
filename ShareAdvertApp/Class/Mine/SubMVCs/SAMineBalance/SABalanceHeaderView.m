@@ -40,7 +40,7 @@
         self.noticeLabel = [[UILabel alloc] init];
         _noticeLabel.textColor = kColor(@"#666666");
         _noticeLabel.font = kFont(13);
-        _noticeLabel.numberOfLines = 0;
+        _noticeLabel.numberOfLines = 2;
         _noticeLabel.text = @"提现到账时间：每周四进行提现金额发放，打款后请在24小时左右对账核实";
         [self addSubview:_noticeLabel];
         

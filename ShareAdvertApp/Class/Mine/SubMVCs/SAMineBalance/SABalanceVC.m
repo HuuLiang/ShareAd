@@ -79,7 +79,7 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
 }
 
 - (void)startDrawMoney {
-    NSInteger selectedPrice = (NSInteger)self.priceArr[_selectedIndexPath.row];
+    NSInteger selectedPrice = [self.priceArr[_selectedIndexPath.row] integerValue];
     @weakify(self);
     [[SAReqManager manager] drwaMoneyWithAmount:selectedPrice class:[SABalanceModel class] handler:^(BOOL success, id obj) {
         @strongify(self);

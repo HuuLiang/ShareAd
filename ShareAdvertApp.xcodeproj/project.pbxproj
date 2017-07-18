@@ -13,6 +13,7 @@
 		EC05A8711F13797C00810F51 /* SARegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A8701F13797C00810F51 /* SARegisterViewController.m */; };
 		EC05A8741F1379A600810F51 /* SALoginInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A8731F1379A600810F51 /* SALoginInfoView.m */; };
 		EC05A8771F138B5900810F51 /* SARegisterInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC05A8761F138B5900810F51 /* SARegisterInfoView.m */; };
+		EC539DBA1F1DED2E008115F7 /* SARecruitInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC539DB91F1DED2E008115F7 /* SARecruitInfoModel.m */; };
 		EC58470E1F0A44B400FEBDC5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC58470D1F0A44B400FEBDC5 /* main.m */; };
 		EC5847111F0A44B400FEBDC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5847101F0A44B400FEBDC5 /* AppDelegate.m */; };
 		EC5847191F0A44B400FEBDC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC5847181F0A44B400FEBDC5 /* Assets.xcassets */; };
@@ -132,6 +133,8 @@
 		EC05A8731F1379A600810F51 /* SALoginInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALoginInfoView.m; sourceTree = "<group>"; };
 		EC05A8751F138B5900810F51 /* SARegisterInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARegisterInfoView.h; sourceTree = "<group>"; };
 		EC05A8761F138B5900810F51 /* SARegisterInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARegisterInfoView.m; sourceTree = "<group>"; };
+		EC539DB81F1DED2E008115F7 /* SARecruitInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SARecruitInfoModel.h; sourceTree = "<group>"; };
+		EC539DB91F1DED2E008115F7 /* SARecruitInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SARecruitInfoModel.m; sourceTree = "<group>"; };
 		EC5847091F0A44B400FEBDC5 /* ShareAdvertApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareAdvertApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC58470D1F0A44B400FEBDC5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EC58470F1F0A44B400FEBDC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -536,6 +539,8 @@
 				EC7B5AF21F13320A002BF8F3 /* SARecruitHeaderView.m */,
 				EC7B5AEE1F132E11002BF8F3 /* SARecruitInfoCell.h */,
 				EC7B5AEF1F132E11002BF8F3 /* SARecruitInfoCell.m */,
+				EC539DB81F1DED2E008115F7 /* SARecruitInfoModel.h */,
+				EC539DB91F1DED2E008115F7 /* SARecruitInfoModel.m */,
 			);
 			path = SAMineRecruitInfo;
 			sourceTree = "<group>";
@@ -1138,6 +1143,7 @@
 				EC7B5AFA1F136050002BF8F3 /* SABalanceVC.m in Sources */,
 				ECDC0F0B1F0DE450002DBDA9 /* SAShareAllContentCell.m in Sources */,
 				ECDC0F051F0DD7BA002DBDA9 /* SAShareContentModel.m in Sources */,
+				EC539DBA1F1DED2E008115F7 /* SARecruitInfoModel.m in Sources */,
 				ECDEAA871F10703400EB8829 /* SAMineUserInfoVC.m in Sources */,
 				ECE2177F1F107F13008BA7B4 /* QiniuToken.m in Sources */,
 				ECE217931F108221008BA7B4 /* QBPhotoManager.m in Sources */,

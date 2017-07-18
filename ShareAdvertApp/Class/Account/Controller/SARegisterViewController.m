@@ -10,14 +10,17 @@
 #import "SARegisterInfoView.h"
 #import "SAReqManager.h"
 #import "SARegisterModel.h"
+#import "SAVerifyCodeModel.h"
 
 @interface SARegisterViewController ()
 @property (nonatomic) SARegisterInfoView *registerInfoView;
 @property (nonatomic) UIButton *confirmButton;
 @property (nonatomic) UILabel *haveLabel;
+@property (nonatomic) SAVerifyCodeModel *verifyCodeModel;
 @end
 
 @implementation SARegisterViewController
+QBDefineLazyPropertyInitialization(SAVerifyCodeModel, verifyCodeModel)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,13 +39,22 @@
 
 - (void)configRegisterInfoView {
     self.registerInfoView = [[SARegisterInfoView alloc] init];
-    
     [self.view addSubview:_registerInfoView];
+    
+    @weakify(self);
+    _registerInfoView.codeAction = ^{
+        @strongify(self);
+        [self.verifyCodeModel fetchVerifyCodeWithPhoneNumber:self.registerInfoView.phoneNumber class:[SAVerifyCodeModel class] handler:^(BOOL success, id obj) {
+            if (success) {
+                [[SAHudManager manager] showHudWithText:@"验证码已发送"];
+            }
+        }];
+    };
     
     {
         [_registerInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.top.equalTo(self.view).offset(kWidth(32));
+            make.top.equalTo(self.view).offset(kWidth(32)+64);
             make.size.mas_equalTo(CGSizeMake(kWidth(690), kWidth(534)));
         }];
     }
@@ -68,15 +80,52 @@
     @weakify(self);
     [_confirmButton bk_addEventHandler:^(id sender) {
         @strongify(self);
+        if (self.registerInfoView.phoneNumber.length != 11) {
+            [[SAHudManager manager] showHudWithText:@"请输入正确的手机号码"];
+            return ;
+        }
+        
+        if (self.registerInfoView.password.length == 0) {
+            [[SAHudManager manager] showHudWithText:@"请输入密码"];
+            return;
+        }
+
+        if (self.registerInfoView.verifyCode.length != 4) {
+            [[SAHudManager manager] showHudWithText:@"验证码错误"];
+            return;
+        }
+
+        if (self.registerInfoView.nickName.length == 0) {
+            [[SAHudManager manager] showHudWithText:@"请输入昵称"];
+            return;
+        }
+
+        
         [SAUser user].phone = self.registerInfoView.phoneNumber;
         [SAUser user].password = self.registerInfoView.password;
         [SAUser user].verifyCode = self.registerInfoView.verifyCode;
         [SAUser user].nickName = self.registerInfoView.nickName;
         
-        [[SAReqManager manager] registerUserWithInfo:[SAUser user] class:[SARegisterModel class] handler:^(BOOL success, SARegisterModel * obj) {
-            [SAUser user].userId = obj.userId;
-            [[SAUser user] saveOrUpdate];
-        }];
+        if (self.type == SARegisterTypeRegister) {
+            [[SAReqManager manager] registerUserWithInfo:[SAUser user] class:[SARegisterModel class] handler:^(BOOL success, SARegisterModel * obj) {
+                if (success) {
+                    [SAUser user].userId = obj.userId;
+                    if ([[SAUser user] update]) {
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            [SAUtil fetchAccountInfo];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginSuccessNotification object:nil];
+                        }];
+                    }
+                }
+            }];
+        } else if (self.type == SARegisterTypeForgot) {
+            [[SAReqManager manager] changePasswordWithInfo:[SAUser user] class:[SARegisterModel class] handler:^(BOOL success, SARegisterModel * obj) {
+                if (success) {
+                    [[SAHudManager manager] showHudWithText:@"密码修改成功"];
+                }
+            }];
+        }
+        
         
     } forControlEvents:UIControlEventTouchUpInside];
     

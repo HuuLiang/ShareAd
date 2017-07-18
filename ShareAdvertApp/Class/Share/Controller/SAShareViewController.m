@@ -13,10 +13,12 @@
 #import "SAShareContentVC.h"
 #import "SAShareAllContentVC.h"
 #import "SAShareHeaderView.h"
+#import "SAMineAlertUIHelper.h"
 
 #import "SAShareModel.h"
 #import "SAReqManager.h"
 #import "SAUserAccountModel.h"
+#import "SAConfigModel.h"
 
 @interface SAShareViewController () <UIScrollViewDelegate,SAShareContentDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
@@ -53,8 +55,11 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     {
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
+//            make.left.bottom.right.equalTo(self.view);
+//            make.top.equalTo(self.view).offset(64);
         }];
     }
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configShareTableHeaderView) name:kSAUserLoginSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushContentVCWithColumnId:) name:kSAPushShareContentVCNotification object:nil];
@@ -91,8 +96,6 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
 }
 
 - (void)refreshHeaderViewInfo {
-    [SAUser user].amount = [SAUserAccountModel account].account.amount;
-    [[SAUser user] saveOrUpdate];
     if (_headerView) {
         _headerView.balance = [SAUserAccountModel account].account.amount;
         _headerView.toRecruit = [SAUserAccountModel account].account.todayApNumber;
@@ -151,9 +154,8 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
 }
 
 - (void)pushContentVCWithColumnId:(NSNotification *)notification {
-    NSString *columnId = (NSString *)[notification object];
-    SAShareContentVC *contentVC = [[SAShareContentVC alloc] initWithColumnId:columnId];
-    [self.navigationController pushViewController:contentVC animated:YES];
+    SAShareColumnModel *columnModel = (SAShareColumnModel *)[notification object];
+    [_sliderView currentVCWithIndex:[self.response.columns indexOfObject:columnModel]];
 }
 
 #pragma mark - UITableViewDelagate,UITableViewDataSource
@@ -190,9 +192,13 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
         return;
     }
     CGFloat moveDistance = scrollView.contentOffset.y;
+    QBLog(@"DidScroll moveDistance %f",moveDistance);
     if (moveDistance > 0 && moveDistance < _headerView.height) {
         [_tableView setContentOffset:CGPointMake(0, moveDistance) animated:NO];
     }
+//    else if (moveDistance <= 0) {
+//        [_tableView setContentOffset:CGPointZero animated:NO];
+//    }
 }
 
 - (void)observerContentScrollViewBeginDragging:(UIScrollView *)scrollView {
@@ -200,6 +206,7 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
         return;
     }
     CGFloat moveDistance = scrollView.contentOffset.y;
+    QBLog(@"BeginDragging moveDistance %f",moveDistance);
     if (moveDistance <= 0) {
         [_tableView setContentOffset:CGPointZero animated:YES];
     } else if (moveDistance > _headerView.height) {

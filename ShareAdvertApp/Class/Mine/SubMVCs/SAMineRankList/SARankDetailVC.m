@@ -88,7 +88,12 @@ QBDefineLazyPropertyInitialization(SARankingModel, response)
         SARankDetailModel *detailModel = self.response.ranking[indexPath.row];
         cell.portraitUrl = detailModel.portraitUrl;
         cell.nickName = detailModel.nickName;
-        cell.count = [NSString stringWithFormat:@"%ld",detailModel.value];
+        cell.count = [NSString stringWithFormat:@"%ld",(long)detailModel.value];
+        if (self.type == SARankingListTypeIncome) {
+            cell.title = @"累计收益";
+        } else if (self.type == SARankingListTypeRecruit) {
+            cell.title = @"累计收徒";
+        }
     }
     return cell;
 }

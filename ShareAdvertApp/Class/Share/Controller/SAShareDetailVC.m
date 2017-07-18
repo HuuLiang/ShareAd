@@ -44,7 +44,8 @@
     }
     
     if (_programModel.shUrl.length > 0) {
-        [_shareDetailView loadHTMLString:_programModel.shUrl baseURL:nil];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_programModel.shUrl]];
+        [_shareDetailView loadRequest:request];
     } else {
         [self showError];
     }
@@ -60,7 +61,7 @@
 
 - (void)configShareModel {
     @weakify(self);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain handler:^(id sender) {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"share_start"] style:UIBarButtonItemStylePlain handler:^(id sender) {
         @strongify(self);
         [self startToShareContent];
     }];
@@ -107,7 +108,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self showError];
+//    [self showError];
 }
 
 @end

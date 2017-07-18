@@ -33,6 +33,7 @@
         self.specialLabel = [[UILabel alloc] init];
         _specialLabel.font = kFont(12);
         _specialLabel.textAlignment = NSTextAlignmentCenter;
+        _specialLabel.backgroundColor = [kColor(@"#FF3366") colorWithAlphaComponent:0.85];
         [_imgV addSubview:_specialLabel];
         
         self.titleLabel = [[UILabel alloc] init];

@@ -16,4 +16,6 @@
 
 @property (nonatomic) NSString *count;
 
+@property (nonatomic) NSString *title;
+
 @end

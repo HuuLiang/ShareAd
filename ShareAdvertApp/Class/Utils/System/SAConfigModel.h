@@ -15,6 +15,8 @@
 @property (nonatomic) NSString *AP_TITLE;
 @property (nonatomic) NSString *AP_SUBTITLE;
 @property (nonatomic) NSString *SCROLLING;
+@property (nonatomic) NSString *QQ;
+@property (nonatomic) NSString *NOTICE;
 @end
 
 @interface SAConfigModel : QBDataResponse

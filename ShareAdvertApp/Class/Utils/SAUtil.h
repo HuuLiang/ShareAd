@@ -19,6 +19,8 @@
 
 //用户登录状态
 + (BOOL)checkUserIsLogin;
+//获取用户账户信息
++ (void)fetchAccountInfo;
 
 //设备类型
 + (BOOL)isIpad;

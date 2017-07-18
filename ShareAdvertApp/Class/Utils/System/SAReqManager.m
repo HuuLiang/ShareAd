@@ -45,29 +45,50 @@
         
         case 300:
             [[SAHudManager manager] showHudWithText:@"参数不正确"];
-            return YES;
+            return NO;
             break;
             
         case 301:
             [[SAHudManager manager] showHudWithText:@"手机号已经注册"];
-            return YES;
+            return NO;
             break;
             
         case 302:
             [[SAHudManager manager] showHudWithText:@"账号或密码不正确"];
-            return YES;
+            return NO;
             break;
             
         case 303:
             [[SAHudManager manager] showHudWithText:@"账号余额不足"];
-            return YES;
+            return NO;
             break;
             
         case 304:
             [[SAHudManager manager] showHudWithText:@"已签到"];
-            return YES;
+            return NO;
+            break;
+        
+        case 305:
+            [[SAHudManager manager] showHudWithText:@"验证码不正确"];
+            return NO;
+            break;
+
+        case 400:
+            [[SAHudManager manager] showHudWithText:@"解密失败"];
+            return NO;
             break;
             
+        case 401:
+            [[SAHudManager manager] showHudWithText:@"签名不通过"];
+            return NO;
+            break;
+
+        case 500:
+            [[SAHudManager manager] showHudWithText:@"系统异常"];
+            return NO;
+            break;
+
+        
         default:
             return NO;
             break;
@@ -110,6 +131,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
     [params addEntriesFromDictionary:@{@"phone":userInfo.phone,
                                        @"password":userInfo.password,
+                                       @"code":userInfo.verifyCode,
                                        @"nickName":userInfo.nickName}];
     
     [[QBDataManager manager] requestUrl:SA_REGISTER_URL
@@ -119,6 +141,21 @@
     {
         handler([self checkResponseCodeObject:obj error:error],obj);
     }];
+}
+
+- (void)changePasswordWithInfo:(SAUser *)userInfo class:(Class)modelClass handler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"phone":userInfo.phone,
+                                       @"password":userInfo.password,
+                                       @"code":userInfo.verifyCode}];
+    
+    [[QBDataManager manager] requestUrl:SA_RESET_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
 }
 
 - (void)loginWithPhontNumber:(NSString *)phone password:(NSString *)password class:(Class)modelClass handler:(SACompletionHandler)handler {
@@ -266,7 +303,20 @@
      {
          handler([self checkResponseCodeObject:obj error:error],obj);
      }];
-
 }
+
+- (void)fetchRecruitInfoWithClass:(Class)modelClass hanler:(SACompletionHandler)handler {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self params]];
+    [params addEntriesFromDictionary:@{@"userId":[SAUser user].userId}];
+    
+    [[QBDataManager manager] requestUrl:SA_QUERYAPPRENTICE_URL
+                             withParams:params
+                                  class:modelClass
+                                handler:^(id obj, NSError *error)
+     {
+         handler([self checkResponseCodeObject:obj error:error],obj);
+     }];
+}
+
 
 @end

@@ -50,8 +50,8 @@
         default:
             break;
     }
-    
-    [_webView loadHTMLString:contentUrl baseURL:nil];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:contentUrl]];
+    [_webView loadRequest:request];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,7 +70,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [SAMineAlertUIHelper showAlertUIWithType:1 onCurrentVC:self];
+//    [SAMineAlertUIHelper showAlertUIWithType:1 onCurrentVC:self];
 }
 
 @end

@@ -92,8 +92,9 @@
     SendMessageToWXResp *msgResp = (SendMessageToWXResp *)resp;
     if (msgResp.errCode == 0 && self.programModel) {
         //分享成功
-        [[SAReqManager manager] updateShareBountyWithPrice:[self.programModel.shAmount integerValue] shareId:self.programModel.shareId class:[self class] handler:^(BOOL success, id obj) {
+        [[SAReqManager manager] updateShareBountyWithPrice:self.programModel.shAmount shareId:self.programModel.shareId class:[self class] handler:^(BOOL success, id obj) {
             if (success) {
+                [SAUtil fetchAccountInfo];
                 [[SAHudManager manager] showHudWithText:@"分享成功"];
             }
             self.programModel = nil;

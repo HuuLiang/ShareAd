@@ -52,7 +52,7 @@
     {
         [_loginInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.top.equalTo(self.view).offset (kWidth(32));
+            make.top.equalTo(self.view).offset(kWidth(32)+64);
             make.size.mas_equalTo(CGSizeMake(kWidth(690), kWidth(303)));
         }];
     }
@@ -71,6 +71,7 @@
     _forgotLabel.text = @"忘记密码";
     _forgotLabel.textColor = kColor(@"#444A59");
     _forgotLabel.font = kFont(14);
+    _forgotLabel.userInteractionEnabled = YES;
     [self.view addSubview:_forgotLabel];
     
     self.registerLabel = [[UILabel alloc] init];
@@ -84,6 +85,16 @@
     @weakify(self);
     [_loginButton bk_addEventHandler:^(id sender) {
         @strongify(self);
+        if (self.loginInfoView.phoneNumber.length != 11) {
+            [[SAHudManager manager] showHudWithText:@"请输入正确的手机号码"];
+            return ;
+        }
+        
+        if (self.loginInfoView.password.length == 0) {
+            [[SAHudManager manager] showHudWithText:@"请输入密码"];
+            return;
+        }
+        
         [[SAReqManager manager] loginWithPhontNumber:self.loginInfoView.phoneNumber
                                             password:self.loginInfoView.password
                                                class:[SALoginModel class]
@@ -92,8 +103,9 @@
             if (success) {
                 [[SAUser user] setValueWithObj:obj.user];
                 
-                if ([[SAUser user] saveOrUpdate]) {
+                if ([[SAUser user] update]) {
                     [self dismissViewControllerAnimated:YES completion:^{
+                        [SAUtil fetchAccountInfo];
                         [[NSNotificationCenter defaultCenter] postNotificationName:kSAUserLoginSuccessNotification object:nil];
                     }];
                 }
@@ -102,14 +114,17 @@
         
     } forControlEvents:UIControlEventTouchUpInside];
     
-//    [_forgotLabel bk_whenTapped:^{
-//        @strongify(self);
-        
-//    }];
+    [_forgotLabel bk_whenTapped:^{
+        @strongify(self);
+        SARegisterViewController *registerVC = [[SARegisterViewController alloc] initWithTitle:@"忘记密码"];
+        registerVC.type = SARegisterTypeForgot;
+        [self.navigationController pushViewController:registerVC animated:YES];
+    }];
     
     [_registerLabel bk_whenTapped:^{
         @strongify(self);
         SARegisterViewController *registerVC = [[SARegisterViewController alloc] initWithTitle:@"注册"];
+        registerVC.type = SARegisterTypeRegister;
         [self.navigationController pushViewController:registerVC animated:YES];
     }];
     

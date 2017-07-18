@@ -113,7 +113,7 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
         cell.imgUrl = programModel.coverImg;
         cell.specilTitle = @"限时上涨到2毛";
         cell.title = programModel.title;
-        cell.price = [NSString stringWithFormat:@"高价  %@元/阅读",programModel.shAmount];
+        cell.price = [NSString stringWithFormat:@"高价  %.2f元/阅读",(float)programModel.shAmount/100];
         cell.read = [NSString stringWithFormat:@"阅读:%@",programModel.readNumber];
         @weakify(self);
         cell.shareAction = ^{
@@ -131,6 +131,10 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SAShareContentProgramModel *programModel = self.response.shares[indexPath.row];
     if (indexPath.row < self.response.shares.count) {
+        if (![SAUtil checkUserIsLogin]) {
+            [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeShareOffline onCurrentVC:self];
+            return;
+        }
         SAShareDetailVC *detailVC = [[SAShareDetailVC alloc] initWithInfo:programModel];
         [self.navigationController pushViewController:detailVC animated:YES];
     }

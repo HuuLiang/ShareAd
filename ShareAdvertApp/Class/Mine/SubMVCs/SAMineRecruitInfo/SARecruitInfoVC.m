@@ -9,12 +9,15 @@
 #import "SARecruitInfoVC.h"
 #import "SARecruitHeaderView.h"
 #import "SARecruitInfoCell.h"
+#import "SAReqManager.h"
+#import "SARecruitInfoModel.h"
 
 static NSString *const kSAMineRecruitCellReusableIdentifier = @"kSAMineRecruitCellReusableIdentifier";
 
 @interface SARecruitInfoVC () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) SARecruitHeaderView *headerView;
+@property (nonatomic) SARecruitInfoModel *response;
 @end
 
 @implementation SARecruitInfoVC
@@ -37,11 +40,27 @@ static NSString *const kSAMineRecruitCellReusableIdentifier = @"kSAMineRecruitCe
         }];
     }
     
-    [self configHeaderView];
+    @weakify(self);
+    [_tableView SA_addPullToRefreshWithHandler:^{
+        @strongify(self);
+        [self fetchRecruitInfo];
+    }];
+    
+    [_tableView SA_triggerPullToRefresh];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)fetchRecruitInfo {
+    @weakify(self);
+    [[SAReqManager manager] fetchRecruitInfoWithClass:[SARecruitInfoModel class] hanler:^(BOOL success, SARecruitInfoModel * obj) {
+        @strongify(self);
+        if (success) {
+            self.response = obj;
+        }
+    }];
 }
 
 - (void)configHeaderView {

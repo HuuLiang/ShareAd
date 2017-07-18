@@ -83,7 +83,7 @@ QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
     if (indexPath.row < self.response.accounting.count) {
         SADetailModel *detailModel = self.response.accounting[indexPath.row];
         cell.type = detailModel.type;
-        cell.count = [NSString stringWithFormat:@"%ld",detailModel.amount];
+        cell.count = [NSString stringWithFormat:@"%.2f",(float)detailModel.amount/100];
         cell.timeStr = detailModel.createTime;
     }
     return cell;

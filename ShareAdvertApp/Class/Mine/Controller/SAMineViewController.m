@@ -26,6 +26,7 @@
 
 #import "SAReqManager.h"
 #import "SAConfigModel.h"
+#import "SAUserAccountModel.h"
 #import "SASignModel.h"
 
 static NSString *const kSAMineCenterUserInfoCellReusableIdentifier = @"kSAMineCenterUserInfoCellReusableIdentifier";
@@ -61,7 +62,7 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configMineCenter];
+    self.title = @"个人中心";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshBalanceSection) name:kSARefreshAccountInfoNotification object:nil];
 }
@@ -76,49 +77,60 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
     if (![SAUtil checkUserIsLogin]) {
         [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeMineCenterOffline onCurrentVC:self];
     }
-    _tableView.hidden = ![SAUtil checkUserIsLogin];
+//    _tableView.hidden = ![SAUtil checkUserIsLogin];
+    [self configMineCenter];
+    [self configRightBarButtonItem];
 }
 
 - (void)configMineCenter {
-    self.title = @"个人中心";
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.backgroundColor = kColor(@"#efefef");
-    [_tableView setSeparatorColor:kColor(@"#f0f0f0")];
-    [_tableView registerClass:[SAMineCenterUserInfoCell class] forCellReuseIdentifier:kSAMineCenterUserInfoCellReusableIdentifier];
-    [_tableView registerClass:[SAMineCenterAdCell class] forCellReuseIdentifier:kSAMineCenterAdCellReusableIdentifier];
-    [_tableView registerClass:[SAMineCenterBalanceCell class] forCellReuseIdentifier:kSAMineCenterBalanceCellReusableIdentifier];
-    [_tableView registerClass:[SAMineCenterFunctionCell class] forCellReuseIdentifier:kSAMineCenterFunctionCellReusableIdentifier];
-    [self.view addSubview:_tableView];
-    {
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+    if (![SAUtil checkUserIsLogin]) {
+        return;
+    }
+    if (!_tableView) {
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = kColor(@"#efefef");
+        [_tableView setSeparatorColor:kColor(@"#f0f0f0")];
+        [_tableView registerClass:[SAMineCenterUserInfoCell class] forCellReuseIdentifier:kSAMineCenterUserInfoCellReusableIdentifier];
+        [_tableView registerClass:[SAMineCenterAdCell class] forCellReuseIdentifier:kSAMineCenterAdCellReusableIdentifier];
+        [_tableView registerClass:[SAMineCenterBalanceCell class] forCellReuseIdentifier:kSAMineCenterBalanceCellReusableIdentifier];
+        [_tableView registerClass:[SAMineCenterFunctionCell class] forCellReuseIdentifier:kSAMineCenterFunctionCellReusableIdentifier];
+        [self.view addSubview:_tableView];
+        {
+            [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.view);
+            }];
+        }
+    }
+}
+
+- (void)configRightBarButtonItem {
+    if (![SAUtil checkUserIsLogin]) {
+        return;
+    }
+    if (!self.navigationItem.rightBarButtonItem) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"签到" style:UIBarButtonItemStylePlain handler:^(id sender) {
+            //签到
+            [[SAReqManager manager] signWithClass:[SASignModel class] handler:^(BOOL success, id obj) {
+                if (success) {
+                    [SAUtil fetchAccountInfo];
+                    [[SAHudManager manager] showHudWithText:@"签到成功"];
+                }
+            }];
         }];
     }
-    
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"签到" style:UIBarButtonItemStylePlain handler:^(id sender) {
-        //签到
-        [[SAReqManager manager] signWithClass:[SASignModel class] handler:^(BOOL success, id obj) {
-            if (success) {
-                [[SAHudManager manager] showHudWithText:@"签到成功"];
-            }
-        }];
-    }];
 }
 
 - (void)contactCustomerService {
-    NSString *contactScheme = @"";
-    NSString *contactName = @"";
+    NSString *contactScheme = [SAConfigModel defaultConfig].config.QQ;
     
     if (contactScheme.length == 0) {
         return ;
     }
     
     [UIAlertView bk_showAlertViewWithTitle:nil
-                                   message:[NSString stringWithFormat:@"是否联系客服%@？", contactName ?: @""]
+                                   message:[NSString stringWithFormat:@"是否联系客服？"]
                          cancelButtonTitle:@"取消"
                          otherButtonTitles:@[@"确认"]
                                    handler:^(UIAlertView *alertView, NSInteger buttonIndex)
@@ -172,7 +184,7 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
         return cell;
     } else if (indexPath.section == SAMineCenterBalanceSection) {
         SAMineCenterBalanceCell *cell = [tableView dequeueReusableCellWithIdentifier:kSAMineCenterBalanceCellReusableIdentifier forIndexPath:indexPath];
-        cell.balance = [NSString stringWithFormat:@"%.3f",(float)[SAUser user].amount/1000];
+        cell.balance = [NSString stringWithFormat:@"%.2f",(float)[SAUser user].amount/100];
         
         @weakify(self);
         cell.withDrawAction = ^{

@@ -25,12 +25,15 @@ static NSString *const kSAShareAllContentCellReusableIdentifier = @"kSAShareAllC
     layout.minimumLineSpacing = kWidth(40);
     layout.minimumInteritemSpacing = kWidth(20);
     layout.sectionInset = UIEdgeInsetsMake(kWidth(30), kWidth(30), kWidth(48), kWidth(30));
-    CGFloat width = ceilf((kScreenWidth - kWidth(140))/5);
+    CGFloat width = ceilf((kScreenWidth - kWidth(140))/5)-1;
     CGFloat height = ceilf(width*7/15);
     layout.itemSize = CGSizeMake(width, height);
     
     NSInteger lineCount = self.dataSource.count % 5 == 0 ? (self.dataSource.count / 5) : (self.dataSource.count / 5 + 1);
     CGFloat allHeight = kWidth(60) + lineCount * height + (lineCount - 1) * kWidth(40);
+    if (allHeight < kWidth(328)) {
+        allHeight = kWidth(328);
+    }
     
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     _collectionView.delegate = self;
@@ -42,7 +45,7 @@ static NSString *const kSAShareAllContentCellReusableIdentifier = @"kSAShareAllC
     {
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.top.equalTo(self.view).offset(self.height);
+            make.top.equalTo(self.view).offset(64);
             make.height.mas_equalTo(ceilf(allHeight));
         }];
     }
@@ -52,7 +55,11 @@ static NSString *const kSAShareAllContentCellReusableIdentifier = @"kSAShareAllC
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    [self hide];
 }
 
 + (void)showAllContentVCWithDataSource:(NSArray *)dataSource height:(CGFloat)height InCurrentVC:(UIViewController *)currentVC {
@@ -81,6 +88,7 @@ static NSString *const kSAShareAllContentCellReusableIdentifier = @"kSAShareAllC
     }
     
     [currentVC addChildViewController:self];
+    self.view.backgroundColor = [kColor(@"#000000") colorWithAlphaComponent:0.3];
     self.view.frame = currentVC.view.bounds;
     self.view.alpha = 0;
     [currentVC.view addSubview:self.view];
@@ -130,7 +138,7 @@ static NSString *const kSAShareAllContentCellReusableIdentifier = @"kSAShareAllC
         SAShareColumnModel *columnModel = self.dataSource[indexPath.row];
         [self hide];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kSAPushShareContentVCNotification object:columnModel.columnId];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kSAPushShareContentVCNotification object:columnModel];
         });
     }
 }

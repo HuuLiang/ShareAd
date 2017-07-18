@@ -127,7 +127,7 @@ NSString *const kSAShareLogicErrorCodeKeyName = @"com.sharead.errordomain.logice
 
 - (NSDictionary *)encryptWithParams:(id)params {
     
-    if ([self.delegate respondsToSelector:@selector(encryptWithParams:)]) {
+    if ([self.delegate respondsToSelector:@selector(encryptedWithParams:)]) {
         return [self.delegate encryptedWithParams:params];
     }
     
@@ -147,8 +147,8 @@ NSString *const kSAShareLogicErrorCodeKeyName = @"com.sharead.errordomain.logice
     
     [values sortUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
         NSRange range = NSMakeRange(0, obj1.length);
-        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch|
-                NSWidthInsensitiveSearch|NSForcedOrderingSearch range:range];
+        return [obj1 compare:obj2 options:
+                NSWidthInsensitiveSearch range:range];
     }];
     
     NSMutableString *valueStr = [[NSMutableString alloc] init];

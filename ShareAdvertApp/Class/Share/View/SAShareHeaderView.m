@@ -100,7 +100,7 @@
 }
 
 - (void)setBalance:(NSInteger)balance {
-    _balanceLabel.text = [NSString stringWithFormat:@"%.3f",(float)balance/1000];
+    _balanceLabel.text = [NSString stringWithFormat:@"%.2f",(float)balance/100];
 }
 
 - (void)setToRecruit:(NSInteger)toRecruit {
@@ -108,7 +108,7 @@
 }
 
 - (void)setToEarnings:(NSInteger)toEarnings {
-    _toEarningsLabel.text = [NSString stringWithFormat:@"今日收入 %ld 元",toEarnings];
+    _toEarningsLabel.text = [NSString stringWithFormat:@"今日收入 %.2f 元",(float)toEarnings/100];
 }
 
 @end

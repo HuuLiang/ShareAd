@@ -29,11 +29,11 @@
 }
 
 - (void)refreshAccountInfo {
-    @weakify(self);
     [[SAReqManager manager] fetchUserAccountInfoWithClass:[SAUserAccountModel class] handler:^(BOOL success, SAUserAccountModel * obj) {
-        @strongify(self);
         if (success) {
-            self.account = obj.account;
+            [SAUserAccountModel account].account = obj.account;
+            [SAUser user].amount = [SAUserAccountModel account].account.amount;
+            [[SAUser user] update];
             [[NSNotificationCenter defaultCenter] postNotificationName:kSARefreshAccountInfoNotification object:nil];
         }
     }];

@@ -80,7 +80,7 @@
         self.firstDescLabel = [[UILabel alloc] init];
         _firstDescLabel.font = kFont(14);
         _firstDescLabel.textColor = kColor(@"#666666");
-        _firstDescLabel.text = @"1.注册奖励：您邀请的好友注册后，您会获得3元注册奖励（当好友体现10元后可到账);";
+        _firstDescLabel.text = @"1.注册奖励：您邀请的好友注册后，您会获得3元注册奖励（当好友提现10元后可到账);";
         _firstDescLabel.numberOfLines = 0;
         [self addSubview:_firstDescLabel];
         
@@ -184,12 +184,12 @@
 
 - (void)setToBalanceCount:(NSInteger)toBalanceCount {
     _toBalanceView.tagType = SATagViewTypeTodayBalance;
-    _toBalanceView.count = [NSString stringWithFormat:@"%.3f",(float)toBalanceCount/1000];
+    _toBalanceView.count = [NSString stringWithFormat:@"%.2f",(float)toBalanceCount/100];
 }
 
 - (void)setAllBalanceCount:(NSInteger)allBalanceCount {
     _allBalanceView.tagType = SATagViewTypeAllBalance;
-    _allBalanceView.count = [NSString stringWithFormat:@"%.3f",(float)allBalanceCount];
+    _allBalanceView.count = [NSString stringWithFormat:@"%.2f",(float)allBalanceCount/100];
 }
 
 @end

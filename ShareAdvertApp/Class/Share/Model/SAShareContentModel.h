@@ -13,7 +13,7 @@
 @property (nonatomic) NSString *coverImg;
 @property (nonatomic) NSString *shareId;
 @property (nonatomic) NSString *readNumber;
-@property (nonatomic) NSString *shAmount;
+@property (nonatomic) NSInteger shAmount;
 @property (nonatomic) NSString *shUrl;
 @property (nonatomic) NSString *title;
 

@@ -13,12 +13,13 @@
 #import "SAShareViewController.h"
 #import "SARecruitViewController.h"
 #import "SAMineViewController.h"
+#import "SAMineAlertUIHelper.h"
 
 #import "SAReqManager.h"
 #import "SAConfigModel.h"
+#import "SAUserAccountModel.h"
 
 @interface SATabBarController () <UITabBarControllerDelegate>
-
 @end
 
 @implementation SATabBarController
@@ -26,7 +27,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self fetchSystemConfigInfo];
     [self configViewControllers];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(login) name:kSAUserLoginNotification object:nil];
+    
+    if ([SAUtil checkUserIsLogin]) {
+        [SAUtil fetchAccountInfo];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,8 +43,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self fetchSystemConfigInfo];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(login) name:kSAUserLoginNotification object:nil];
 }
 
 - (void)configViewControllers {
@@ -69,8 +75,12 @@
         if (success) {
             [SAConfigModel defaultConfig].config = obj.config;
             NSLog(@"系统配置获取成功");
+            if ([SAConfigModel defaultConfig].config.NOTICE.length > 0) {
+                [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeAnnouncement onCurrentVC:self];
+            }
         }
     }];
+    
 }
 
 - (void)login {

@@ -8,7 +8,7 @@
 
 #import "SATextField.h"
 
-@interface SATextField ()
+@interface SATextField () <UITextFieldDelegate>
 @property (nonatomic) UILabel *titleLabel;
 @property (nonatomic) UITextField *contentField;
 @property (nonatomic) UIImageView *lineV;
@@ -33,6 +33,8 @@
         _contentField.textColor = kColor(@"#666666");
         _contentField.font = kFont(14);
         _contentField.placeholder = placeholder;
+        _contentField.returnKeyType = UIReturnKeyDone;
+        _contentField.delegate = self;
         [_contentField setValue:kColor(@"#cccccc") forKeyPath:@"_placeholderLabel.textColor"];
         [self addSubview:_contentField];
         
@@ -88,6 +90,13 @@
 
 - (NSString *)text {
     return _contentField.text;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [_contentField resignFirstResponder];
+    return YES;
 }
 
 @end

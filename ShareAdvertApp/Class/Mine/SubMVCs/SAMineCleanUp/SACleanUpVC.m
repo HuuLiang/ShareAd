@@ -20,9 +20,9 @@
     [super viewDidLoad];
     
     self.sliderView = [[UISliderView alloc] initWithSuperView:self.view];
-    _sliderView.titleScrollViewFrame = CGRectMake(0, 0, kScreenWidth, kWidth(80));
+    _sliderView.titleScrollViewFrame = CGRectMake(0, 64, kScreenWidth, kWidth(80));
     _sliderView.imageBackViewColor = kColor(@"#FF3366");
-    _sliderView.imageBackViewFrame = CGRectMake(kWidth(120), kWidth(80) - 3.5, kWidth(140), 3);
+    _sliderView.imageBackViewFrame = CGRectMake(kWidth(80), kWidth(80) - 3.5, kScreenWidth/2 - kWidth(160), 3);
     
     NSArray *titles = @[@"分享赚钱",@"收徒赚钱"];
     _sliderView.titlesArr = titles;
@@ -37,7 +37,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

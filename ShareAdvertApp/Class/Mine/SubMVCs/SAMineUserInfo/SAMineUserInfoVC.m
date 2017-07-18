@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
         }];
     }
     
-    self.userInfoKeys = @[@"Weixin",@"aliPay",@"name",@"nickName",@"phone",@"sex",@"city",@"masterId"];
+    self.userInfoKeys = @[@"weixin",@"aliPay",@"name",@"nickName",@"phone",@"sex",@"city",@"masterId"];
 
     
     [self fetchUserInfo];
@@ -163,7 +163,7 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
                     }
                 }];
             }];
-            [user saveOrUpdate];
+            [user update];
         }
     }];
 }
