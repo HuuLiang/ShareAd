@@ -18,4 +18,6 @@
 
 @property (nonatomic) NSString *title;
 
+@property (nonatomic) NSInteger type;
+
 @end

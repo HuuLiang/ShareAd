@@ -8,6 +8,12 @@
 
 #import "QBDataResponse.h"
 
-@interface SARecruitInfoModel : QBDataResponse
+@interface SARecruitDetailModel : NSObject
+@property (nonatomic) NSString *nickName;
+@property (nonatomic) NSString *userId;
+@property (nonatomic) NSString *createTime;
+@end
 
+@interface SARecruitInfoModel : QBDataResponse
+@property (nonatomic) NSArray <SARecruitDetailModel *> * apprentice;
 @end

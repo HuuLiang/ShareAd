@@ -83,11 +83,27 @@
 }
 
 - (void)setTitle:(NSString *)title {
+    _title = title;
     _titleLabel.text = title;;
 }
 
+- (void)setType:(NSInteger)type {
+    _type = type;
+    if (type == 1) {
+        _titleLabel.text = @"累计收益";
+    } else if (type == 2) {
+        _titleLabel.text = @"累计收徒";
+    }
+}
+
 - (void)setCount:(NSString *)count {
-    _incomeLabel.text = [NSString stringWithFormat:@"%@元",count];
+    NSString *unit = nil;
+    if (_type == 1) {
+        unit = @"元";
+    } else if (_type == 2) {
+        unit = @"人";
+    }
+    _incomeLabel.text = [NSString stringWithFormat:@"%@%@",count,unit];
 }
 
 @end

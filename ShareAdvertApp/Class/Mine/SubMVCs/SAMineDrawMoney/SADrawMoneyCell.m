@@ -71,10 +71,10 @@
             _statusLabel.text = @"正在处理";
             break;
         case SAMineDrawMoneyStatusFailed:
-            _statusLabel.text = @"提现成功";
+            _statusLabel.text = @"提现失败";
             break;
         case SAMineDrawMoneyStatusSuccess:
-            _statusLabel.text = @"提现失败";
+            _statusLabel.text = @"提现成功";
             break;
 
         default:

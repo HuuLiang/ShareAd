@@ -31,6 +31,7 @@
     [self configViewControllers];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(login) name:kSAUserLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTabBarIndex) name:kSAReturnTabBarFirstNotification object:nil];
     
     if ([SAUtil checkUserIsLogin]) {
         [SAUtil fetchAccountInfo];
@@ -89,6 +90,10 @@
     if (!self.presentedViewController) {
         [self presentViewController:loginNav animated:loginNav completion:nil];
     }
+}
+
+- (void)changeTabBarIndex {
+    [self setSelectedIndex:0];
 }
 
 @end

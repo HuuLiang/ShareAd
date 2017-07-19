@@ -31,11 +31,13 @@
 
 - (void)setValueWithObj:(SAUser *)responseUser {
     [responseUser.allProperties enumerateObjectsUsingBlock:^(NSString *  _Nonnull keyName , NSUInteger idx, BOOL * _Nonnull stop) {
-        [[SAUser user].allProperties enumerateObjectsUsingBlock:^(NSString *  _Nonnull propertyName, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([keyName isEqualToString:propertyName] && ![keyName isEqualToString:@"pk"]) {
-                [[SAUser user] setValue:[responseUser valueForKey:keyName] forKey:propertyName];
-            }
-        }];
+        if ([responseUser valueForKey:keyName]) {
+            [[SAUser user].allProperties enumerateObjectsUsingBlock:^(NSString *  _Nonnull propertyName, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([keyName isEqualToString:propertyName] && ![keyName isEqualToString:@"pk"]) {
+                    [[SAUser user] setValue:[responseUser valueForKey:keyName] forKey:propertyName];
+                }
+            }];
+        }
     }];
 }
 @end

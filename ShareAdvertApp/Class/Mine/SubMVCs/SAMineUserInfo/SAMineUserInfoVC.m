@@ -14,6 +14,7 @@
 
 #import "SAReqManager.h"
 #import "SAUserInfoModel.h"
+#import "SAShareManager.h"
 
 static NSString *const kSAMineUserInfoCellReusableIdentifier = @"kSAMineUserInfoCellReusableIdentifier";
 
@@ -67,9 +68,25 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
     }
     
     self.userInfoKeys = @[@"weixin",@"aliPay",@"name",@"nickName",@"phone",@"sex",@"city",@"masterId"];
-
     
-    [self fetchUserInfo];
+    if (_type == SAPushUserInfoVCTypeWx) {
+        //登录微信获取成功 刷新界面
+        if ([SAUser user].openId.length == 0) {
+            [self.view beginLoading];
+            [[SAShareManager manager] fetchUserInfoWithWx:^(BOOL success, id obj) {
+                [self.view endLoading];
+                if (success) {
+                    [self updateOpenId];
+                }
+            }];
+        } else {
+            if ([SAUser user].weixin.length == 0) {
+                [[SAHudManager manager] showHudWithText:@"请输入微信号完成绑定"];
+            }
+        }
+    } else {
+        [self fetchUserInfo];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,7 +99,7 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
         @strongify(self);
         if (success) {
             [[SAUser user] setValueWithObj:userInfoModel.user];
-            
+            [[SAUser user] update];
             [self.tableView reloadData];
         }
     }];
@@ -101,6 +118,7 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
             [QBImageUploadManager uploadImage:pickerImage withName:name completionHandler:^(BOOL success, id obj) {
                 if (success) {
                     [SAUser user].portraitUrl = name;
+                    [[SAUser user] update];
                     self.headerView.portraitUrl = name;
                 }
             }];
@@ -179,16 +197,37 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
     return @{_userInfoKeys[indexPath.row]:cellContent};
 }
 
+- (void)updateOpenId {
+    @weakify(self);
+    [self.view beginLoading];
+    [[SAReqManager manager] updateUserInfoWithInfo:@{@"userId":[SAUser user].userId , @"openid":[SAUser user].openId} class:[SAUserInfoModel class] handler:^(BOOL success, id obj) {
+        @strongify(self);
+        [self.view endLoading];
+        if (success) {
+            [self.tableView reloadData];
+            if ([SAUser user].weixin.length == 0) {
+                [[SAHudManager manager] showHudWithText:@"请输入微信号完成最后绑定"];
+            } else if ([SAUser user].weixin.length > 0) {
+                [[SAHudManager manager] showHudWithText:@"绑定成功"];
+            }
+        } else {
+            [SAUser user].openId = @"";
+        }
+        [[SAUser user] update];
+    }];
+
+}
+
 - (void)handleKeyBoardActionHide:(NSNotification *)notification {
-    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [self.tableView setContentOffset:CGPointMake(0, - 64) animated:YES];
 }
 
 - (void)handleKeyBoardChangeFrame:(NSNotification *)notification {
     CGRect endFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    if (endFrame.origin.y - 70.0 > _selectedTextFieldHeight) {
+    if (endFrame.origin.y - 64 - 70.0 > _selectedTextFieldHeight) {
         return;
     }
-    CGFloat offsetY = _selectedTextFieldHeight - (endFrame.origin.y - 70.0);
+    CGFloat offsetY = _selectedTextFieldHeight - (endFrame.origin.y - 70.0) - 64;
     QBLog(@"keyBoardOriginY:%f \n selectedTextFieldHeight:%f \n offsetY:%f",endFrame.origin.y,_selectedTextFieldHeight,offsetY);
     [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:YES];
     
@@ -231,7 +270,7 @@ typedef NS_ENUM(NSInteger,SAMineUserInfoRow) {
         cell.content = [SAUser user].city;
     } else if (indexPath.row == SAMineUserInfoRowMaster) {
         cell.title = @"师傅ID";
-        cell.content = [SAUser user].masterId;
+        cell.content = [NSString stringWithFormat:@"%ld",(long)[SAUser user].masterId];
     }
     
     @weakify(self);

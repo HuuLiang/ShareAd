@@ -10,6 +10,7 @@
 #import "QBDataResponse.h"
 
 @class BaseResp;
+@class SendAuthResp;
 @class SAShareContentProgramModel;
 
 @interface SAShareManager : QBDataResponse
@@ -18,9 +19,12 @@
 
 - (void)startToShareWithModel:(SAShareContentProgramModel *)programModel;
 
-- (void)receiveWxResp:(BaseResp *)resp;
-
 - (void)startToRecruitUrlWoWx;
 
+- (void)fetchUserInfoWithWx:(SACompletionHandler)handler;
+
+- (void)receiveWxResp:(BaseResp *)resp;
+
+- (void)sendAuthRespCode:(SendAuthResp *)resp;
 
 @end

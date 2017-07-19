@@ -12,6 +12,7 @@
 @property (nonatomic) NSString *nickName;
 @property (nonatomic) NSString *portraitUrl;
 @property (nonatomic) NSInteger value;
+@property (nonatomic) NSInteger type;
 @end
 
 @interface SARankingModel : QBDataResponse

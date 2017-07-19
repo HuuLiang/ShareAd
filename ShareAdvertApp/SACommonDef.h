@@ -44,5 +44,6 @@ typedef NS_ENUM(NSUInteger, SADeviceType) {
 #define kSAUserLoginSuccessNotification   @"ShareAd_user_login_success_notification"
 #define kSAPushShareContentVCNotification @"ShareAd_push_contentVC_notification"
 #define kSARefreshAccountInfoNotification @"ShareAd_refresh_account_notification"
+#define kSAReturnTabBarFirstNotification  @"ShareAd_return_tabbarFirst_notification"
 
 #endif /* SACommonDef_h */

@@ -73,6 +73,11 @@
             return NO;
             break;
 
+        case 307:
+            [[SAHudManager manager] showHudWithText:@"更新失败"];
+            return NO;
+            break;
+            
         case 400:
             [[SAHudManager manager] showHudWithText:@"解密失败"];
             return NO;

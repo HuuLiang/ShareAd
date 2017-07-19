@@ -169,6 +169,8 @@
 - (void)onResp:(BaseResp *)resp {
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
         [[SAShareManager manager] receiveWxResp:resp];
+    } else if ([resp isKindOfClass:[SendAuthResp class]]) {
+        [[SAShareManager manager] sendAuthRespCode:resp];
     }
 }
 

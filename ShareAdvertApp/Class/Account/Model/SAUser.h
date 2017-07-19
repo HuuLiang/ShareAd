@@ -37,7 +37,9 @@
 
 @property (nonatomic,nullable) NSString *city;
 
-@property (nonatomic,nullable) NSString *masterId;
+@property (nonatomic,nullable) NSString *openId;
+
+@property (nonatomic) NSInteger masterId;
 
 @property (nonatomic) NSInteger amount;
 

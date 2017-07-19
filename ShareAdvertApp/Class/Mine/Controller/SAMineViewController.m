@@ -102,6 +102,8 @@ typedef NS_ENUM(NSInteger,SAMineFunctionRow) {
                 make.edges.equalTo(self.view);
             }];
         }
+    } else {
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 

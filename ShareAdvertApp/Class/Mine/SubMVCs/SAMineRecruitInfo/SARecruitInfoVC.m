@@ -57,20 +57,22 @@ static NSString *const kSAMineRecruitCellReusableIdentifier = @"kSAMineRecruitCe
     @weakify(self);
     [[SAReqManager manager] fetchRecruitInfoWithClass:[SARecruitInfoModel class] hanler:^(BOOL success, SARecruitInfoModel * obj) {
         @strongify(self);
+        [self.tableView SA_endPullToRefresh];
         if (success) {
             self.response = obj;
+            [self.tableView reloadData];
         }
     }];
 }
 
-- (void)configHeaderView {
-    self.headerView = [[SARecruitHeaderView alloc] init];
-    _headerView.recruitCount = @"2";
-    _headerView.revenueCount = @"5";
-    _headerView.incomeCount = @"0";
-    _headerView.size = CGSizeMake(kScreenWidth, kWidth(100));
-    _tableView.tableHeaderView = _headerView;
-}
+//- (void)configHeaderView {
+//    self.headerView = [[SARecruitHeaderView alloc] init];
+//    _headerView.recruitCount = @"2";
+//    _headerView.revenueCount = @"5";
+//    _headerView.incomeCount = @"0";
+//    _headerView.size = CGSizeMake(kScreenWidth, kWidth(100));
+//    _tableView.tableHeaderView = _headerView;
+//}
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
@@ -79,15 +81,16 @@ static NSString *const kSAMineRecruitCellReusableIdentifier = @"kSAMineRecruitCe
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return self.response.apprentice.count;;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SARecruitInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:kSAMineRecruitCellReusableIdentifier forIndexPath:indexPath];
-    if (cell) {
-        cell.nickName = @"Liang";
-        cell.userId = @"93867";
-        cell.recruitTime = @"2017-7-17 14:55:55";
+    if (indexPath.row < self.response.apprentice.count) {
+        SARecruitDetailModel *detailModel = self.response.apprentice[indexPath.row];
+        cell.nickName = detailModel.nickName;
+        cell.userId = detailModel.userId;
+        cell.recruitTime = detailModel.createTime;
     }
     return cell;
 }

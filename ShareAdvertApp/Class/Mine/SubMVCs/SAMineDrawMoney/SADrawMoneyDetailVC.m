@@ -49,8 +49,9 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
     [self.view addSubview:_tableView];
     {
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.equalTo(self.view);
-            make.bottom.equalTo(self.view.mas_bottom).offset(-kWidth(80));
+//            make.left.top.right.equalTo(self.view);
+//            make.bottom.equalTo(self.view.mas_bottom).offset(-kWidth(80));
+            make.edges.equalTo(self.view);
         }];
     }
     
@@ -113,7 +114,7 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
         }
         cell.drawStatus = status;
         cell.count = [NSString stringWithFormat:@"%.2f",(float)detailModel.wiAmount/100];
-        cell.timeStr = detailModel.reatTime;
+        cell.timeStr = detailModel.createTime;
     }
     return cell;
 }

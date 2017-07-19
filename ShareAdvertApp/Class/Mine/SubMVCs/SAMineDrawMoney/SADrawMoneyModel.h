@@ -11,7 +11,7 @@
 @interface SADrawDetailModel : NSObject
 @property (nonatomic) NSInteger wiAmount;
 @property (nonatomic) NSString *wiStatus;
-@property (nonatomic) NSString *reatTime;
+@property (nonatomic) NSString *createTime;
 @end
 
 @interface SADrawMoneyModel : QBDataResponse

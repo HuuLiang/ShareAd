@@ -8,6 +8,14 @@
 
 #import "SARecruitInfoModel.h"
 
+@implementation SARecruitDetailModel
+
+@end
+
 @implementation SARecruitInfoModel
+
+- (Class)apprenticeElementClass {
+    return [SARecruitDetailModel class];
+}
 
 @end

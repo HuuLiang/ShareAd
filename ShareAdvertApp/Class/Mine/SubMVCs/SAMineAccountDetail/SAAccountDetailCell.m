@@ -70,7 +70,7 @@
     } else if ([type isEqualToString:@"APPRENTICE"]) {
         _statusLabel.text = @"招募奖励";
     } else if ([type isEqualToString:@"SHARE"]) {
-        _statusLabel.text = @"分享奖励";
+        _statusLabel.text = @"阅读奖励";
     } else if ([type isEqualToString:@"WITHDRAW"]) {
         _statusLabel.text = @"分成奖励";
     }

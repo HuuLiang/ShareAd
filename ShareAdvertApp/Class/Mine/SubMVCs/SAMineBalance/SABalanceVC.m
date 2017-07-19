@@ -66,7 +66,7 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushUserInfoVC) name:kSABindingWxNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchWxInfo) name:kSABindingWxNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -74,8 +74,11 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)pushUserInfoVC {
-    [self pushViewControllerWith:[SAMineUserInfoVC class] title:@"个人资料"];
+- (void)fetchWxInfo {
+//    [self pushViewControllerWith:[SAMineUserInfoVC class] title:@"个人资料"];
+    SAMineUserInfoVC *userInfoVC = [[SAMineUserInfoVC alloc] initWithTitle:@"个人资料"];
+    userInfoVC.type = SAPushUserInfoVCTypeWx;
+    [self.navigationController pushViewController:userInfoVC animated:YES];
 }
 
 - (void)startDrawMoney {
@@ -84,6 +87,7 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
     [[SAReqManager manager] drwaMoneyWithAmount:selectedPrice class:[SABalanceModel class] handler:^(BOOL success, id obj) {
         @strongify(self);
         if (success) {
+            [SAUtil fetchAccountInfo];
             [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeDrawSuccess onCurrentVC:self];
         }
     }];
@@ -138,7 +142,7 @@ static NSString *const kSABalanceCellReusableIdentifier = @"kSABalanceCellReusab
     @weakify(self);
     [_drawButton bk_addEventHandler:^(id sender) {
         @strongify(self);
-        if ([SAUser user].weixin.length > 0) {
+        if ([SAUser user].weixin.length > 0 && [SAUser user].openId.length > 0) {
             [self startDrawMoney];
         } else {
             [SAMineAlertUIHelper showAlertUIWithType:SAMineAlertTypeBingding onCurrentVC:self];

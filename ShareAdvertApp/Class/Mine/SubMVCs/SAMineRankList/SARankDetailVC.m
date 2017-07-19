@@ -16,11 +16,11 @@ static NSString *const kSARankDetailCellReusableIdentifier = @"kSARankDetailCell
 @interface SARankDetailVC () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) SARankingListType type;
-@property (nonatomic) SARankingModel *response;
+@property (nonatomic) NSMutableArray <SARankDetailModel *> *dataSource;
 @end
 
 @implementation SARankDetailVC
-QBDefineLazyPropertyInitialization(SARankingModel, response)
+QBDefineLazyPropertyInitialization(NSMutableArray, dataSource)
 
 - (instancetype)initWithType:(SARankingListType)type {
     self = [super init];
@@ -42,8 +42,9 @@ QBDefineLazyPropertyInitialization(SARankingModel, response)
     [self.view addSubview:_tableView];
     {
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.equalTo(self.view);
-            make.bottom.equalTo(self.view.mas_bottom).offset(-kWidth(80));
+//            make.left.top.right.equalTo(self.view);
+//            make.bottom.equalTo(self.view.mas_bottom).offset(-kWidth(80));
+            make.edges.equalTo(self.view);
         }];
     }
     
@@ -61,12 +62,15 @@ QBDefineLazyPropertyInitialization(SARankingModel, response)
     @weakify(self);
     [[SAReqManager manager] fetchRankingListWithType:self.type
                                                class:[SARankingModel class]
-                                             handler:^(BOOL success, id obj)
+                                             handler:^(BOOL success, SARankingModel * obj)
     {
         @strongify(self);
         [self.tableView SA_endPullToRefresh];
         if (success) {
-            self.response = obj;
+            [self.dataSource removeAllObjects];
+            [self.dataSource addObjectsFromArray:[obj.ranking bk_select:^BOOL(SARankDetailModel * rankDetailModel) {
+                return rankDetailModel.type == self.type;
+            }]];
         }
         [self.tableView reloadData];
     }];
@@ -79,21 +83,17 @@ QBDefineLazyPropertyInitialization(SARankingModel, response)
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.response.ranking.count;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SARankDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:kSARankDetailCellReusableIdentifier forIndexPath:indexPath];
-    if (indexPath.row < self.response.ranking.count) {
-        SARankDetailModel *detailModel = self.response.ranking[indexPath.row];
+    if (indexPath.row < self.dataSource.count) {
+        SARankDetailModel *detailModel = self.dataSource[indexPath.row];
         cell.portraitUrl = detailModel.portraitUrl;
         cell.nickName = detailModel.nickName;
+        cell.type = self.type;
         cell.count = [NSString stringWithFormat:@"%ld",(long)detailModel.value];
-        if (self.type == SARankingListTypeIncome) {
-            cell.title = @"累计收益";
-        } else if (self.type == SARankingListTypeRecruit) {
-            cell.title = @"累计收徒";
-        }
     }
     return cell;
 }

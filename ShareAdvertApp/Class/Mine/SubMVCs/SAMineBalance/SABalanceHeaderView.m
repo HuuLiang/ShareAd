@@ -38,10 +38,10 @@
         [self addSubview:_modeLabel];
 
         self.noticeLabel = [[UILabel alloc] init];
+        _noticeLabel.text = @"提现到账时间：每周四进行提现金额发放，打款后请在24小时左右对账核实";
         _noticeLabel.textColor = kColor(@"#666666");
         _noticeLabel.font = kFont(13);
         _noticeLabel.numberOfLines = 2;
-        _noticeLabel.text = @"提现到账时间：每周四进行提现金额发放，打款后请在24小时左右对账核实";
         [self addSubview:_noticeLabel];
         
         {
@@ -58,10 +58,9 @@
             }];
             
             [_noticeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(_modeLabel);
+                make.left.equalTo(self.mas_left).offset(kWidth(34));
                 make.top.equalTo(_modeLabel.mas_bottom).offset(kWidth(16));
-                make.right.equalTo(self.mas_right).offset(-kWidth(18));
-                make.height.mas_equalTo(_noticeLabel.font.lineHeight*2);
+                make.width.mas_equalTo(kWidth(690));
             }];
         }
         

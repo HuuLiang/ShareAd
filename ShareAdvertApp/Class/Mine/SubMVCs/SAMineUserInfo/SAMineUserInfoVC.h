@@ -8,6 +8,13 @@
 
 #import "SABaseViewController.h"
 
+typedef NS_ENUM(NSInteger,SAPushUserInfoVCType) {
+    SAPushUserInfoVCTypeNormal = 0,
+    SAPushUserInfoVCTypeWx
+};
+
 @interface SAMineUserInfoVC : SABaseViewController
+
+@property (nonatomic) SAPushUserInfoVCType type;
 
 @end
