@@ -22,4 +22,6 @@
 
 @property (nonatomic,weak) id <SAShareContentDelegate> delegate;
 
+- (void)refreshContent;
+
 @end
