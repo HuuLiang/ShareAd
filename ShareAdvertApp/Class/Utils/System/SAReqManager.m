@@ -73,6 +73,11 @@
             return NO;
             break;
 
+        case 306:
+            [[SAHudManager manager] showHudWithText:@"手机号未注册"];
+            return NO;
+            break;
+            
         case 307:
             [[SAHudManager manager] showHudWithText:@"更新失败"];
             return NO;

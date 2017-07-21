@@ -25,7 +25,7 @@ QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _page = 0;
+    _page = 1;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.backgroundColor = kColor(@"#efefef");
@@ -43,7 +43,7 @@ QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
     @weakify(self);
     [_tableView SA_addPullToRefreshWithHandler:^{
         @strongify(self);
-        self.page = 0;
+        self.page = 1;
         [self fetchAccountDetailWithPage:self.page];
     }];
     
@@ -58,9 +58,12 @@ QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
 
 - (void)fetchAccountDetailWithPage:(NSInteger)page {
     @weakify(self);
-    [[SAReqManager manager] fetchAccountDetailWithPage:self.page class:[SAAccountDetailModel class] handler:^(BOOL success, id obj) {
+    [[SAReqManager manager] fetchAccountDetailWithPage:self.page class:[SAAccountDetailModel class] handler:^(BOOL success, SAAccountDetailModel * obj) {
         @strongify(self);
         [self.tableView SA_endPullToRefresh];
+        if (obj.accounting.count == 0) {
+            [self.tableView SA_pagingRefreshNoMoreData];
+        }
         if (success) {
             self.response = obj;
         }

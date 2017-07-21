@@ -32,7 +32,7 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
     self = [super init];
     if (self) {
         _currentStatu = status;
-        _page = 0;
+        _page = 1;
     }
     return self;
 }
@@ -58,7 +58,7 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
     @weakify(self);
     [_tableView SA_addPullToRefreshWithHandler:^{
         @strongify(self);
-        self.page = 0;
+        self.page = 1;
         [self fetchDataWithPage:self.page];
     }];
     
@@ -81,10 +81,13 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
     [[SAReqManager manager] fetchDrawMoenyStatusWithStatus:self.currentStatu
                                                       Page:self.page
                                                      class:[SADrawMoneyModel class]
-                                                   handler:^(BOOL success, id obj)
+                                                   handler:^(BOOL success, SADrawMoneyModel * obj)
     {
         @strongify(self);
         [self.tableView SA_endPullToRefresh];
+        if (obj.withdraw.count == 0) {
+            [self.tableView SA_pagingRefreshNoMoreData];
+        }
         if (success) {
             self.response = obj;
         }
