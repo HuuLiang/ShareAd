@@ -57,11 +57,8 @@ static NSString *const kSAMessageReplayTodayKeyName = @"kSAMessageReplayTodayKey
 #pragma mark - 判断用户是否登录
 
 + (BOOL)checkUserIsLogin {
-    NSString * currentUserId = [SAUser user].userId;
-    if (currentUserId != NULL) {
-        return YES;
-    }
-    return NO;
+    NSInteger currentUserId = [[SAUser user].userId integerValue];
+    return currentUserId > 0;
 }
 
 + (void)fetchAccountInfo {

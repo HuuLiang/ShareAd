@@ -52,6 +52,9 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     
     if (_isLogin) {
         [self configShareTableHeaderView];
+    } else {
+        self.tableView.scrollEnabled = NO;
+        self.currentContentVC.view.userInteractionEnabled = YES;
     }
     
     {
@@ -112,6 +115,9 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
 
 - (void)configShareTableHeaderView {
     _isLogin = YES;
+    self.tableView.scrollEnabled = YES;
+    self.currentContentVC.view.userInteractionEnabled = NO;
+    
     self.headerView = [[SAShareHeaderView alloc] init];
     _headerView.size = CGSizeMake(kScreenWidth, kWidth(328));
     self.tableView.tableHeaderView = _headerView;
@@ -202,6 +208,9 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     QBLog(@"self.tableView.contentOffset.y %f",self.tableView.contentOffset.y);
+    if (!_isLogin) {
+        return;
+    }
     CGFloat contentOffsetY = scrollView.contentOffset.y;
     if (contentOffsetY > _headerView.height - 64) {
         self.currentContentVC.view.userInteractionEnabled = YES;
