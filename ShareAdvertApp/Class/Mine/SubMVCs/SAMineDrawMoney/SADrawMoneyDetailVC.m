@@ -22,11 +22,11 @@ NSString *const kSADrawMoneyStatusFailed     = @"WI_FAILURE";
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) NSString *currentStatu;
 @property (nonatomic) NSInteger page;
-@property (nonatomic) SADrawMoneyModel *response;
+@property (nonatomic) NSMutableArray <SADrawDetailModel *> *dataSource;
 @end
 
 @implementation SADrawMoneyDetailVC
-QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
+QBDefineLazyPropertyInitialization(NSMutableArray, dataSource)
 
 - (instancetype)initWithStatus:(NSString *)status {
     self = [super init];
@@ -89,7 +89,10 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
             [self.tableView SA_pagingRefreshNoMoreData];
         }
         if (success) {
-            self.response = obj;
+            if (self.page == 1) {
+                [self.dataSource removeAllObjects];
+            }
+            [self.dataSource addObjectsFromArray:obj.withdraw];
         }
         [self.tableView reloadData];
     }];
@@ -98,13 +101,13 @@ QBDefineLazyPropertyInitialization(SADrawMoneyModel, response)
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.response.withdraw.count;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SADrawMoneyCell * cell = [tableView dequeueReusableCellWithIdentifier:kSADrawMoneyCellReusableIdentifier forIndexPath:indexPath];
-    if (indexPath.row < self.response.withdraw.count) {
-        SADrawDetailModel *detailModel = self.response.withdraw[indexPath.row];
+    if (indexPath.row < self.dataSource.count) {
+        SADrawDetailModel *detailModel = self.dataSource[indexPath.row];
         SAMineDrawMoneyStatus status;
         if ([detailModel.wiStatus isEqualToString:kSADrawMoneyStatusAllKeyName]) {
             status = SAMineDrawMoneyStatusAllRecrod;

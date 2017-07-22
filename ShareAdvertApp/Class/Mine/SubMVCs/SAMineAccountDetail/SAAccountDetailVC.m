@@ -16,11 +16,11 @@ static NSString *const kSAAccountDetailCellReusableIdentifier = @"kSAAccountDeta
 @interface SAAccountDetailVC () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) NSInteger page;
-@property (nonatomic) SAAccountDetailModel *response;
+@property (nonatomic) NSMutableArray <SADetailModel *> *dataSource;
 @end
 
 @implementation SAAccountDetailVC
-QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
+QBDefineLazyPropertyInitialization(NSMutableArray, dataSource)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -65,7 +65,10 @@ QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
             [self.tableView SA_pagingRefreshNoMoreData];
         }
         if (success) {
-            self.response = obj;
+            if (self.page == 1) {
+                [self.dataSource removeAllObjects];
+            }
+            [self.dataSource addObjectsFromArray:obj.accounting];
         }
         [self.tableView reloadData];
     }];
@@ -78,13 +81,13 @@ QBDefineLazyPropertyInitialization(SAAccountDetailModel, response)
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.response.accounting.count;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SAAccountDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:kSAAccountDetailCellReusableIdentifier forIndexPath:indexPath];
-    if (indexPath.row < self.response.accounting.count) {
-        SADetailModel *detailModel = self.response.accounting[indexPath.row];
+    if (indexPath.row < self.dataSource.count) {
+        SADetailModel *detailModel = self.dataSource[indexPath.row];
         cell.type = detailModel.type;
         cell.count = [NSString stringWithFormat:@"%.2f",(float)detailModel.amount/100];
         cell.timeStr = detailModel.createTime;
