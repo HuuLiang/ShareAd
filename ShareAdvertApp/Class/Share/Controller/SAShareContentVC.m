@@ -20,7 +20,6 @@ static NSString *const kSAShareContentCellReusableIdentifier = @"kSAShareContent
 @property (nonatomic) NSString *columnId;
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) SAShareContentResponse *response;
-@property (nonatomic) BOOL isRefreshing;
 @end
 
 @implementation SAShareContentVC
@@ -56,20 +55,15 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
         }];
     }
     
-//    @weakify(self);
-//    [_tableView SA_addPullToRefreshWithHandler:^{
-//        @strongify(self);
-//        self.isRefreshing = YES;
-//        [self fetchSourceWithColumnId:self.columnId];
-//    }];
-//    
-//    self.isRefreshing = YES;
-//    [_tableView SA_triggerPullToRefresh];
     [self fetchSourceWithColumnId:self.columnId];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -96,9 +90,10 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
     @weakify(self);
     [[SAReqManager manager] fetchShareListWithColumnId:_columnId class:[SAShareContentResponse class] handler:^(BOOL success, id obj) {
         @strongify(self);
-        self.isRefreshing = NO;
-        [self.tableView SA_endPullToRefresh];
         if (success) {
+            if (self.endRefresh) {
+                self.endRefresh();
+            }
             self.response = obj;
             [self.tableView reloadData];
         }
@@ -148,15 +143,15 @@ QBDefineLazyPropertyInitialization(SAShareContentResponse, response)
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.isRefreshing  &&[self.delegate respondsToSelector:@selector(observerContentScrollViewDidScroll:)]) {
+    if ([self.delegate respondsToSelector:@selector(observerContentScrollViewDidScroll:)]) {
         [self.delegate observerContentScrollViewDidScroll:scrollView];
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    if (!self.isRefreshing && [[self delegate] respondsToSelector:@selector(observerContentScrollViewBeginDragging:)]) {
-//        [self.delegate observerContentScrollViewBeginDragging:scrollView];
-//    }
+    if ([self.delegate respondsToSelector:@selector(observerContentScrollViewBeginDragging:)]) {
+        [self.delegate observerContentScrollViewBeginDragging:scrollView];
+    }
 }
 
 @end

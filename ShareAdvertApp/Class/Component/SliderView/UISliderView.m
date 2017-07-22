@@ -199,6 +199,9 @@ static CGFloat const MaxScale = 1.14;/** 选中文字放大  */
     }
     
     [self.titleScrollView setContentOffset:CGPointMake(offset, 0) animated:YES];
+    if (self.changeContentVCAction) {
+        self.changeContentVCAction();
+    }
 }
 
 -(void)setUpOneChildController:(NSInteger)index {

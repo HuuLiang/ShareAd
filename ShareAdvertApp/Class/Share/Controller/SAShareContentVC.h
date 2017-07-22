@@ -24,4 +24,6 @@
 
 - (void)refreshContent;
 
+@property (nonatomic) SAAction endRefresh;
+
 @end

@@ -20,6 +20,7 @@
 #import "SAUserAccountModel.h"
 #import "SAConfigModel.h"
 
+
 @interface SAShareViewController () <UIScrollViewDelegate,SAShareContentDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic) UITableView *tableView;
 @property (nonatomic) SAShareHeaderView *headerView;
@@ -55,16 +56,15 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     
     {
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
-//            make.left.bottom.top.equalTo(self.view);
-//            make.top.equalTo(self.view).offset(64);
+            make.left.bottom.right.equalTo(self.view);
+            make.top.equalTo(self.view).offset(0);
         }];
     }
     
     @weakify(self);
     [_tableView SA_addPullToRefreshWithHandler:^{
         @strongify(self);
-        [[self currentContentVC] refreshContent];
+        [self.currentContentVC refreshContent];
     }];
     
     
@@ -83,10 +83,6 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    
-    if (_isLogin) {
-        [self.tableView setContentOffset:CGPointMake(0, -64) animated:NO];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -133,6 +129,14 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     self.sliderView = [[UISliderView alloc] initWithSuperView:tableFooterView];
     _sliderView.titleScrollViewFrame = CGRectMake(0, 0, kScreenWidth - kWidth(80), kWidth(80));
     _sliderView.imageBackViewColor = kColor(@"#FF3366");
+    @weakify(self);
+    _sliderView.changeContentVCAction = ^{
+        @strongify(self);
+        if (!self.tableView.scrollEnabled) {
+            self.currentContentVC.view.userInteractionEnabled = YES;
+            _currentContentVC = nil;
+        }
+    };
     
     NSMutableArray *columnTitles = [[NSMutableArray alloc] init];
     for (SAShareColumnModel *columnModel in self.response.columns) {
@@ -144,6 +148,7 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     for (SAShareColumnModel *columnModel in self.response.columns) {
         SAShareContentVC *contentVC = [[SAShareContentVC alloc] initWithColumnId:columnModel.columnId];
         contentVC.delegate = self;
+        contentVC.view.userInteractionEnabled = NO;
         [_sliderView addChildViewController:contentVC title:columnModel.name];
     }
     [_sliderView setSlideHeadView];
@@ -153,7 +158,6 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     _moreContent.userInteractionEnabled = YES;
     [tableFooterView addSubview:_moreContent];
     
-    @weakify(self);
     [_moreContent bk_whenTapped:^{
         @strongify(self);
         [SAShareAllContentVC showAllContentVCWithDataSource:self.response.columns height:self.tableView.contentOffset.y+kWidth(328) InCurrentVC:self];
@@ -164,7 +168,15 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     if (!_sliderView) {
         return nil;
     }
-    return (SAShareContentVC *)self.childViewControllers[_sliderView.selectedBtn.tag];
+    if (!_currentContentVC) {
+        _currentContentVC = (SAShareContentVC *)self.childViewControllers[_sliderView.selectedBtn.tag];
+        @weakify(self);
+        _currentContentVC.endRefresh = ^{
+            @strongify(self);
+            [self.tableView SA_endPullToRefresh];
+        };
+    }
+    return _currentContentVC;
 }
 
 - (void)pushContentVCWithColumnId:(NSNotification *)notification {
@@ -186,23 +198,16 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
     return nil;
 }
 
-
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     QBLog(@"self.tableView.contentOffset.y %f",self.tableView.contentOffset.y);
-//    if (!_currentContentVC) {
-//        return;
-//    }
-//    
-//    _currentContentVC = [self currentContentVC];
-//    
-//    if (!_currentContentVC) {
-//        return;
-//    }
-    
-    if (self.tableView.contentOffset.y >= _headerView.height - 64) {
-        [self.tableView setContentOffset:CGPointMake(0, _headerView.height - 64) animated:NO];
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    if (contentOffsetY > _headerView.height - 64) {
+        self.currentContentVC.view.userInteractionEnabled = YES;
+        [self.tableView setContentOffset:CGPointMake(0, kWidth(328) - 64) animated:NO];
+        self.tableView.scrollEnabled = NO;
+        
     }
 }
 
@@ -211,39 +216,24 @@ QBDefineLazyPropertyInitialization(SAShareModel, response)
 }
 
 
-
 #pragma mark - SAShareContentDelegate
 
 - (void)observerContentScrollViewDidScroll:(UIScrollView *)scrollView {
     if (!_isLogin) {
         return;
     }
-//    CGFloat moveDistance = scrollView.contentOffset.y;
-//    QBLog(@"DidScroll moveDistance %f",moveDistance);
-//    CGFloat currentTableViewOffsetY = self.tableView.contentOffset.y;
-//    if (currentTableViewOffsetY >= - 64 && currentTableViewOffsetY <= _headerView.height - 64) {
-//        [_tableView setContentOffset:CGPointMake(0, -64 + moveDistance) animated:NO];
-//    }
-//    if (moveDistance > 0 && moveDistance + currentTableViewOffsetY < _headerView.height - 64) {
-//    }
-//        else if (moveDistance > _headerView.height) {
-//        [_tableView setContentOffset:CGPointMake(0, kWidth(328)) animated:NO];
-//    } else if (moveDistance <= 0) {
-//        [_tableView setContentOffset:CGPointZero animated:NO];
-//    }
+    QBLog(@"scrollView.contentOffset.Y %f",scrollView.contentOffset.y);
+    if (scrollView.contentOffset.y < -30) {
+        self.tableView.scrollEnabled = YES;
+        [self.tableView setContentOffset:CGPointMake(0, -64) animated:NO];
+        self.currentContentVC.view.userInteractionEnabled = NO;
+    }
 }
 
 - (void)observerContentScrollViewBeginDragging:(UIScrollView *)scrollView {
     if (!_isLogin) {
         return;
     }
-//    CGFloat moveDistance = scrollView.contentOffset.y;
-//    QBLog(@"BeginDragging moveDistance %f",moveDistance);
-//    if (moveDistance <= 0) {
-//        [_tableView setContentOffset:CGPointZero animated:YES];
-//    } else if (moveDistance > _headerView.height) {
-//        [_tableView setContentOffset:CGPointMake(0, _headerView.height) animated:YES];
-//    }
 }
 
 @end

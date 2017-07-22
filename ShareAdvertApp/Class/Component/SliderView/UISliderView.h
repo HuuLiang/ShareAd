@@ -42,6 +42,7 @@
 //设置界面是否包含tabbar
 @property (nonatomic,assign) CGFloat tabbarHeight;
 
+@property (nonatomic) SAAction changeContentVCAction;
 
 -(void)setSlideHeadView;
 
